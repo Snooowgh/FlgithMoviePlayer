@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="FlgithMoviePlayer:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FlgithMoviePlayer_jar</output-path>
+    <root id="archive" name="FlgithMoviePlayer.jar">
+      <element id="module-output" name="FlgithMoviePlayer" />
+    </root>
+  </artifact>
+</component>
