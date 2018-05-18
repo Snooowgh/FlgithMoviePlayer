@@ -12,7 +12,7 @@ import java.io.File;
  * Controller is responsible for managing the all the communication between
  * the model and the GUI in the MVC design pattern.
  */
-public class Controller extends Application{
+public class Controller extends Application {
     public void run(String[] args){
         launch(args);
         String MovieSource_Path = "./MovieSource";
