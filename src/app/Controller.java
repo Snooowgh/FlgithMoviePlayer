@@ -1,5 +1,7 @@
 package app;
 
+import app.model.Movie;
+import app.model.MovieSystem;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +15,16 @@ import java.io.File;
  * the model and the GUI in the MVC design pattern.
  */
 public class Controller extends Application {
+    private MovieSystem mMovieSystem;
+
+    public Controller(){
+        mMovieSystem = new MovieSystem();
+    }
+
+    /**
+     * The main function that gets run first
+     * @param args pass the arguments from main()
+     */
     public void run(String[] args){
         launch(args);
         String MovieSource_Path = "./MovieSource";
