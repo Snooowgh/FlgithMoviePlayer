@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Controller is responsible for managing the all the communication between
@@ -26,6 +28,16 @@ public class Controller extends Application {
      * @param args pass the arguments from main()
      */
     public void run(String[] args){
+        // TODO: We should load the movies from DB automatically here
+        // Create a test movie and add it to the system
+        Movie theAfricaQueen = new Movie(
+                "The African Queen",
+                "1951-02-02",
+                Arrays.asList("Comedy"),
+                "TheAfricanQueen_us_1951.mp4"
+                );
+        mMovieSystem.addMovie(theAfricaQueen);
+
         launch(args);
         String MovieSource_Path = "./MovieSource";
         File f = new File(MovieSource_Path);

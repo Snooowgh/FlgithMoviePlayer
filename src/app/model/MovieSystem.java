@@ -19,4 +19,17 @@ public class MovieSystem {
     public void addMovie(Movie movie){
         mMovies.add(movie);
     }
+
+    public Movie getMovie(String name){
+        for (Movie m : mMovies){
+            if (m.getTitle().equals(name))
+                return m;
+        }
+
+        return null;
+    }
+
+    public List<Movie> getMovies() {
+        return mMovies;
+    }
 }

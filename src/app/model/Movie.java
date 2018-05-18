@@ -9,16 +9,15 @@ import java.util.List;
 public class Movie {
     private int mID;
     private String mTitle;
-    private Date mReleaseDate;
+    private String mReleaseDate;
     private List<String> mCategories;
     private String mFileName;
 
-    public Movie(String title, Date releaseDate, List<String> categories, String fileName, int ID) {
+    public Movie(String title, String releaseDate, List<String> categories, String fileName) {
         mTitle = title;
         mReleaseDate = releaseDate;
         mCategories = categories;
         mFileName = fileName;
-        mID = ID;
     }
 
     public String getTitle() {
@@ -29,11 +28,11 @@ public class Movie {
         mTitle = title;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return mReleaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         mReleaseDate = releaseDate;
     }
 
