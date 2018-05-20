@@ -33,7 +33,7 @@
 /*
  * Handling keyboard events with event handlers
  */
-package ex;
+package app.exampleCode.ex;
 
 import java.util.Iterator;
 import java.util.List;

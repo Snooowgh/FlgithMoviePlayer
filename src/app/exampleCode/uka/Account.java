@@ -1,4 +1,4 @@
-package uka;
+package app.exampleCode.uka;
 
 public class Account {
 	private int accountNumber;

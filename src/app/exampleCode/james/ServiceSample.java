@@ -1,4 +1,4 @@
-package james;
+package app.exampleCode.james;
 
 import java.util.Random;
 import javafx.application.Application;
@@ -25,12 +25,12 @@ import javafx.util.Callback;
  * http://stackoverflow.com/questions
  * /13163947/how-to-update-a-set-of-javafx2-2-textfields-from-a-service
  * 
- * @see javafx.collections.FXCollections
- * @see javafx.concurrent.Service
- * @see javafx.concurrent.Task
- * @see javafx.scene.control.ProgressIndicator
- * @see javafx.scene.control.TableColumn
- * @see javafx.scene.control.TableView
+ * @see FXCollections
+ * @see Service
+ * @see Task
+ * @see ProgressIndicator
+ * @see TableColumn
+ * @see TableView
  */
 public class ServiceSample extends Application {
 

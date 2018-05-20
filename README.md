@@ -9,3 +9,7 @@
 ## Admin end features
 - [ ] interface modify
 - [ ] movie source management
+---
+## Other function
+- [ ] Get movie information from WiKi
+- [ ] Save&Fetch information from DB

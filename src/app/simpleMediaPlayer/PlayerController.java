@@ -1,4 +1,4 @@
-package sample.simpleMediaPlayer;
+package app.simpleMediaPlayer;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;

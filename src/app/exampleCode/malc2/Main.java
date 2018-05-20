@@ -1,4 +1,4 @@
-package malc2;
+package app.exampleCode.malc2;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

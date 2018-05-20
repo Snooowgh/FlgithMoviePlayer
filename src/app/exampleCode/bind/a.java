@@ -1,4 +1,4 @@
-package bind;
+package app.exampleCode.bind;
 
 import javafx.beans.value.*;
 

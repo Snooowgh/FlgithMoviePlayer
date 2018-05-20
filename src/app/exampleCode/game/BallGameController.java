@@ -1,4 +1,4 @@
-package game;
+package app.exampleCode.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;

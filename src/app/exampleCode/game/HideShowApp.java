@@ -1,4 +1,4 @@
-package game;
+package app.exampleCode.game;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package james;
+package app.exampleCode.james;
 
 import java.util.Random;
 
@@ -75,12 +75,12 @@ public class Minimal extends Application {
 		};
 
 		// stateProperty for Task:
-		task.stateProperty().addListener(new ChangeListener<Worker.State>() {
+		task.stateProperty().addListener(new ChangeListener<State>() {
 
 			@Override
 			public void changed(ObservableValue<? extends State> observable,
-					State oldValue, Worker.State newState) {
-				if (newState == Worker.State.SUCCEEDED) {
+					State oldValue, State newState) {
+				if (newState == State.SUCCEEDED) {
 					loadPanels(root);
 				}
 			}
@@ -118,11 +118,11 @@ public class Minimal extends Application {
 
 		// StateListener
 		RecBuilder.stateProperty().addListener(
-				new ChangeListener<Worker.State>() {
+				new ChangeListener<State>() {
 					@Override
 					public void changed(
-							ObservableValue<? extends Worker.State> observableValue,
-							Worker.State oldState, Worker.State newState) {
+							ObservableValue<? extends State> observableValue,
+							State oldState, State newState) {
 						switch (newState) {
 						case SCHEDULED:
 							break;

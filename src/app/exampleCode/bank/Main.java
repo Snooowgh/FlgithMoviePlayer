@@ -1,4 +1,4 @@
-package bank;
+package app.exampleCode.bank;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

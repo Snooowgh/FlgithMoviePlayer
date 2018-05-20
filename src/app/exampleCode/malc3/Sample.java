@@ -1,4 +1,4 @@
-package malc3;
+package app.exampleCode.malc3;
 
 import java.net.URL;
 import java.util.ResourceBundle;

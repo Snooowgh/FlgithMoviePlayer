@@ -1,4 +1,4 @@
-package malc;
+package app.exampleCode.malc;
 
 import java.io.IOException;
 

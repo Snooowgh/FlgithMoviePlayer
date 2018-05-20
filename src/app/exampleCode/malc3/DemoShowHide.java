@@ -1,4 +1,4 @@
-package malc3;
+package app.exampleCode.malc3;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

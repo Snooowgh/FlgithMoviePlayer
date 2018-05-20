@@ -1,4 +1,4 @@
-package game;
+package app.exampleCode.game;
 
 import java.io.IOException;
 

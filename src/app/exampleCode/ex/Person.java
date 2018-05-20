@@ -1,4 +1,4 @@
-package ex;
+package app.exampleCode.ex;
 
 public class Person {
 	private String firstName;

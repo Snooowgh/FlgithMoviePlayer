@@ -1,4 +1,4 @@
-package ex;
+package app.exampleCode.ex;
 
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;

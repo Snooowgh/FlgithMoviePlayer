@@ -1,4 +1,4 @@
-package game;
+package app.exampleCode.game;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;

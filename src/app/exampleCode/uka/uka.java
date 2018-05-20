@@ -1,4 +1,4 @@
-package uka;
+package app.exampleCode.uka;
 
 import java.util.*;
 

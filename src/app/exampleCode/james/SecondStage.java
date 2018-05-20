@@ -1,4 +1,4 @@
-package james;
+package app.exampleCode.james;
 
 import javafx.application.Application;
 import javafx.beans.value.*;

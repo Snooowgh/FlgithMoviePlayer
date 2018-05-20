@@ -1,4 +1,4 @@
-package sample.simpleMediaPlayer;
+package app.simpleMediaPlayer;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

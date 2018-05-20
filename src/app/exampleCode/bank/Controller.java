@@ -1,4 +1,4 @@
-package bank;
+package app.exampleCode.bank;
 
 import java.net.URL;
 import java.util.ResourceBundle;
