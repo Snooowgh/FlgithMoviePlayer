@@ -74,7 +74,9 @@ public class Controller extends Application {
         hbox.getChildren().addAll(popup,popup2);
 
 
-        SimpleMediaPlayer player = SimpleMediaPlayer.newInstance(getClass().getResource("TestMedia.MP4").toString());
+        // Put the name of your sample video here (you can get one from SAKAI)
+        // Please do not commit mp4 files!!!
+        SimpleMediaPlayer player = SimpleMediaPlayer.newInstance(getClass().getResource("Test.mp4").toString());
         pane.setCenter(player);
         pane.setAlignment(player,Pos.CENTER);
 
