@@ -44,18 +44,7 @@ public class Controller extends Application {
                 "TheAfricanQueen_us_1951.mp4"
                 );
         mMovieSystem.addMovie(theAfricaQueen);
-
         launch(args);
-        String MovieSource_Path = "./MovieSource";
-        File f = new File(MovieSource_Path);
-        if (f.isDirectory()){
-            File[] fs = f.listFiles();
-            for (int i = 0; i < fs.length; i++) {
-                System.out.println(fs[i].getName());
-            }
-        } else{
-            f.mkdir();
-        }
     }
 
     @Override
@@ -72,7 +61,6 @@ public class Controller extends Application {
         Button popup = new Button("Popup");
         Button popup2 = new Button("Popup small");
         hbox.getChildren().addAll(popup,popup2);
-
 
         SimpleMediaPlayer player = SimpleMediaPlayer.newInstance(getClass().getResource("TestMedia.MP4").toString());
         pane.setCenter(player);

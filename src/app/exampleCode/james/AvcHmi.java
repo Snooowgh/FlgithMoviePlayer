@@ -1,6 +1,5 @@
 package app.exampleCode.james;
 
-import james.DataSource;
 
 import javafx.application.Application;
 import javafx.application.Platform;
