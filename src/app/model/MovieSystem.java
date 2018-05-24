@@ -10,18 +10,18 @@ import java.util.List;
  * The controller interacts with this object only
  */
 public class MovieSystem {
-    private List<Movie> mMovies;
+    private List<Movie> movies;
 
     public MovieSystem() {
-        mMovies = new ArrayList<>();
+        movies = new ArrayList<>();
     }
 
     public void addMovie(Movie movie){
-        mMovies.add(movie);
+        movies.add(movie);
     }
 
     public Movie getMovie(String name){
-        for (Movie m : mMovies){
+        for (Movie m : movies){
             if (m.getTitle().equals(name))
                 return m;
         }
@@ -30,6 +30,6 @@ public class MovieSystem {
     }
 
     public List<Movie> getMovies() {
-        return mMovies;
+        return movies;
     }
 }
