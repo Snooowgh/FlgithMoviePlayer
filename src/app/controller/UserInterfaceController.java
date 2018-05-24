@@ -27,7 +27,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class userInterfaceController implements Initializable {
+public class UserInterfaceController implements Initializable {
     @FXML
     Tab Tab_Chinese;
     @FXML
