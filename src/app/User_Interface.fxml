@@ -25,31 +25,31 @@
                 <Glow level="0.0" />
               </effect>
               <tabs>
-                <Tab fx:id="Tab_Chinese" onClosed="#closed" onSelectionChanged="#selected" text="中文电影">
+                <Tab fx:id="Tab_Chinese"  onSelectionChanged="#Tab_Chinese_Content_selected" text="中文电影">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <TilePane fx:id="Tab_Chinese_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
                       <children>
-                        <TilePane prefHeight="502.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
                       </children>
-                    </AnchorPane>
+                    </TilePane>
                   </content>
                 </Tab>
-                <Tab onClosed="#closed" onSelectionChanged="#selected" text="English Movies">
+                <Tab fx:id="Tab_English"  onSelectionChanged="#Tab_English_Content_selected" text="English Movies">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <TilePane fx:id="Tab_English_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
                       <children>
-                        <TilePane prefHeight="502.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
                       </children>
-                    </AnchorPane>
+                    </TilePane>
                   </content>
                 </Tab>
-                <Tab onClosed="#closed" onSelectionChanged="#selected" text="日本映画">
+                <Tab fx:id="Tab_Japanese"  onSelectionChanged="#Tab_Japanese_Content_selected" text="日本映画">
                   <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <TilePane fx:id="Tab_Japanese_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
                       <children>
-                        <TilePane prefHeight="502.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
                       </children>
-                    </AnchorPane>
+                    </TilePane>
                   </content>
                 </Tab>
               </tabs>
@@ -58,15 +58,10 @@
         </AnchorPane>
       </items>
     </SplitPane>
-    <ImageView id="topImage" fx:id="topImageview" fitHeight="74.0" fitWidth="763.0" layoutX="3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="false" />
+    <ImageView id="topImage" fx:id="topImageview" fitHeight="74.0" fitWidth="763.0" layoutX="3.0" layoutY="-3.0"
+               pickOnBounds="true" preserveRatio="false" />
     <ChoiceBox fx:id="languageChoicebox" blendMode="DARKEN" layoutX="671.0" layoutY="14.0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="项 1" />
-          <String fx:value="项 2" />
-          <String fx:value="项 3" />
-        </FXCollections>
-      </items>
+
     </ChoiceBox>
   </children>
 </AnchorPane>
