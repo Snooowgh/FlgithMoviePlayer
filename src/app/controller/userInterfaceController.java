@@ -15,12 +15,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 
+import javax.swing.text.TabExpander;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,15 +43,18 @@ public class userInterfaceController implements Initializable {
     @FXML
     TilePane Tab_Japanese_Content;
 
+    static int chosedTab = 0;
     @FXML
     public void Tab_Japanese_Content_selected(){
+        chosedTab = 2;
     }
     @FXML
     public void Tab_English_Content_selected(){
-
+        chosedTab = 1;
     }
     @FXML
     public void Tab_Chinese_Content_selected(){
+        chosedTab = 0;
     }
 
     @Override
@@ -59,9 +64,55 @@ public class userInterfaceController implements Initializable {
         if (url!=null)
             topImageview.setImage(new Image(url.toString()));
         //initialize category list
-        ObservableList<String> data = FXCollections.observableArrayList("Action","Commedy","Documentary","Romance","VLog");
+        ObservableList<String> movie_Category = FXCollections.observableArrayList("Action","Commedy","Documentary","Romance","VLog");
+        ObservableList<String> data = movie_Category;
         movieListview.setItems(data);
         movieListview.getSelectionModel().selectFirst();
+//        movieListview.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                ObservableList<Integer> a = movieListview.getSelectionModel().getSelectedIndices();
+//                int chosedIndex = a.get(0);
+//                String choice = movie_Category.get(chosedIndex);
+//                switch (chosedTab){
+//                    case 0:
+//                        Tab_Chinese_Content.getChildren().clear();
+//                        Tab_Chinese_Content.getChildren().add(createSingleMovie(choice+"-"+"Chinese","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+//                        break;
+//                    case 1:
+//                        Tab_English_Content.getChildren().clear();
+//                        Tab_English_Content.getChildren().add(createSingleMovie(choice+"-"+"English","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+//                        break;
+//                    case 2:
+//                        Tab_Japanese_Content.getChildren().clear();
+//                        Tab_Japanese_Content.getChildren().add(createSingleMovie(choice+"-"+"Japanese","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+//                        break;
+//                }
+//            }
+//        });
+        movieListview.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ObservableList<Integer> a = movieListview.getSelectionModel().getSelectedIndices();
+                int chosedIndex = a.get(0);
+                String choice = movie_Category.get(chosedIndex);
+                switch (chosedTab){
+                    case 0:
+                        Tab_Chinese_Content.getChildren().clear();
+                        Tab_Chinese_Content.getChildren().add(createSingleMovie(choice+"-"+"Chinese","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+                        break;
+                    case 1:
+                        Tab_English_Content.getChildren().clear();
+                        Tab_English_Content.getChildren().add(createSingleMovie(choice+"-"+"English","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+                        break;
+                    case 2:
+                        Tab_Japanese_Content.getChildren().clear();
+                        Tab_Japanese_Content.getChildren().add(createSingleMovie(choice+"-"+"Japanese","../data/pictures/topImage2.jpg","../TestMedia.MP4"));
+                        break;
+                }
+            }
+        });
+        //initialize language choice
         ObservableList<String> languages = FXCollections.observableArrayList("简体中文","English","日本语");
         languageChoicebox.setItems(languages);
         languageChoicebox.getSelectionModel().selectFirst();
