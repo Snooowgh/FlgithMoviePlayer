@@ -44,18 +44,7 @@ public class Controller extends Application {
                 "TheAfricanQueen_us_1951.mp4"
                 );
         mMovieSystem.addMovie(theAfricaQueen);
-
         launch(args);
-        String MovieSource_Path = "./MovieSource";
-        File f = new File(MovieSource_Path);
-        if (f.isDirectory()){
-            File[] fs = f.listFiles();
-            for (int i = 0; i < fs.length; i++) {
-                System.out.println(fs[i].getName());
-            }
-        } else{
-            f.mkdir();
-        }
     }
 
     @Override
@@ -64,50 +53,21 @@ public class Controller extends Application {
         primaryStage.setTitle("Test Meida");
         Group root = new Group();
         BorderPane pane = new BorderPane();
-
         root.getChildren().add(pane);
         HBox hbox = new HBox();
         hbox.setAlignment(Pos.CENTER);
         pane.setBottom(hbox);
         Button popup = new Button("Popup");
-        Button popup2 = new Button("Popup small");
-        hbox.getChildren().addAll(popup,popup2);
-
-
-        // Put the name of your sample video here (you can get one from SAKAI)
-        // Please do not commit mp4 files!!!
-        SimpleMediaPlayer player = SimpleMediaPlayer.newInstance(getClass().getResource("Test.mp4").toString());
-        pane.setCenter(player);
-        pane.setAlignment(player,Pos.CENTER);
-
-
-        //测试弹窗式调用
+        hbox.getChildren().addAll(popup);
         popup.setOnAction((ActionEvent e)->{
             SimpleMediaPlayer.popup(getClass().getResource("TestMedia.MP4").toString());
         });
-        popup2.setOnAction((ActionEvent e)->{
-            SimpleMediaPlayer.popup(getClass().getResource("TestMedia.MP4").toString(),550,400);
-        });
-
-
-        primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-    private String getFirstFileName(){
-        String MovieSource_Path = "./MovieSource";
-        File f = new File(MovieSource_Path);
-        String name = "";
-        if (f.isDirectory()){
-            File[] fs = f.listFiles();
-            for (int i = 0; i < fs.length; i++) {
-                System.out.println(fs[i].getName());
-                name = fs[i].getName();
-            }
-        }else{
-            f.mkdir();
-        }
-        return name;
+    @Override
+    public void stop() throws Exception {
+        super.stop();
     }
-
 }

@@ -29,7 +29,7 @@ public class Main extends Application {
 			IOException {
 
 		// icon
-		Image icon = new Image("exampleCode/resources/icon.png");
+		Image icon = new Image(getClass().getResource("icon.png").toString());
 		Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
 
 		TextArea textArea1;
