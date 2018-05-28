@@ -1,58 +1,57 @@
 package app.model;
 
-import java.util.Date;
 import java.util.List;
 
 /**
  * Movie represents a single movie
  */
 public class Movie {
-    private int mID;
-    private String mTitle;
-    private String mReleaseDate;
-    private List<String> mCategories;
-    private String mFileName;
+    private int id;
+    private String title;
+    private String releaseDate;
+    private List<String> categories;
+    private String fileName;
 
     public Movie(String title, String releaseDate, List<String> categories, String fileName) {
-        mTitle = title;
-        mReleaseDate = releaseDate;
-        mCategories = categories;
-        mFileName = fileName;
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.categories = categories;
+        this.fileName = fileName;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public void setTitle(String title) {
-        mTitle = title;
+        this.title = title;
     }
 
     public String getReleaseDate() {
-        return mReleaseDate;
+        return releaseDate;
     }
 
     public void setReleaseDate(String releaseDate) {
-        mReleaseDate = releaseDate;
+        this.releaseDate = releaseDate;
     }
 
     public List<String> getCategories() {
-        return mCategories;
+        return categories;
     }
 
     public void setCategories(List<String> categories) {
-        mCategories = categories;
+        this.categories = categories;
     }
 
     public String getFileName() {
-        return mFileName;
+        return fileName;
     }
 
     public void setFileName(String fileName) {
-        mFileName = fileName;
+        this.fileName = fileName;
     }
 
-    public int getID() {
-        return mID;
+    public int getId() {
+        return id;
     }
 }
