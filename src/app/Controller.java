@@ -15,9 +15,9 @@ import java.util.Arrays;
  * the model and the GUI in the MVC design pattern.
  */
 public class Controller extends Application {
-    private MovieSystem movieSystem;
+    private MovieSystem mMovieSystem;
     public Controller(){
-        movieSystem = new MovieSystem();
+        mMovieSystem = new MovieSystem();
     }
     /**
      * The main function that gets run first
@@ -32,7 +32,7 @@ public class Controller extends Application {
                 Arrays.asList("Comedy"),
                 "TheAfricanQueen_us_1951.mp4"
                 );
-        movieSystem.addMovie(theAfricaQueen);
+        mMovieSystem.addMovie(theAfricaQueen);
         launch(args);
     }
 
