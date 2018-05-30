@@ -1,67 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="766.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.controller.UserInterfaceController">
+<!--stylesheets="@tabStyle1.css"-->
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="766.0" stylesheets="@tabStyle1.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserInterfaceController">
   <children>
-    <SplitPane dividerPositions="0.18717277486910994" focusTraversable="true" layoutX="0.0" layoutY="70.0" prefHeight="545.0" prefWidth="766.0">
+    <SplitPane dividerPositions="0.1126" orientation="VERTICAL" prefHeight="615.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <ListView fx:id="movieListview" layoutX="-1.0" layoutY="0.0" prefHeight="543.0" prefWidth="143.0" />
+            <ImageView fitHeight="65.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@logo.jpg" />
+              </image>
+            </ImageView>
+            <ImageView fitHeight="65.0" fitWidth="175.0" layoutX="86.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@name.JPG" />
+              </image>
+            </ImageView>
+            <ChoiceBox fx:id="languageChoiceBox" prefHeight="30.0" prefWidth="115.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+            <Label fx:id="timeLabel" prefHeight="20.0" prefWidth="90.0" text="TIME" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="41.0" />
+            <Label fx:id="languageLabel" text="LANGUAGE" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="12.0" />
+            <Label fx:id="timeLeft" layoutX="635.0" layoutY="41.0" prefWidth="115.0" text="Label" />
           </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <TabPane blendMode="DARKEN" cache="true" cacheHint="DEFAULT" depthTest="INHERIT" layoutX="0.0" layoutY="0.0" prefHeight="543.0" prefWidth="614.9998779296875" tabClosingPolicy="UNAVAILABLE">
-              <effect>
-                <Glow level="0.0" />
-              </effect>
-              <tabs>
-                <Tab fx:id="Tab_Chinese"  onSelectionChanged="#Tab_Chinese_Content_selected" text="中文电影">
-                  <content>
-                    <TilePane fx:id="Tab_Chinese_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
-                      <children>
-
-                      </children>
-                    </TilePane>
-                  </content>
-                </Tab>
-                <Tab fx:id="Tab_English"  onSelectionChanged="#Tab_English_Content_selected" text="English Movies">
-                  <content>
-                    <TilePane fx:id="Tab_English_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
-                      <children>
-
-                      </children>
-                    </TilePane>
-                  </content>
-                </Tab>
-                <Tab fx:id="Tab_Japanese"  onSelectionChanged="#Tab_Japanese_Content_selected" text="日本映画">
-                  <content>
-                    <TilePane fx:id="Tab_Japanese_Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" prefColumns="4">
-                      <children>
-
-                      </children>
-                    </TilePane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+            <TabPane fx:id="firTab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="764.0" rotateGraphic="true" side="LEFT" styleClass="null" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           </children>
         </AnchorPane>
       </items>
     </SplitPane>
-    <ImageView id="topImage" fx:id="topImageview" fitHeight="74.0" fitWidth="763.0" layoutX="3.0" layoutY="-3.0"
-               pickOnBounds="true" preserveRatio="false" />
-    <ChoiceBox fx:id="languageChoicebox" blendMode="DARKEN" layoutX="671.0" layoutY="14.0">
-
-    </ChoiceBox>
   </children>
 </AnchorPane>

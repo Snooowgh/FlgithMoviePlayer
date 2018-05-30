@@ -6,13 +6,14 @@ import java.util.List;
 /**
  * Movie represents a single movie
  */
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private int id;
     private String title;
     private String releaseDate;
     private List<String> categories;
     private String fileName;
-
+    // please provide this two ,for Daniel
+    private String imageURL;
     public Movie(String title, String releaseDate, List<String> categories, String fileName) {
         this.title = title;
         this.releaseDate = releaseDate;
@@ -26,14 +27,21 @@ public class Movie {
         categories = new ArrayList<>();
         fileName = "";
     }
-
+    // for test
+    public Movie(String title, String imageURL, String movieURL) {
+        this.title = title;
+        this.imageURL = imageURL;
+        this.fileName = movieURL;
+    }
     public Movie(){
         title = "";
         releaseDate = "";
         categories = new ArrayList<>();
         fileName = "";
     }
-
+    public String getImageURL() {
+        return imageURL;
+    }
     public void addCategory(String category){
         categories.add(category);
     }
@@ -78,4 +86,8 @@ public class Movie {
     public String  toString(){
         return String.format("{%s, %s, %s}", title, releaseDate , categories);
     }
+
+    @Override
+    public int compareTo(Movie o) {
+        return this.title.compareTo(o.title);    }
 }
