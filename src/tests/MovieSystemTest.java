@@ -31,6 +31,7 @@ public class MovieSystemTest {
     @org.junit.Test
     public void testAddMovie() {
         MovieSystem movieSystem = new MovieSystem();
+
         List<Movie> testMovies = new ArrayList<>();
         Movie theAfricaQueen = new Movie(
                 "The African Queen",
@@ -39,7 +40,6 @@ public class MovieSystemTest {
                 "TheAfricanQueen_us_1951.mp4"
         );
         testMovies.add(theAfricaQueen);
-
         movieSystem.addMovie(theAfricaQueen);
 
         assertEquals(testMovies, movieSystem.getMovies());

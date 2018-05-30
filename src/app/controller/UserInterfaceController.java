@@ -135,7 +135,7 @@ public class UserInterfaceController implements Initializable {
                 // movieUrl
                 // tmpm.getFileName());
                 tp.getChildren().add(createSingleMovie(tmpm.getTitle(), tmpm.getImageURL(), // here,
-                        // Daniel
+                        // TODO: Daniel
                         // provide
                         // a
                         // imageUrl
