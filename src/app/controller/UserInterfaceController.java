@@ -2,6 +2,8 @@ package app.controller;
 
 import app.model.Movie;
 import app.simpleMediaPlayer.SimpleMediaPlayer;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -13,9 +15,14 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.geometry.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.*;
 
@@ -30,7 +37,8 @@ public class UserInterfaceController implements Initializable {
     public Label languageLabel;
     @FXML
     public Label timeLeft;
-
+    @FXML
+    public Pane flightPane;
 
     HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
 
@@ -148,9 +156,29 @@ public class UserInterfaceController implements Initializable {
         secTabi1.getSelectionModel().selectFirst();
         showMovieWhenClickTab(secTabi1);
         tapHandle();
-
+//      fill flight time in second here
+        createFlightLineView(1);
     }
 
+    private void createFlightLineView(int flightTime){
+        ImageView imageView = new ImageView(new Image(getClass().getResource("../logo.jpg").toExternalForm()));
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        Rectangle rect = new Rectangle(0, 0, 40, 40);
+        rect.setArcHeight(5);
+        rect.setArcWidth(5);
+        rect.setFill(Color.ORANGE);
+        Path path = new Path(new MoveTo(30, 25),new LineTo(40,25),new LineTo(260,25));
+        path.setStroke(Color.DODGERBLUE);
+        path.getStrokeDashArray().setAll(5d, 5d);
+        PathTransition transition = new PathTransition(Duration.seconds(flightTime), path, imageView);
+        transition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        transition.setCycleCount(Timeline.INDEFINITE);
+        transition.setAutoReverse(true);
+        flightPane.getChildren().add(path);
+        flightPane.getChildren().add(imageView);
+        transition.play();
+    }
 
     private VBox createSingleMovie(String movieName, String imageUrl, String movieUrl) {
         java.net.URL url = getClass().getResource(imageUrl);
