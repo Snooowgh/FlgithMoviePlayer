@@ -1,5 +1,7 @@
 package app;
 
+import app.controller.Controller;
+
 public class Main {
     public static void main(String[] args) {
         // It is better to keep the main() method clean and

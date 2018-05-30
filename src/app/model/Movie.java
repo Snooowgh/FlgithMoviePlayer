@@ -1,5 +1,6 @@
 package app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,24 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.categories = categories;
         this.fileName = fileName;
+    }
+
+    public Movie(String title){
+        this.title = title;
+        releaseDate = "";
+        categories = new ArrayList<>();
+        fileName = "";
+    }
+
+    public Movie(){
+        title = "";
+        releaseDate = "";
+        categories = new ArrayList<>();
+        fileName = "";
+    }
+
+    public void addCategory(String category){
+        categories.add(category);
     }
 
     public String getTitle() {
@@ -53,5 +72,10 @@ public class Movie {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String  toString(){
+        return String.format("{%s, %s, %s}", title, releaseDate , categories);
     }
 }
