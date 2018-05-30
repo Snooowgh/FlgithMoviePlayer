@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.model.Movie;
+import app.model.MovieSystem;
 import app.simpleMediaPlayer.SimpleMediaPlayer;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -22,7 +23,6 @@ import javafx.geometry.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.util.*;
 
@@ -39,6 +39,8 @@ public class UserInterfaceController implements Initializable {
     public Label timeLeft;
     @FXML
     public Pane flightPane;
+
+    private MovieSystem movieSystem;
 
     HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
 
@@ -149,6 +151,14 @@ public class UserInterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        try {
+//            URL url = new URL("./movie-list.csv");
+//        } catch (MalformedURLException e) {
+//
+//        }
+//        File csvFile = new File("movie-list.csv");
+//        if (csvFile.exists())
+//            movieSystem.loadMoviesFromCSV();
         // initialize category list
         setCategory();
         firTab.getSelectionModel().selectFirst();
@@ -157,11 +167,11 @@ public class UserInterfaceController implements Initializable {
         showMovieWhenClickTab(secTabi1);
         tapHandle();
 //      fill flight time in second here
-        createFlightLineView(1);
+        createFlightLineView(10);
     }
 
     private void createFlightLineView(int flightTime){
-        ImageView imageView = new ImageView(new Image(getClass().getResource("../logo.jpg").toExternalForm()));
+        ImageView imageView = new ImageView(new Image(getClass().getResource("../littlePlane.jpg").toExternalForm()));
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
         Rectangle rect = new Rectangle(0, 0, 40, 40);
