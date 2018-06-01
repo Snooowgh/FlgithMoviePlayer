@@ -17,15 +17,15 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("./User_Interface.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"));
             primaryStage.setTitle("Title");
-            primaryStage.getIcons().add(new Image(getClass().getResource("./logo.jpg").toExternalForm()));
+            primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.jpg").toExternalForm()));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("./tabStyle1.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("../styles/tabStyle1.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
             System.exit(-1);
         }
         // SimpleMediaPlayer.popup(getClass().getResource("TestMedia.MP4").toString());

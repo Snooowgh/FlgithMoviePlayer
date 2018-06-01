@@ -99,8 +99,8 @@ public class UserInterfaceController implements Initializable {
         // public Movie(String title,String imageURL,String movieURL, String
         // fileName)
         // "English Movies","../data/pictures/topImage.jpg","../TestMedia.MP4"
-        Movie m = new Movie("English Movies", "../data/pictures/topImage.jpg",
-                "../TestMedia.mp4"
+        Movie m = new Movie("English Movies", "../../pictures/topImage.jpg",
+                "../../movie-files/TestMedia2.mp4"
                 //"C:\\Users\\asus\\Desktop\\FlgithMoviePlayer-master\\src\\app\\TestMedia.mp4"
         );
         TreeSet<Movie> tm = new TreeSet<Movie>();
@@ -171,7 +171,7 @@ public class UserInterfaceController implements Initializable {
     }
 
     private void createFlightLineView(int flightTime){
-        ImageView imageView = new ImageView(new Image(getClass().getResource("../littlePlane.jpg").toExternalForm()));
+        ImageView imageView = new ImageView(new Image(getClass().getResource("../../pictures/littlePlane.jpg").toExternalForm()));
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
         Rectangle rect = new Rectangle(0, 0, 40, 40);
