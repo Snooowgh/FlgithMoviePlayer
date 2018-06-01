@@ -2,6 +2,7 @@ package tests;
 
 import app.model.Movie;
 import app.model.MovieSystem;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class MovieSystemTest {
         return movieSystem;
     }
 
-    @org.junit.Test
+    @Test
     public void testAddMovie() {
         MovieSystem movieSystem = new MovieSystem();
 
@@ -45,7 +46,7 @@ public class MovieSystemTest {
         assertEquals(testMovies, movieSystem.getMovies());
     }
 
-    @org.junit.Test
+    @Test
     public void testReadCSV(){
         MovieSystem movieSystem = new MovieSystem();
 
@@ -55,9 +56,10 @@ public class MovieSystemTest {
         assertEquals("My cool movie", movieSystem.getMovies().get(0).getTitle());
         assertEquals("1998", movieSystem.getMovies().get(0).getReleaseDate());
         assertEquals(Arrays.asList("Action", "Drama", "Thriller", "Double Category"), movieSystem.getMovies().get(0).getCategories());
+        assertEquals("mymovie.jpg", movieSystem.getMovies().get(0).getImageURL());
     }
 
-    @org.junit.Test
+    @Test
     public void testMovieCategories(){
         MovieSystem movieSystem = getTestMovieSystem();
 
@@ -74,7 +76,7 @@ public class MovieSystemTest {
         }
     }
 
-    @org.junit.Test
+    @Test
     public void testUniqueCategories(){
         MovieSystem movieSystem = getTestMovieSystem();
 

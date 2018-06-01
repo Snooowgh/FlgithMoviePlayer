@@ -42,21 +42,21 @@ public class UserInterfaceController implements Initializable {
 
     private MovieSystem movieSystem;
 
-    HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
+    private HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
 
-    // **********************************************************************************
-    String movie_Category[] = { "Home", "Action", "Comedy", "Documentary", "Romance", "VLog" };
-    String country_Category[] = { "All", "America", "China", "French", "Japan", "Russia", "Others" };
-    // ***********************************************************************************
+    // TODO: Load this from movie system
+    private String country_Category[] = { "All", "America", "China", "French", "Japan", "Russia", "Others" };
 
     // initialize second tabpane
-    ObservableList<String> languages = FXCollections.observableArrayList("简体中文", "English", "日本语");
+    private ObservableList<String> languages = FXCollections.observableArrayList("简体中文", "English", "日本语");
 
     private void setCategory() {
         // please deal with languages
         languageChoiceBox.setItems(languages);
         languageChoiceBox.getSelectionModel().selectFirst();
-        for (String m : movie_Category) {
+
+        // Load the category from the movie list
+        for (String m : movieSystem.getUniqueCategories()) {
             Tab t = new Tab();
             t.setText(m);
             t.setStyle("");
@@ -94,54 +94,25 @@ public class UserInterfaceController implements Initializable {
         }
     }
 
-    private TreeSet<Movie> returnMovies(String firstChoice, String secondChoice) {
-        // daniel write this or write it in MovieSystem class
-        // public Movie(String title,String imageURL,String movieURL, String
-        // fileName)
-        // "English Movies","../data/pictures/topImage.jpg","../TestMedia.MP4"
-        Movie m = new Movie("English Movies", "../../pictures/topImage.jpg",
-                "../../movie-files/TestMedia2.mp4"
-                //"C:\\Users\\asus\\Desktop\\FlgithMoviePlayer-master\\src\\app\\TestMedia.mp4"
-        );
-        TreeSet<Movie> tm = new TreeSet<Movie>();
-        tm.add(m);
-        return tm;
-    }
-
     private void tapHandle() {
-        firTab.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                showMovieWhenClickTab(hm.get(firTab.getSelectionModel().getSelectedItem()));
-
-            }
-        });
+        firTab.setOnMouseClicked(event -> showMovieWhenClickTab(hm.get(firTab.getSelectionModel().getSelectedItem())));
 
     }
 
     private void showMovieWhenClickTab(TabPane secTab) {
+        // TODO: Modify that to get the movies you are interested in
+        List<Movie> ms = movieSystem.getMovies();
 
-        TreeSet<Movie> ms = returnMovies(firTab.getSelectionModel().getSelectedItem().getText(),
-                secTab.getSelectionModel().getSelectedItem().getText());
         // by default show the first page within 12 videos
+        // TODO: Why are you using iterators instead of a for loop?
         Iterator<Movie> ims = ms.iterator();
         TilePane tp = new TilePane();
 
         for (int i = 0; i < 12; i++) {
             if (ims.hasNext()) {
                 Movie tmpm = ims.next();
-                // System.out.printf("%s\n%s\n%s",tmpm.getTitle(),
-                // tmpm.getImageURL(),//here, Daniel provide a imageUrl and
-                // movieUrl
-                // tmpm.getFileName());
-                tp.getChildren().add(createSingleMovie(tmpm.getTitle(), tmpm.getImageURL(), // here,
-                        // TODO: Daniel
-                        // provide
-                        // a
-                        // imageUrl
-                        // and
-                        // movieUrl
-                        tmpm.getFileName()));
+
+                tp.getChildren().add(createSingleMovie(tmpm));
             } else
                 break;
         }
@@ -151,15 +122,10 @@ public class UserInterfaceController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        try {
-//            URL url = new URL("./movie-list.csv");
-//        } catch (MalformedURLException e) {
-//
-//        }
-//        File csvFile = new File("movie-list.csv");
-//        if (csvFile.exists())
-//            movieSystem.loadMoviesFromCSV();
-        // initialize category list
+        // Load the movies from CSV
+        movieSystem = new MovieSystem();
+        movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
+
         setCategory();
         firTab.getSelectionModel().selectFirst();
         TabPane secTabi1 = hm.get(firTab.getSelectionModel().getSelectedItem());
@@ -190,22 +156,17 @@ public class UserInterfaceController implements Initializable {
         transition.play();
     }
 
-    private VBox createSingleMovie(String movieName, String imageUrl, String movieUrl) {
-        java.net.URL url = getClass().getResource(imageUrl);
-        ImageView imageView = new ImageView(new Image(url.toString()));
+    private VBox createSingleMovie(Movie movie) {
+        ImageView imageView = new ImageView(new Image(movie.getImageFileURL().toString()));
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
-        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                SimpleMediaPlayer.popup(getClass().getResource(movieUrl).toString());
-            }
-        });
+        imageView.setOnMouseClicked(event -> SimpleMediaPlayer.popup(movie.getMovieFileURL().toString()));
+
         VBox hBox = new VBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setAlignment(Pos.BOTTOM_CENTER);
         hBox.getChildren().add(imageView);
-        hBox.getChildren().add(new Label(movieName));
+        hBox.getChildren().add(new Label(movie.getTitle()));
         hBox.setId("movieView");
         return hBox;
     }

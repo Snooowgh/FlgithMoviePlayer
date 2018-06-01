@@ -1,7 +1,6 @@
 package app.model;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -91,7 +90,9 @@ public class MovieSystem {
                     Movie m = new Movie();
                     m.setTitle(movieFields[0].trim());
                     m.setReleaseDate(movieFields[1].trim());
-                    m.setFileName(movieFields[3].trim());
+                    m.setMovieFileName(movieFields[3].trim());
+
+                    m.setImageFileName(movieFields[3].trim().split("\\.")[0] + ".jpg");
 
                     // Init the categories
                     String[] cats = movieFields[2].split(",");

@@ -1,5 +1,6 @@
 package app.model;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,37 +12,61 @@ public class Movie implements Comparable<Movie> {
     private String title;
     private String releaseDate;
     private List<String> categories;
-    private String fileName;
-    // please provide this two ,for Daniel
-    private String imageURL;
-    public Movie(String title, String releaseDate, List<String> categories, String fileName) {
+    private String movieFileName;
+    private String imageFileName;
+
+    public Movie(String title, String releaseDate, List<String> categories, String movieFileName) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.categories = categories;
-        this.fileName = fileName;
+        this.movieFileName = movieFileName;
     }
 
     public Movie(String title){
         this.title = title;
         releaseDate = "";
         categories = new ArrayList<>();
-        fileName = "";
+        movieFileName = "";
     }
+
     // for test
-    public Movie(String title, String imageURL, String movieURL) {
+    public Movie(String title, String imageFileName, String movieURL) {
         this.title = title;
-        this.imageURL = imageURL;
-        this.fileName = movieURL;
+        this.imageFileName = imageFileName;
+        this.movieFileName = movieURL;
     }
+
     public Movie(){
         title = "";
         releaseDate = "";
         categories = new ArrayList<>();
-        fileName = "";
+        movieFileName = "";
     }
+
+    /**
+     * Ensure that the movie file is set correctly and the file is under /resources/movie-list/
+     * @return The URL of the movie in the resources folder.
+     */
+    public URL getMovieFileURL(){
+        return getClass().getResource("../../movie-files/" + movieFileName);
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
+    }
+
+    /**
+     * Ensure that the image file is set correctly and the file is under /resources/pictures/
+     * @return The URL of the image in the resources folder.
+     */
+    public URL getImageFileURL(){
+        return getClass().getResource("../../pictures/" + imageFileName);
+    }
+
     public String getImageURL() {
-        return imageURL;
+        return imageFileName;
     }
+
     public void addCategory(String category){
         categories.add(category);
     }
@@ -70,12 +95,8 @@ public class Movie implements Comparable<Movie> {
         this.categories = categories;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setMovieFileName(String movieFileName) {
+        this.movieFileName = movieFileName;
     }
 
     public int getId() {
