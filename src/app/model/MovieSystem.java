@@ -19,7 +19,6 @@ public class MovieSystem {
 
     public MovieSystem() {
         movies = new ArrayList<>();
-        //loadMoviesFromCSV(System.getProperty("user.dir") + "\\movie-list.csv");
     }
 
     public void addMovie(Movie movie){
@@ -71,7 +70,6 @@ public class MovieSystem {
      * @param path the path to the CSV
      */
     public void loadMoviesFromCSV(URL path){
-        //System.out.println(path);
         String csvSplit = "\",";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path.getFile()));

@@ -14,12 +14,19 @@ public class Movie implements Comparable<Movie> {
     private List<String> categories;
     private String movieFileName;
     private String imageFileName;
+    private String rating;
+    private String plot;
+    private List<String> languages;
+    private List<String> directors;
+    private List<String> actors;
+    private List<String> countries;
 
     public Movie(String title, String releaseDate, List<String> categories, String movieFileName) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.categories = categories;
         this.movieFileName = movieFileName;
+        init();
     }
 
     public Movie(String title){
@@ -27,13 +34,7 @@ public class Movie implements Comparable<Movie> {
         releaseDate = "";
         categories = new ArrayList<>();
         movieFileName = "";
-    }
-
-    // for test
-    public Movie(String title, String imageFileName, String movieURL) {
-        this.title = title;
-        this.imageFileName = imageFileName;
-        this.movieFileName = movieURL;
+        init();
     }
 
     public Movie(){
@@ -41,6 +42,16 @@ public class Movie implements Comparable<Movie> {
         releaseDate = "";
         categories = new ArrayList<>();
         movieFileName = "";
+        init();
+    }
+
+    private void init(){
+        this.rating = "";
+        this.plot = "";
+        this.languages = new ArrayList<>();
+        this.directors = new ArrayList<>();
+        this.actors = new ArrayList<>();
+        this.countries = new ArrayList<>();
     }
 
     /**
@@ -61,6 +72,54 @@ public class Movie implements Comparable<Movie> {
      */
     public URL getImageFileURL(){
         return getClass().getResource("../../pictures/" + imageFileName);
+    }
+
+    public List<String> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<String> countries) {
+        this.countries = countries;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public List<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<String> languages) {
+        this.languages = languages;
+    }
+
+    public List<String> getDirectors() {
+        return directors;
+    }
+
+    public void setDirectors(List<String> directors) {
+        this.directors = directors;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
     }
 
     public String getImageURL() {

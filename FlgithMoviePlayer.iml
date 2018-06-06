@@ -28,6 +28,8 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="jsoup-1.11.3" level="project" />
+    <orderEntry type="library" name="javax.ws.rs-api-2.1" level="project" />
+    <orderEntry type="library" name="jersey-client" level="project" />
+    <orderEntry type="library" name="gson-2.8.5" level="project" />
   </component>
 </module>
