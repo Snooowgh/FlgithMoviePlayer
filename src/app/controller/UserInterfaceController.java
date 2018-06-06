@@ -2,7 +2,9 @@ package app.controller;
 
 import app.model.Movie;
 import app.model.MovieSystem;
-import app.simpleMediaPlayer.SimpleMediaPlayer;
+import app.view.movieDetailView.MovieDetailView;
+import app.view.simpleMediaPlayer.SimpleMediaPlayer;
+import app.util.CSVFile;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -23,6 +25,9 @@ import javafx.geometry.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -124,8 +129,15 @@ public class UserInterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load the movies from CSV
         movieSystem = new MovieSystem();
-        movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
-
+        if (getClass().getResource("./movie-list.csv")==null) {
+            File csv = CSVFile.createCSVFile("./","movie-list");
+            try {
+                movieSystem.loadMoviesFromCSV(csv.toURL());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }else
+            movieSystem.loadMoviesFromCSV(getClass().getResource("./movie-list.csv"));
         setCategory();
         firTab.getSelectionModel().selectFirst();
         TabPane secTabi1 = hm.get(firTab.getSelectionModel().getSelectedItem());
@@ -160,8 +172,8 @@ public class UserInterfaceController implements Initializable {
         ImageView imageView = new ImageView(new Image(movie.getImageFileURL().toString()));
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
-        imageView.setOnMouseClicked(event -> SimpleMediaPlayer.popup(movie.getMovieFileURL().toString()));
-
+//        imageView.setOnMouseClicked(event -> SimpleMediaPlayer.popup(movie.getMovieFileURL().toString()));
+        imageView.setOnMouseClicked(event -> MovieDetailView.showDetail(movie));
         VBox hBox = new VBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setAlignment(Pos.BOTTOM_CENTER);
