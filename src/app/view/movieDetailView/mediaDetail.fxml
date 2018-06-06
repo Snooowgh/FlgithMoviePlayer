@@ -26,10 +26,10 @@
                   <children>
                     <GridPane layoutX="0.0" layoutY="0.0" prefHeight="289.0" prefWidth="419.0">
                       <children>
-                        <Label fx:id="directorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label fx:id="actorsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Actors" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Label fx:id="releasedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Released Year" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Label fx:id="categoryLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Category" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                        <Label fx:id="directorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="actorsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Actors" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="releasedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Released_Year" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <Label fx:id="categoryLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Category" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                         <Label fx:id="directorInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <Label fx:id="actorsInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="releasedInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -51,11 +51,9 @@
             </SplitPane>
           </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-          <children>
+        <ScrollPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <TextArea fx:id="detailText" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="163.0" prefWidth="705.0" text="Plot introduction" wrapText="true" />
-          </children>
-        </AnchorPane>
+        </ScrollPane>
       </items>
     </SplitPane>
   </children>

@@ -63,18 +63,10 @@ public class UserInterfaceController implements Initializable {
             Tab t = new Tab();
             t.setText(m);
             t.setStyle("");
-            // prefHeight="540.0"
-            // prefWidth="725.0"
-            // side="LEFT"
-            // tabClosingPolicy="UNAVAILABLE"
-            // AnchorPane.bottomAnchor="0.0"
-            // AnchorPane.leftAnchor="0.0"
-            // AnchorPane.rightAnchor="0.0"
-            // AnchorPane.topAnchor="0.0"
             TabPane tmp = new TabPane();
             tmp.prefHeight(540.0);
             tmp.prefWidth(725.0);
-            tmp.setSide(Side.valueOf("LEFT"));
+            tmp.setSide(Side.valueOf("TOP"));
             tmp.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
             for (String c : country_Category) {
                 Tab t2 = new Tab();
@@ -99,7 +91,6 @@ public class UserInterfaceController implements Initializable {
 
     private void tapHandle() {
         firTab.setOnMouseClicked(event -> showMovieWhenClickTab(hm.get(firTab.getSelectionModel().getSelectedItem())));
-
     }
 
     private void showMovieWhenClickTab(TabPane secTab) {
@@ -110,7 +101,8 @@ public class UserInterfaceController implements Initializable {
         // TODO: Why are you using iterators instead of a for loop?
         Iterator<Movie> ims = ms.iterator();
         TilePane tp = new TilePane();
-
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(tp);
         for (int i = 0; i < 12; i++) {
             if (ims.hasNext()) {
                 Movie tmpm = ims.next();
@@ -120,7 +112,7 @@ public class UserInterfaceController implements Initializable {
                 break;
         }
 
-        secTab.getSelectionModel().getSelectedItem().setContent(tp);
+        secTab.getSelectionModel().getSelectedItem().setContent(scrollPane);
     }
 
     @Override

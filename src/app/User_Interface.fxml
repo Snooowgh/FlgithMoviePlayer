@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="766.0" stylesheets="@../styles/tabStyle1.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserInterfaceController">
   <children>
-    <SplitPane dividerPositions="0.1126" orientation="VERTICAL" prefHeight="615.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <SplitPane  dividerPositions="0.1126" orientation="VERTICAL" prefHeight="615.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
@@ -28,8 +28,8 @@
             </ImageView>
                         <Pane fx:id="flightPane" layoutX="261.0" layoutY="5.0" prefHeight="65.0" prefWidth="268.0" />
             <ChoiceBox fx:id="languageChoiceBox" prefHeight="30.0" prefWidth="115.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-            <Label fx:id="timeLabel" prefHeight="20.0" prefWidth="90.0" text="TIME" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="41.0" />
-            <Label fx:id="languageLabel" text="LANGUAGE" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="12.0" />
+            <Label fx:id="timeLabel" prefHeight="20.0" prefWidth="90.0" text="%Main.TIME" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="41.0" />
+            <Label fx:id="languageLabel" text="%Main.LANGUAGE" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="12.0" />
             <Label fx:id="timeLeft" layoutX="635.0" layoutY="41.0" prefWidth="115.0" text="Label" />
           </children>
         </AnchorPane>

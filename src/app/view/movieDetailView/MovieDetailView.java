@@ -11,13 +11,16 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MovieDetailView  extends AnchorPane {
     private static movieDetailController controller;
     private static MovieDetailView movieDetailView;
     public MovieDetailView(Movie movie){
         try {
-            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("mediaDetail.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.CHINESE);
+            FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("mediaDetail.fxml"),bundle);
             Parent root = fxmlloader.load();   //将fxml节点添加到根节点中
             controller = fxmlloader.getController();
             this.getChildren().add(root);   //主类节点加入根节点
