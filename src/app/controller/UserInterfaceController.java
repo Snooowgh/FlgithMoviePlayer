@@ -3,8 +3,6 @@ package app.controller;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
-import app.view.simpleMediaPlayer.SimpleMediaPlayer;
-import app.util.CSVFile;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -50,7 +48,7 @@ public class UserInterfaceController implements Initializable {
     private HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
 
     // TODO: Load this from movie system
-    private String country_Category[] = { "All", "America", "China", "French", "Japan", "Russia", "Others" };
+    private String country_Category[] = { "简体中文", "English", "日本语" };
 
     // initialize second tabpane
     private ObservableList<String> languages = FXCollections.observableArrayList("简体中文", "English", "日本语");
