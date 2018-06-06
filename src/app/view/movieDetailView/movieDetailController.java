@@ -1,6 +1,7 @@
 package app.view.movieDetailView;
 
 import app.model.Movie;
+import app.model.MovieInfoLoader;
 import app.view.simpleMediaPlayer.SimpleMediaPlayer;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,10 +43,11 @@ public class movieDetailController{
 
 
     public void start(Movie movie) {
-        directorInfoLabel.setText("John Reese");
-        actorsInfoLabel.setText("abc askldj askdl asd ");
-        releasedInfoLabel.setText("1992");
-        detailText.setText("a man go up");
+        Movie loadMovie = MovieInfoLoader.loadMovieInfo(movie);
+        directorInfoLabel.setText(loadMovie.getTitle());
+        actorsInfoLabel.setText(loadMovie.getActors().toString());
+        releasedInfoLabel.setText(loadMovie.getReleaseDate());
+        detailText.setText(loadMovie.getPlot());
         categoryInfoLabel.setText(movie.getCategories().toString());
         Image image = new Image(movie.getImageFileURL().toString());
         imageView.setImage(image);
