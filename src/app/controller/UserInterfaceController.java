@@ -24,8 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -45,7 +43,7 @@ public class UserInterfaceController implements Initializable {
 
     private MovieSystem movieSystem;
 
-    private HashMap<Tab, TabPane> hm = new HashMap<Tab, TabPane>();
+    private HashMap<Tab, TabPane> firTabAnditsSecTab = new HashMap<Tab, TabPane>();
 
     // TODO: Load this from movie system
     private String country_Category[] = { "简体中文", "English", "日本语" };
@@ -63,10 +61,18 @@ public class UserInterfaceController implements Initializable {
             Tab t = new Tab();
             t.setText(m);
             t.setStyle("");
+            // prefHeight="540.0"
+            // prefWidth="725.0"
+            // side="LEFT"
+            // tabClosingPolicy="UNAVAILABLE"
+            // AnchorPane.bottomAnchor="0.0"
+            // AnchorPane.leftAnchor="0.0"
+            // AnchorPane.rightAnchor="0.0"
+            // AnchorPane.topAnchor="0.0"
             TabPane tmp = new TabPane();
             tmp.prefHeight(540.0);
             tmp.prefWidth(725.0);
-            tmp.setSide(Side.valueOf("TOP"));
+            tmp.setSide(Side.valueOf("LEFT"));
             tmp.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
             for (String c : country_Category) {
                 Tab t2 = new Tab();
@@ -83,36 +89,36 @@ public class UserInterfaceController implements Initializable {
             // AnchorPane.rightAnchor="0.0"
             // AnchorPane.topAnchor="0.0"
             t.setContent(tmp);
-            hm.put(t, tmp);
+            firTabAnditsSecTab.put(t, tmp);
             // System.out.println(tmp.toString());//
             firTab.getTabs().add(t);
         }
     }
 
     private void tapHandle() {
-        firTab.setOnMouseClicked(event -> showMovieWhenClickTab(hm.get(firTab.getSelectionModel().getSelectedItem())));
+        firTab.setOnMouseClicked(event -> showMovieWhenClickTab(firTabAnditsSecTab.get(firTab.getSelectionModel().getSelectedItem())));
     }
 
     private void showMovieWhenClickTab(TabPane secTab) {
-        // TODO: Modify that to get the movies you are interested in
-        List<Movie> ms = movieSystem.getMovies();
+            // TODO: Modify that to get the movies you are interested in
+            List<Movie> ms = movieSystem.getMovieByTwocategory( firTab.getSelectionModel().getSelectedItem().getText(),
+                                                                secTab.getSelectionModel().getSelectedItem().getText() );
 
-        // by default show the first page within 12 videos
-        // TODO: Why are you using iterators instead of a for loop?
-        Iterator<Movie> ims = ms.iterator();
-        TilePane tp = new TilePane();
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setContent(tp);
-        for (int i = 0; i < 12; i++) {
-            if (ims.hasNext()) {
-                Movie tmpm = ims.next();
+            // by default show the first page within 12 videos
+            // TODO: Why are you using iterators instead of a for loop?
+            Iterator<Movie> ims = ms.iterator();
+            TilePane tp = new TilePane();
 
-                tp.getChildren().add(createSingleMovie(tmpm));
-            } else
-                break;
-        }
+            for (int i = 0; i < 12; i++) {
+                if (ims.hasNext()) {
+                    Movie tmpm = ims.next();
 
-        secTab.getSelectionModel().getSelectedItem().setContent(scrollPane);
+                    tp.getChildren().add(createSingleMovie(tmpm));
+                } else
+                    break;
+            }
+
+            secTab.getSelectionModel().getSelectedItem().setContent(tp);
     }
 
     @Override
@@ -122,7 +128,7 @@ public class UserInterfaceController implements Initializable {
         movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
         setCategory();
         firTab.getSelectionModel().selectFirst();
-        TabPane secTabi1 = hm.get(firTab.getSelectionModel().getSelectedItem());
+        TabPane secTabi1 = firTabAnditsSecTab.get(firTab.getSelectionModel().getSelectedItem());
         secTabi1.getSelectionModel().selectFirst();
         showMovieWhenClickTab(secTabi1);
         tapHandle();
