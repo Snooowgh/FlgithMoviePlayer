@@ -3,11 +3,12 @@
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.paint.*?>
 
-<?import javafx.scene.media.MediaView?>
-<AnchorPane fx:controller="app.view.movieDetailView.movieDetailController" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="708.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="708.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.movieDetailView.movieDetailController">
   <children>
     <SplitPane dividerPositions="0.6377440347071583" focusTraversable="true" layoutX="2.0" layoutY="2.0" orientation="VERTICAL" prefHeight="463.0" prefWidth="708.0">
       <items>
@@ -15,8 +16,12 @@
           <children>
             <SplitPane dividerPositions="0.4005681818181818" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="291.0" prefWidth="706.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="238.0" />
-                  <MediaView fx:id="mediaView" fitHeight="289.0" fitWidth="279.0" nodeOrientation="INHERIT" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="289.0" prefWidth="238.0">
+                  <children>
+                    <ImageView fx:id="imageView" fitHeight="288.9999694824219" fitWidth="277.9999694824219" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+                </AnchorPane>
+                <!--<MediaView fx:id="mediaView" fitHeight="289.0" fitWidth="279.0" nodeOrientation="INHERIT" />-->
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="560.0">
                   <children>
                     <GridPane layoutX="0.0" layoutY="0.0" prefHeight="289.0" prefWidth="419.0">

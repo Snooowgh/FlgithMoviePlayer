@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -33,10 +35,7 @@ public class movieDetailController{
     @FXML
     TextArea  detailText;
     @FXML
-    MediaView mediaView;
-
-    private MediaPlayer mediaPlayer;
-    private Media media;
+    ImageView imageView;
 
 
     public void start(Movie movie) {
@@ -44,10 +43,8 @@ public class movieDetailController{
         actorsInfoLabel.setText("abc askldj askdl asd ");
         releasedInfoLabel.setText("1992");
         detailText.setText("a man go up");
-        media = new Media(movie.getMovieFileURL().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-        mediaView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        imageView.setImage(new Image(movie.getImageFileURL().toString()));
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 SimpleMediaPlayer.popup(movie.getMovieFileURL().toString());
