@@ -3,8 +3,6 @@ package app.controller;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
-import app.view.simpleMediaPlayer.SimpleMediaPlayer;
-import app.util.CSVFile;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
