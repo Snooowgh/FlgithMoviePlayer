@@ -47,7 +47,8 @@ public class movieDetailController{
         releasedInfoLabel.setText("1992");
         detailText.setText("a man go up");
         categoryInfoLabel.setText(movie.getCategories().toString());
-        imageView.setImage(new Image(movie.getImageFileURL().toString()));
+        Image image = new Image(movie.getImageFileURL().toString());
+        imageView.setImage(image);
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

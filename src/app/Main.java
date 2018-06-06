@@ -1,3 +1,4 @@
+
 package app;
 
 import javafx.application.Application;
@@ -6,6 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -17,7 +21,9 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"));
+            Locale.setDefault(Locale.ENGLISH);
+            ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
+            Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"),bundle);
             primaryStage.setTitle("Flight Entertainment System");
             primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.jpg").toExternalForm()));
             Scene scene = new Scene(root);
