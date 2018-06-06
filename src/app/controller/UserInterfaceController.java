@@ -129,15 +129,7 @@ public class UserInterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load the movies from CSV
         movieSystem = new MovieSystem();
-        if (getClass().getResource("./movie-list.csv")==null) {
-            File csv = CSVFile.createCSVFile("./","movie-list");
-            try {
-                movieSystem.loadMoviesFromCSV(csv.toURL());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }else
-            movieSystem.loadMoviesFromCSV(getClass().getResource("./movie-list.csv"));
+        movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
         setCategory();
         firTab.getSelectionModel().selectFirst();
         TabPane secTabi1 = hm.get(firTab.getSelectionModel().getSelectedItem());

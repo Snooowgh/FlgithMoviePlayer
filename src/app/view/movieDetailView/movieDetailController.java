@@ -44,13 +44,13 @@ public class movieDetailController{
         actorsInfoLabel.setText("abc askldj askdl asd ");
         releasedInfoLabel.setText("1992");
         detailText.setText("a man go up");
-        media = new Media("../../TestMedia.MP4");
+        media = new Media(movie.getMovieFileURL().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                SimpleMediaPlayer.popup("../../TestMedia.MP4");
+                SimpleMediaPlayer.popup(movie.getMovieFileURL().toString());
             }
         });
     }
