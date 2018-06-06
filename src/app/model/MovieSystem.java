@@ -19,6 +19,7 @@ public class MovieSystem {
 
     public MovieSystem() {
         movies = new ArrayList<>();
+        //loadMoviesFromCSV(System.getProperty("user.dir") + "\\movie-list.csv");
     }
 
     public void addMovie(Movie movie){
@@ -50,6 +51,15 @@ public class MovieSystem {
         return categories;
     }
 
+    public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory){
+        List<Movie> mov = new ArrayList<>();
+        for (Movie m : movies){
+            if (m.getCategories().contains(firstCategory)&&m.getCategories().contains(secondCategory))
+                mov.add(m);
+        }
+        return mov;
+    }
+
     public List<Movie> getMoviesByCategory(String category){
         List<Movie> mov = new ArrayList<>();
 
@@ -61,6 +71,8 @@ public class MovieSystem {
         return mov;
     }
 
+
+
     public List<Movie> getMovies() {
         return movies;
     }
@@ -70,6 +82,7 @@ public class MovieSystem {
      * @param path the path to the CSV
      */
     public void loadMoviesFromCSV(URL path){
+        //System.out.println(path);
         String csvSplit = "\",";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path.getFile()));
