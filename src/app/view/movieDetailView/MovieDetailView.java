@@ -30,8 +30,9 @@ public class MovieDetailView  extends AnchorPane {
         controller.start(movie);
         Scene scene = new Scene(movieDetailView);
         Stage primaryStage = new Stage();
-        primaryStage.setTitle("Media Detail");
+        primaryStage.setTitle(movie.getTitle());
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 }

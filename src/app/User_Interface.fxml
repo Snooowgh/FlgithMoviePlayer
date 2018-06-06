@@ -26,9 +26,7 @@
                 <Image url="@../pictures/name.JPG" />
               </image>
             </ImageView>
-             
                         <Pane fx:id="flightPane" layoutX="261.0" layoutY="5.0" prefHeight="65.0" prefWidth="268.0" />
-
             <ChoiceBox fx:id="languageChoiceBox" prefHeight="30.0" prefWidth="115.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
             <Label fx:id="timeLabel" prefHeight="20.0" prefWidth="90.0" text="TIME" AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="41.0" />
             <Label fx:id="languageLabel" text="LANGUAGE" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="12.0" />
@@ -37,7 +35,7 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <TabPane fx:id="firTab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="764.0" rotateGraphic="true" side="LEFT" styleClass="null" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TabPane fx:id="firTab" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="764.0" rotateGraphic="true" side="TOP" styleClass="null" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           </children>
         </AnchorPane>
       </items>

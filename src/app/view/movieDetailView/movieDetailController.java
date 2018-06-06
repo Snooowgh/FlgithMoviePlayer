@@ -24,7 +24,8 @@ public class movieDetailController{
     Label actorsLabel;
     @FXML
     Label releasedLabel;
-
+    @FXML
+    Label categoryLabel;
 
     @FXML
     Label directorInfoLabel;
@@ -32,6 +33,8 @@ public class movieDetailController{
     Label actorsInfoLabel;
     @FXML
     Label releasedInfoLabel;
+    @FXML
+    Label categoryInfoLabel;
     @FXML
     TextArea  detailText;
     @FXML
@@ -43,6 +46,7 @@ public class movieDetailController{
         actorsInfoLabel.setText("abc askldj askdl asd ");
         releasedInfoLabel.setText("1992");
         detailText.setText("a man go up");
+        categoryInfoLabel.setText(movie.getCategories().toString());
         imageView.setImage(new Image(movie.getImageFileURL().toString()));
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
