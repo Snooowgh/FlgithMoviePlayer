@@ -21,7 +21,7 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-            Locale.setDefault(Locale.ENGLISH);
+            Locale.setDefault(Locale.CHINA);
             ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
             Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"),bundle);
             primaryStage.setTitle("Flight Entertainment System");

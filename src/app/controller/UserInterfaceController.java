@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.io.File;
