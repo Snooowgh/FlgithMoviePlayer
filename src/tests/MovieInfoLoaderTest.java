@@ -37,4 +37,10 @@ public class MovieInfoLoaderTest {
             assertTrue(countries.contains(c));
         }
     }
+
+    @Test
+    public void testLoadNonExistingMovie(){
+        Movie mov = MovieInfoLoader.loadMovieInfo(new Movie("My cool movie"));
+        
+    }
 }

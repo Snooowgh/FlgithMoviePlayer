@@ -33,6 +33,11 @@ public class MovieInfoLoader {
             JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
             //System.out.println(rootobj.get("Director"));
 
+            if (!rootobj.get("Response").getAsBoolean()){
+                System.out.println(rootobj.get("Error").getAsString());
+                return movie;
+            }
+
             String year = rootobj.get("Year").getAsString();
             String rated = rootobj.get("Rated").getAsString();
             String plot = rootobj.get("Plot").getAsString();
