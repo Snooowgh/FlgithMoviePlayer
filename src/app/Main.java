@@ -22,19 +22,7 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-            switch (SystemData.language){
-                case "English":
-                    Locale.setDefault(Locale.ENGLISH);
-                    break;
-                case "简体中文":
-                    Locale.setDefault(Locale.CHINA);
-                    break;
-                case "日本语":
-                    Locale.setDefault(Locale.JAPAN);
-                    break;
-                default:
-                    Locale.setDefault(Locale.ENGLISH);
-            }
+            SystemData.setDefaultLanguage(SystemData.language);
             ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
             Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"),bundle);
             primaryStage.setTitle("Flight Entertainment System");

@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.data.SystemData;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
@@ -7,6 +8,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,7 +57,7 @@ public class UserInterfaceController implements Initializable {
     private void setCategory() {
         // please deal with languages
         languageChoiceBox.setItems(languages);
-        languageChoiceBox.getSelectionModel().selectFirst();
+        languageChoiceBox.getSelectionModel().select(SystemData.language);
 
         // Load the category from the movie list
         for (String m : movieSystem.getUniqueCategories()) {
@@ -133,8 +135,16 @@ public class UserInterfaceController implements Initializable {
         secTabi1.getSelectionModel().selectFirst();
         showMovieWhenClickTab(secTabi1);
         tapHandle();
+        languageChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
+                System.out.println("changed to "+languageChoiceBox.getValue().toString());
+            }
+        });
 //      fill flight time in second here
-        createFlightLineView(10);
+        createFlightLineView(SystemData.FlightTime);
+
     }
 
     private void createFlightLineView(int flightTime){
@@ -164,11 +174,11 @@ public class UserInterfaceController implements Initializable {
 //        imageView.setOnMouseClicked(event -> SimpleMediaPlayer.popup(movie.getMovieFileURL().toString()));
         imageView.setOnMouseClicked(event -> MovieDetailView.showDetail(movie));
         VBox hBox = new VBox();
-        hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setAlignment(Pos.BOTTOM_CENTER);
         hBox.getChildren().add(imageView);
         hBox.getChildren().add(new Label(movie.getTitle()));
         hBox.setId("movieView");
+        hBox.setPadding(new Insets(38));
         return hBox;
     }
 }
