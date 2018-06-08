@@ -22,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import javafx.event.ActionEvent;
@@ -91,21 +93,26 @@ public class UserInterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load the movies from CSV
 
-        movieSystem = new MovieSystem();
-        movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
-        languageChoiceBox.setItems(languages);
-        languageChoiceBox.getSelectionModel().select(SystemData.language);
-		languageChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
-				System.out.println("changed to "+languageChoiceBox.getValue().toString());
-			}
-			});
-        setCategory();
+        try {
+            movieSystem = new MovieSystem();
+            movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
+            languageChoiceBox.setItems(languages);
+            languageChoiceBox.getSelectionModel().select(SystemData.language);
+            languageChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
+                    System.out.println("changed to " + languageChoiceBox.getValue().toString());
+                }
+            });
+            setCategory();
 
 //      fill flight time in second here
-		createFlightLineView(SystemData.FlightTime);
+            createFlightLineView(SystemData.FlightTime);
+        } catch (IOException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
     
     private void initializeCategory(){
