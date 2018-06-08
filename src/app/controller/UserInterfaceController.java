@@ -32,7 +32,6 @@ class Category{
     Image imageURL;
     String describe;
     public Category(String imageURL,String describe){
-        System.out.println(imageURL);//
         this.imageURL = new Image(getClass().getResource(imageURL).toExternalForm()) ;
         this.describe = describe ;
     }
@@ -245,11 +244,6 @@ public class UserInterfaceController implements Initializable {
     }
 
     private VBox createSingleMovie(Movie movie) {
-//        if(movie==null){
-//            System.out.println("movie null");
-//        }else if(movie.getImageFileURL()==null)
-//            System.out.println("Movie image null");
-        System.out.println(movie.getImageFileURL()+"\t"+movie.getImageFileName()+"\t"+movie.getImageURL());
         ImageView imageView = new ImageView(new Image(movie.getImageFileURL().toExternalForm()));
         imageView.setFitHeight(110);
         imageView.setFitWidth(184);
