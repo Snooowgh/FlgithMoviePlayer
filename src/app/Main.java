@@ -1,6 +1,7 @@
 
 package app;
 
+import app.data.SystemData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +22,7 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-            Locale.setDefault(Locale.ENGLISH);
+            SystemData.setDefaultLanguage(SystemData.language);
             ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
             Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"),bundle);
             primaryStage.setTitle("Flight Entertainment System");
