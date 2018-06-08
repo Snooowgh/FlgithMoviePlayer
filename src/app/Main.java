@@ -26,7 +26,7 @@ public class Main extends Application {
             ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
             Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"),bundle);
             primaryStage.setTitle("Flight Entertainment System");
-            primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.jpg").toExternalForm()));
+            primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.png").toExternalForm()));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("../styles/tabStyle1.css").toExternalForm());
             primaryStage.setScene(scene);
