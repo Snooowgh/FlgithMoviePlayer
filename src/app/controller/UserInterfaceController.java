@@ -27,6 +27,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -128,7 +129,14 @@ public class UserInterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Load the movies from CSV
         movieSystem = new MovieSystem();
-        movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
+        try {
+            // TODO: Handle this in a proper way!
+            movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Starting the movie system without the movie DB makes no sense
+            System.exit(1);
+        }
         setCategory();
         firTab.getSelectionModel().selectFirst();
         TabPane secTabi1 = firTabAnditsSecTab.get(firTab.getSelectionModel().getSelectedItem());

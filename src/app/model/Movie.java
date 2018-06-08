@@ -20,6 +20,7 @@ public class Movie implements Comparable<Movie> {
     private List<String> directors;
     private List<String> actors;
     private List<String> countries;
+    private boolean loaded;
 
     public Movie(String title, String releaseDate, List<String> categories, String movieFileName) {
         this.title = title;
@@ -52,6 +53,7 @@ public class Movie implements Comparable<Movie> {
         this.directors = new ArrayList<>();
         this.actors = new ArrayList<>();
         this.countries = new ArrayList<>();
+        this.loaded = false;
     }
 
     /**
@@ -68,6 +70,14 @@ public class Movie implements Comparable<Movie> {
 
     public String getImageFileName() {
         return imageFileName;
+    }
+
+    public boolean isLoaded() {
+        return loaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        this.loaded = loaded;
     }
 
     public void setImageFileName(String imageFileName) {

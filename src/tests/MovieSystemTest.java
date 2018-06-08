@@ -52,19 +52,6 @@ public class MovieSystemTest {
     }
 
     @Test
-    public void testReadCSV(){
-        MovieSystem movieSystem = new MovieSystem();
-
-        movieSystem.loadMoviesFromCSV(getClass().getResource("movie-list-test.csv"));
-
-        assertEquals(2, movieSystem.getMovies().size());
-        assertEquals("My cool movie", movieSystem.getMovies().get(0).getTitle());
-        assertEquals("1998", movieSystem.getMovies().get(0).getReleaseDate());
-        assertEquals(Arrays.asList("Action", "Drama", "Thriller", "Double Category"), movieSystem.getMovies().get(0).getCategories());
-        assertEquals("mymovie.jpg", movieSystem.getMovies().get(0).getImageURL());
-    }
-
-    @Test
     public void testMovieCategories(){
         MovieSystem movieSystem = getTestMovieSystem();
 
@@ -93,24 +80,5 @@ public class MovieSystemTest {
         }
     }
 
-    @Test
-    public void testWriteToCSV() throws IOException {
-        MovieSystem movieSystem = new MovieSystem();
-        Movie movie = new Movie();
-        movie.setTitle("Test Write");
-        movie.setMovieFileName("test-write.mp4");
-        movie.setReleaseDate("2000");
-        movie.setCategories(Arrays.asList("Drama", "Action", "Thriller"));
-        movie.setLanguages(Arrays.asList("English", "Spanish"));
 
-        File csv = new File(getClass().getResource("movie-list-test.csv").getFile());
-
-        movieSystem.writeMovieToCSV(movie, getClass().getResource("movie-list-test.csv"));
-
-        movieSystem.loadMoviesFromCSV(getClass().getResource("movie-list-test.csv"));
-        System.out.println();
-
-        FileWriter fr = new FileWriter(csv);
-        fr.close();
-    }
 }
