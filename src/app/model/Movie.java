@@ -62,6 +62,14 @@ public class Movie implements Comparable<Movie> {
         return getClass().getResource("../../movie-files/" + movieFileName);
     }
 
+    public String getMovieFileName() {
+        return movieFileName;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
     }

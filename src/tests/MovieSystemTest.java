@@ -4,6 +4,11 @@ import app.model.Movie;
 import app.model.MovieSystem;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,5 +91,26 @@ public class MovieSystemTest {
         for (String cat : categories){
             assertTrue(testCats.contains(cat));
         }
+    }
+
+    @Test
+    public void testWriteToCSV() throws IOException {
+        MovieSystem movieSystem = new MovieSystem();
+        Movie movie = new Movie();
+        movie.setTitle("Test Write");
+        movie.setMovieFileName("test-write.mp4");
+        movie.setReleaseDate("2000");
+        movie.setCategories(Arrays.asList("Drama", "Action", "Thriller"));
+        movie.setLanguages(Arrays.asList("English", "Spanish"));
+
+        File csv = new File(getClass().getResource("movie-list-test.csv").getFile());
+
+        movieSystem.writeMovieToCSV(movie, getClass().getResource("movie-list-test.csv"));
+
+        movieSystem.loadMoviesFromCSV(getClass().getResource("movie-list-test.csv"));
+        System.out.println();
+
+        FileWriter fr = new FileWriter(csv);
+        fr.close();
     }
 }

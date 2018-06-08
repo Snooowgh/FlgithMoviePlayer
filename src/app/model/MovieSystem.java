@@ -1,8 +1,6 @@
 package app.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,29 +82,54 @@ public class MovieSystem {
     public void loadMoviesFromCSV(URL path){
         //System.out.println(path);
         String csvSplit = "\",";
+        int titleCol = -1;
+        int filenameCol = -1;
+        int relDtCol = -1;
+        int catsCol = -1;
+        int langsCol = -1;
         try {
             BufferedReader br = new BufferedReader(new FileReader(path.getFile()));
             String line = "";
             int lineNum = 0;
             while ((line = br.readLine()) != null){
                 String[] movieFields = line.split(csvSplit);
-
                 // Remove the double quote
                 for (int i = 0; i < movieFields.length; i++) {
-                    movieFields[i] = movieFields[i].replace("\"", "");
+                    movieFields[i] = movieFields[i].replace("\"", "").trim();
                 }
 
+                if (lineNum == 0){
+                    for (int i = 0; i < movieFields.length; i++){
+                        switch (movieFields[i]){
+                            case "Title":
+                                titleCol = i;
+                                break;
+                            case "File Name":
+                                filenameCol = i;
+                                break;
+                            case "Release Date":
+                                relDtCol = i;
+                                break;
+                            case "Categories":
+                                catsCol = i;
+                                break;
+                            case "Laguages":
+                                langsCol = i;
+                                break;
+                        }
+                    }
+                }
                 // Don't initialize a movie with no title
                 if (!movieFields[0].equals("") && lineNum > 0){
                     Movie m = new Movie();
-                    m.setTitle(movieFields[0].trim());
-                    m.setReleaseDate(movieFields[1].trim());
-                    m.setMovieFileName(movieFields[3].trim());
+                    m.setTitle(movieFields[titleCol].trim());
+                    m.setReleaseDate(movieFields[relDtCol].trim());
+                    m.setMovieFileName(movieFields[filenameCol].trim());
 
-                    m.setImageFileName(movieFields[3].trim().split("\\.")[0] + ".jpg");
+                    m.setImageFileName(movieFields[filenameCol].trim().split("\\.")[0] + ".jpg");
 
                     // Init the categories
-                    String[] cats = movieFields[2].split(",");
+                    String[] cats = movieFields[catsCol].split(",");
                     // Trim the whitespaces from the column in the csv
                     for (int i = 0; i < cats.length; i++){
                         cats[i] = cats[i].trim();
@@ -121,5 +144,19 @@ public class MovieSystem {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void writeMovieToCSV(Movie movie, URL CSVpath) throws IOException {
+            PrintWriter pw = new PrintWriter(new FileWriter(CSVpath.getFile(), true));
+
+            String line = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"%n",
+                    movie.getTitle(),
+                    movie.getMovieFileName(),
+                    movie.getReleaseDate(),
+                    movie.getCategories().toString().replace("[", "").replace("]", ""),
+                    movie.getLanguages().toString().replace("[", "").replace("]", ""));
+
+            pw.write(line);
+            pw.close();
     }
 }

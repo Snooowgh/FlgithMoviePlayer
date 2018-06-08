@@ -11,7 +11,7 @@ public class MovieTest {
     public void testGetMovieFileURL() {
         Movie movie = new Movie("TestMovie");
         // TODO: This is going to look at the default resource directory instead of a loadMovieInfo directory. Consider changing that
-        movie.setMovieFileName("TestMedia2.mp4");
+        movie.setMovieFileName("TheThirdMan.mp4");
 
         assertNotNull(movie.getMovieFileURL());
     }
