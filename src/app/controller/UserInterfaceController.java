@@ -179,7 +179,7 @@ public class UserInterfaceController implements Initializable {
     	pageNum = 1;
     	maxPageNum = 1;
         //TODO please deal with languages
-    	ObservableList<String> countries= FXCollections.observableArrayList(movieSystem.getUniqueCategories());
+    	ObservableList<String> countries= FXCollections.observableArrayList(movieSystem.getCountries());
        
         //TODO please return from MovieSystem rather than hard code
         categoryCountryHashMap = category_nits_countries();
