@@ -52,39 +52,63 @@ public class UserInterfaceController implements Initializable {
     @FXML
     public Pane flightPane;
     @FXML
-    public Button categoryL;
+    public Button prePage;
     @FXML
-    public Button categoryR;
+    public Button nextPage;
+    @FXML
+    public Label page;
     @FXML
     public HBox category;
     @FXML
     public HBox movielist;
-
+    
+    private int pageNum;
+    private int maxPageNum;
+    private TabPane currentTabPane;
+    private ArrayList<Movie> currentMovies;
 
     private MovieSystem movieSystem;
 
     //by default show English movie
     private String countryChoose = "English";
     private String categoryChoose = "Action";
-    private HashMap<Category,String[]> globalCategoryCountries;
+    private HashMap<Category,String[]> categoryCountryHashMap;
     private HashMap<String, TabPane> categoryTabPaneHashMap ;
     //private HashMap<String[],TilePane> moviesReadyToShow;//String[] is a String[2], the first is category, the second is video language
     // TODO initialize second TabPane, do not hard code
-    private ObservableList<String> languages = FXCollections.observableArrayList("简体中文", "English", "日本语");
+    private ObservableList<String> languages = FXCollections.observableArrayList("绠�浣撲腑鏂�", "English", "鏃ユ湰璇�");
 
 
     //TODO parameter will be Category s instead of void, then it will be not longer hard code
     private HashMap<Category,String[]> category_nits_countries(){
         HashMap<Category,String[]> hm = new HashMap<>();
-        hm.put(new Category("../../pictures/littlePlane.png","Comedy"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","Movie"),new String[]{"English","简体中文","日本语"});
-        hm.put(new Category("../../pictures/littlePlane.png","Action"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","a"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","b"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","c"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","d"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","e"),new String[]{"English","简体中文"});
-        hm.put(new Category("../../pictures/littlePlane.png","f"),new String[]{"English"});
+        String category[] = {	"Action","Adventure","Animation","Comedy","Crime","Detective",
+        						"Dramma","Horror","Musical","Romance","si-fi","War"};
+        //TODO the second parameter of hm.put should be movieSystem.getCountries()
+        //when Movie.getCountries return something
+        //for now, hard code
+        String videoLanguage[][] = {{"English","Chinese","Japanese"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Japanese","Hongkong"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Hongkong"},
+        							{"English","Chinese","Japanese"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Indian"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Hongkong"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Japanese"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Jananese"},
+        							{"English","Chinese"},
+        							{"English","Chinese","Japanese"},
+        							{"English","Chinese"},
+        							{"English","Chinese"}};
+        int i =0;
+        for(String s : category){
+          hm.put(new Category("../../pictures/"+s+".JPG",s),videoLanguage[i++]);
+        }
 
         return hm;
     }
@@ -105,9 +129,9 @@ public class UserInterfaceController implements Initializable {
                     System.out.println("changed to " + languageChoiceBox.getValue().toString());
                 }
             });
-            setCategory();
+            loadCategory();
 
-//      fill flight time in second here
+            //fill flight time in second here
             createFlightLineView(SystemData.FlightTime);
         } catch (IOException e){
             e.printStackTrace();
@@ -117,7 +141,7 @@ public class UserInterfaceController implements Initializable {
     
     private void initializeCategory(){
         ObservableList<VBox> ob = FXCollections.observableArrayList();
-        for(Category c: globalCategoryCountries.keySet()){
+        for(Category c: categoryCountryHashMap.keySet()){
             ob.add(createSingleCategory(c));
         }
         //category= new HBox(globalCategoryCountries.size());
@@ -127,13 +151,13 @@ public class UserInterfaceController implements Initializable {
 
     private void initializeCountryAndLoadMovieList(){
         Tab t;
-        for(Category c:globalCategoryCountries.keySet()){
+        for(Category c:categoryCountryHashMap.keySet()){
             TabPane tmp= new TabPane();
             tmp.setSide(Side.valueOf("TOP"));
             tmp.setPrefSize(1235, 470);
             tmp.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
             categoryTabPaneHashMap.put(c.describe,tmp);
-            for(String s: globalCategoryCountries.get(c)){
+            for(String s: categoryCountryHashMap.get(c)){
                 t = new Tab();
                 t.setText(s);
                 tmp.getTabs().add(t);
@@ -143,66 +167,101 @@ public class UserInterfaceController implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     countryChoose = tmp.getSelectionModel().getSelectedItem().getText();
-                    showMovieWhenClickTab(tmp);
+                    currentTabPane = tmp;
+                    prepareForAnotherMovieList();
+                    showMovieWhenClickTab();
                 }
             });
         }
     }
 
-    private void setCategory() {
+    private void loadCategory() {
+    	pageNum = 1;
+    	maxPageNum = 1;
         //TODO please deal with languages
     	ObservableList<String> countries= FXCollections.observableArrayList(movieSystem.getUniqueCategories());
        
         //TODO please return from MovieSystem rather than hard code
-        globalCategoryCountries = category_nits_countries();
+        categoryCountryHashMap = category_nits_countries();
 
         //load category
         initializeCategory();
-
-
+        
+       
         //load countries and initialize movies in every TilePane
         categoryTabPaneHashMap = new HashMap<>();
         initializeCountryAndLoadMovieList();
-
+        
         //set default TilePane
-        //movielist.getChildren().clear();
-        Category defaultCategory = globalCategoryCountries.keySet().iterator().next();
-        categoryTabPaneHashMap.get(defaultCategory.describe).getSelectionModel().selectFirst();
-        showMovieWhenClickTab(categoryTabPaneHashMap.get(defaultCategory.describe));
-
+        currentTabPane = categoryTabPaneHashMap.get(categoryChoose);
+        currentTabPane.getSelectionModel().selectFirst();
+        //TODO
+        currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose,categoryChoose);
+        maxPageNum = (currentMovies.size()-1)/15;
+        if(maxPageNum<0){
+        	maxPageNum = 1;
+        }
+        showMovieWhenClickTab();
+        
+        //set pre button and next button handler
+        
+       
+        prePage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(pageNum>1){
+                	pageNum--;
+                	System.out.println(pageNum+"pre");
+                	showMovieWhenClickTab();
+                }
+            }
+        });
+        nextPage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(pageNum<maxPageNum){
+                	pageNum++;
+                	System.out.println(pageNum+"next");
+                	showMovieWhenClickTab();
+                }
+            }
+        });
+        
+        
     }
 
 
+	private void showMovieWhenClickTab() {
 
-    @SuppressWarnings("static-access")
-	private void showMovieWhenClickTab(TabPane movies) {
-    	
-    	//TODO job1
-    	//List<Movie> ms = movieSystem.getMovieByTwocategory(categoryChoose,countryChoose);
-        List<Movie> ms = movieSystem.getMovieByTwocategory(categoryChoose,categoryChoose);
-        // by default show the first page within 12 videos
-        Iterator<Movie> ims = ms.iterator();
+        // by default show the first page within 15 videos
         VBox vb = new VBox();
-        //TODO every page, there will be 2*4 movies, implement page function is needed
-        for (int i = 0; i < 3; i++) {
-        	HBox h = new HBox();
-        	for (int j = 0; j < 5; j++) {
-        		if (ims.hasNext()) {
-                    Movie tmpm = ims.next();
-                    h.getChildren().add(createSingleMovie(tmpm));
-                    //h.setAlignment(Pos.CENTER);
-                } else
-                    break;
-        	}
-            vb.getChildren().add(h);
-            vb.setAlignment(Pos.CENTER);
+        
+        page.setText(Integer.toString(pageNum));
+        //0-14 15-29 30-44
+        int which = (pageNum-1)*15;
+        //every page, there will be 3*5 movies, implement page function is needed
+        if(which>=0){
+        	//currentTabPane.getSelectionModel().getSelectedItem().
+        	for (int i = 0; i < 3; i++) {
+            	HBox h = new HBox();
+            	for (int j = 0; j < 5; j++) {
+            		if (which<currentMovies.size()) {
+                        Movie tmpm = currentMovies.get(which++);
+                        h.getChildren().add(createSingleMovie(tmpm));
+                        //h.setAlignment(Pos.CENTER);
+                    } else
+                        break;
+            	}
+                vb.getChildren().add(h);
+                vb.setAlignment(Pos.CENTER);
+            }
+            AnchorPane a =new AnchorPane();
+            a.getChildren().add(vb);
+            //a.seta
+            currentTabPane.getSelectionModel().getSelectedItem().setContent(a);
         }
-        AnchorPane a =new AnchorPane();
-        a.getChildren().add(vb);
-        //a.seta
-        movies.getSelectionModel().getSelectedItem().setContent(a);
         movielist.getChildren().clear();
-        movielist.getChildren().add(movies);
+        movielist.getChildren().add(currentTabPane);
         movielist.setAlignment(Pos.TOP_LEFT);
     }
 
@@ -227,7 +286,17 @@ public class UserInterfaceController implements Initializable {
         flightPane.getChildren().add(imageView);
         transition.play();
     }
-
+    
+    private void prepareForAnotherMovieList(){
+    	
+    	//TODO currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose,countryChoose);
+    	currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose,categoryChoose);
+        pageNum =1;
+        maxPageNum = (currentMovies.size()-1)/15;
+        if(maxPageNum<0)
+        	maxPageNum = 1;    
+    }
+    
     private  VBox createSingleCategory(Category c){
         ImageView imageView = new ImageView(c.imageURL);
         imageView.setFitHeight(50);
@@ -236,9 +305,10 @@ public class UserInterfaceController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
             	categoryChoose = c.describe;
-                movielist.getChildren().clear();
-                categoryTabPaneHashMap.get(c.describe).getSelectionModel().selectFirst();
-                showMovieWhenClickTab(categoryTabPaneHashMap.get(c.describe));
+                currentTabPane = categoryTabPaneHashMap.get(c.describe);
+            	currentTabPane.getSelectionModel().selectFirst();
+                prepareForAnotherMovieList();
+                showMovieWhenClickTab();
             }
         });
         VBox vBox = new VBox();
