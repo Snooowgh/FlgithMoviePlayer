@@ -83,7 +83,7 @@ public class DBManager {
                     cats[i] = cats[i].trim();
                 }
                 m.setCategories(Arrays.asList(cats));
-
+                m.setLanguage(cats[cats.length>0?cats.length-1:0]);
                 if (langsCol >= 0) {
                     // Init the languages
                     String[] langs = movieFields[langsCol].split(",");

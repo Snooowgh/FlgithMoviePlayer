@@ -1,5 +1,8 @@
 package app.data;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.Locale;
 
 public class SystemData {
@@ -19,5 +22,9 @@ public class SystemData {
             default:
                 Locale.setDefault(Locale.ENGLISH);
         }
+    }
+
+    public static ObservableList<String> getSupportedLanguage() {
+        return FXCollections.observableArrayList("简体中文", "English", "日本语");
     }
 }

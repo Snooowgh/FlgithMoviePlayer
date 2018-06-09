@@ -4,11 +4,6 @@ import app.model.Movie;
 import app.model.MovieSystem;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,8 +38,7 @@ public class MovieSystemTest {
                 "The African Queen",
                 "1951-02-02",
                 Arrays.asList("Comedy"),
-                "TheAfricanQueen_us_1951.mp4"
-        );
+                "TheAfricanQueen_us_1951.mp4");
         testMovies.add(theAfricaQueen);
         movieSystem.addMovie(theAfricaQueen);
 

@@ -75,8 +75,8 @@ public class UserInterfaceController implements Initializable {
     private HashMap<Category,String[]> categoryCountryHashMap;
     private HashMap<String, TabPane> categoryTabPaneHashMap ;
     //private HashMap<String[],TilePane> moviesReadyToShow;//String[] is a String[2], the first is category, the second is video language
-    // TODO initialize second TabPane, do not hard code
-    private ObservableList<String> languages = FXCollections.observableArrayList("绠�浣撲腑鏂�", "English", "鏃ユ湰璇�");
+    // TODO initialize second TabPane, do not hard code；OK
+    private ObservableList<String> languages = SystemData.getSupportedLanguage();
 
 
     //TODO parameter will be Category s instead of void, then it will be not longer hard code
