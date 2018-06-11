@@ -197,7 +197,6 @@ public class UserInterfaceController implements Initializable {
         }
         //category= new HBox(globalCategoryCountries.size());
         category.getChildren().addAll(ob);
-
     }
 
     private void initializeCountryAndLoadMovieList(){

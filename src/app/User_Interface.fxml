@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1051.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserInterfaceController">
   <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="1052.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
           <children>
-            <ImageView fitHeight="65.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="65.0" fitWidth="83.0" layoutX="26.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="26.0">
               <image>
                 <Image url="@../pictures/logo.png" />
               </image>
             </ImageView>
-            <ImageView fitHeight="65.0" fitWidth="175.0" layoutX="86.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@../pictures/name.png" />
-              </image>
-            </ImageView>
                         <Pane fx:id="flightPane" layoutX="261.0" layoutY="5.0" prefHeight="65.0" prefWidth="268.0" />
-            <ChoiceBox fx:id="languageChoiceBox" prefHeight="30.0" prefWidth="115.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-
+            <ChoiceBox fx:id="languageChoiceBox" prefHeight="46.0" prefWidth="139.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+                  <Label layoutX="100.0" layoutY="30.0" text="SUSTech" AnchorPane.bottomAnchor="10.5" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.5">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Label>
+                  
           </children>
         </AnchorPane>
          </top>
@@ -32,20 +42,23 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="206.0">
                      <children>
-                        <Button fx:id="prePage" mnemonicParsing="false" text="←">
+                        <Button fx:id="prePage" mnemonicParsing="false" text="&lt;">
                            <HBox.margin>
                               <Insets bottom="7.0" left="5.0" right="5.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
                         </Button>
                         <Label fx:id="page" text="Label" />
-                        <Button fx:id="nextPage" mnemonicParsing="false" text="→">
+                        <Button fx:id="nextPage" mnemonicParsing="false" text="&gt;">
                            <HBox.margin>
                               <Insets bottom="7.0" left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
                      </children>
                   </HBox>
-                  <HBox fx:id="category" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="82.0" prefWidth="953.0" />
+                  <HBox fx:id="category" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="82.0" prefWidth="953.0" />
                </children>
             </VBox>
          </bottom>
