@@ -1,5 +1,6 @@
 package app.model;
 
+import javax.swing.text.html.ListView;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
@@ -47,6 +48,16 @@ public class MovieSystem {
             }
         }
 
+        return categories;
+    }
+
+    public List<String> getCountries(){
+        List<String> categories = new ArrayList<>();
+        for (Movie m : movies){
+            if (!categories.contains(m.getLanguage())){
+                categories.add(m.getLanguage());
+            }
+        }
         return categories;
     }
 
