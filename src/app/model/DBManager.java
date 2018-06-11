@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.SplittableRandom;
 
+/**
+ * DBManager manages the reading and writing from the CSV file
+ *
+ * @author Daniel Babbev
+*/
 public class DBManager {
     private static final String CSV_SPLIT = "\",";
     private URL CSVpath;
@@ -16,6 +21,7 @@ public class DBManager {
 
     /**
      * @param CSVpath the path to the CSV file
+     * @throws IOException when the CSV file is not found
      */
     public DBManager(URL CSVpath) throws IOException {
         this.CSVpath = CSVpath;
@@ -59,6 +65,7 @@ public class DBManager {
 
     /**
      * Loads the movie list from a CSV file
+     * @throws IOException When the CSV file is not found
      */
     public List<Movie> getMoviesFromCSV() throws IOException {
         //System.out.println(path);
@@ -127,6 +134,10 @@ public class DBManager {
         return line;
     }
 
+    /**
+     * Writes basic information about new movies to the database
+     * @throws IOException when the CSV file is not found
+     */
     public void writeNewMoviesDataToCSV() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
         StringBuilder out  = new StringBuilder();

@@ -12,6 +12,8 @@ import java.util.List;
  * an easy to use API.
  *
  * The controller interacts with this object only
+ *
+ * @author Daniel Babbev
  */
 public class MovieSystem {
     private List<Movie> movies;

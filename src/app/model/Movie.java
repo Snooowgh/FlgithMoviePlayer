@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Movie represents a single movie
+ *
+ * @author Daniel Babbev
  */
 public class Movie implements Comparable<Movie> {
     private int id;
