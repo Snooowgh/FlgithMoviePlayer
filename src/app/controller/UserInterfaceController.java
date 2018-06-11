@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -135,7 +136,8 @@ public class UserInterfaceController implements Initializable {
 
     /** number of language switches. */
     private Integer numSwitches = 0;
-
+    
+    private Label lastChoosenLabel = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -271,7 +273,7 @@ public class UserInterfaceController implements Initializable {
         		choosen
         		);
         maxPageNum = (currentMovies.size()-1)/15;
-        if(maxPageNum<0){
+        if(maxPageNum<=0){
         	maxPageNum = 1;
         }
         if(debug)
@@ -350,7 +352,7 @@ public class UserInterfaceController implements Initializable {
     	currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose,videoLanguageChoose);
         currentPageNum =1;
         maxPageNum = (currentMovies.size()-1)/15;
-        if(maxPageNum<0)
+        if(maxPageNum<=0)
         	maxPageNum = 1; 
         if(debug)
         	System.out.printf("get %d pages movies",maxPageNum);
@@ -360,10 +362,22 @@ public class UserInterfaceController implements Initializable {
         ImageView imageView = new ImageView(c.icon);
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
-        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setAlignment(Pos.BOTTOM_CENTER);
+        vBox.getChildren().add(imageView);
+        Label l1 = I18N.labelForValue(() -> I18N.get("label."+c.categoryName, c.categoryName));
+        vBox.getChildren().add(l1);
+        vBox.setId("movieCategory");
+        vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
             	if(!categoryChoose.equals(c.categoryName)){
+            		if(lastChoosenLabel!=null){
+            			lastChoosenLabel.setTextFill(Color.BLACK);
+            		}
+            		lastChoosenLabel = l1;
+            		l1.setTextFill(Color.GREEN);
             		categoryChoose = c.categoryName;
             		currentTabPane = categoryTabPaneHashMap.get(c.categoryName);
             		videoLanguageChoose = categoryCountryHashMap.get(c.categoryName).iterator().next();
@@ -373,12 +387,6 @@ public class UserInterfaceController implements Initializable {
             	}
             }
         });
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(10, 10, 10, 10));
-        vBox.setAlignment(Pos.BOTTOM_CENTER);
-        vBox.getChildren().add(imageView);
-        vBox.getChildren().add(I18N.labelForValue(() -> I18N.get("label."+c.categoryName, c.categoryName)));
-        vBox.setId("movieCategory");
         System.out.println(c.categoryName);
         return vBox;
     }
