@@ -13,20 +13,9 @@ import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Responsible for loading movie information from the web
- *
- * @author Daniel Babbev
- */
 public class MovieInfoLoader {
     private static final String API_KEY = "eaab2b9c";
 
-    /**
-     * Gets the movie details from www.omdbapi.com
-     *
-     * @param movie movie with the title you want to load
-     * @return movie populated with all the details you need
-     */
     public static Movie loadMovieInfo(Movie movie) {
         String title = movie.getTitle().replace(" ", "+");
         String sURL = "http://www.omdbapi.com/?t=" + title + "&apikey=" + API_KEY;
@@ -45,7 +34,7 @@ public class MovieInfoLoader {
             //System.out.println(rootobj.get("Director"));
 
             if (!rootobj.get("Response").getAsBoolean()){
-                System.out.println(movie.getTitle() + ": " + rootobj.get("Error").getAsString());
+                System.out.println(rootobj.get("Error").getAsString());
                 return movie;
             }
 

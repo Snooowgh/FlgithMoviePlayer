@@ -21,9 +21,9 @@ public class MovieDetailView  extends AnchorPane {
         try {
             ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.CHINESE);
             FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("mediaDetail.fxml"),bundle);
-            Parent root = fxmlloader.load();   //将fxml节点添加到根节点中
+            Parent root = fxmlloader.load();   
             controller = fxmlloader.getController();
-            this.getChildren().add(root);   //主类节点加入根节点
+            this.getChildren().add(root);  
         } catch (IOException e) {
             e.printStackTrace();
         }

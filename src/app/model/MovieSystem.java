@@ -5,7 +5,10 @@ import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * MovieSystem connects all the backed elements and logic together in
@@ -53,6 +56,26 @@ public class MovieSystem {
         return categories;
     }
 
+    public HashMap<String,Set<String>> getCategoriesCountriesHashMap(){
+        HashMap<String,Set<String>> classify = new HashMap<>();
+        Set<String> countries;
+        for (Movie m : movies){
+            for(String cate : m.getCategories()){
+            	for(String coun : m.getLanguages()){
+            		if(classify.containsKey(cate)){
+            			classify.get(cate).add(coun);
+            		}else{
+            			countries = new TreeSet<String>();
+            			countries.add(coun);
+            			classify.put(cate, countries);
+            		}
+            	}
+            }
+        }
+        return classify;
+    }
+
+    
     public List<String> getCountries(){
         List<String> langs = new ArrayList<>();
         for (Movie m : movies){
@@ -67,7 +90,7 @@ public class MovieSystem {
     public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory){
         List<Movie> mov = new ArrayList<>();
         for (Movie m : movies){
-            if (m.getCategories().contains(firstCategory)&&m.getCategories().contains(secondCategory))
+            if (m.getCategories().contains(firstCategory)&&m.getLanguages().contains(secondCategory))
                 mov.add(m);
         }
         return mov;
