@@ -107,7 +107,6 @@ public class UserInterfaceController implements Initializable {
             });
             setCategory();
 
-//      fill flight time in second here
             createFlightLineView(SystemData.FlightTime);
         } catch (IOException e){
             e.printStackTrace();

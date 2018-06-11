@@ -13,11 +13,45 @@ public class DBManager {
     private int titleCol, filenameCol, relDtCol, catsCol, langsCol, loadedCol;
 
     /**
-     *
      * @param CSVpath the path to the CSV file
      */
     public DBManager(URL CSVpath){
         this.CSVpath = CSVpath;
+    }
+
+    private void loadCols() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
+        String line = "";
+
+        line = br.readLine();
+        String[] movieFields = line.split(CSV_SPLIT);
+
+        // Remove the double quote
+        for (int i = 0; i < movieFields.length; i++) {
+            movieFields[i] = movieFields[i].replace("\"", "").trim();
+        }
+        for (int i = 0; i < movieFields.length; i++) {
+            switch (movieFields[i]) {
+                case "Title":
+                    titleCol = i;
+                    break;
+                case "File Name":
+                    filenameCol = i;
+                    break;
+                case "Release Date":
+                    relDtCol = i;
+                    break;
+                case "Categories":
+                    catsCol = i;
+                    break;
+                case "Languages":
+                    langsCol = i;
+                    break;
+                case "Loaded":
+                    loadedCol = i;
+                    break;
+            }
+        }
     }
 
     /**
@@ -26,13 +60,10 @@ public class DBManager {
     public List<Movie> getMoviesFromCSV() throws IOException {
         //System.out.println(path);
         List<Movie> movies = new ArrayList<>();
-        int titleCol = -1;
-        int filenameCol = -1;
-        int relDtCol = -1;
-        int catsCol = -1;
-        int langsCol = -1;
-        int loadedCol = -1;
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
+
+        loadCols();
+
         String line = "";
         int lineNum = 0;
         while ((line = br.readLine()) != null) {
@@ -40,31 +71,6 @@ public class DBManager {
             // Remove the double quote
             for (int i = 0; i < movieFields.length; i++) {
                 movieFields[i] = movieFields[i].replace("\"", "").trim();
-            }
-
-            if (lineNum == 0) {
-                for (int i = 0; i < movieFields.length; i++) {
-                    switch (movieFields[i]) {
-                        case "Title":
-                            titleCol = i;
-                            break;
-                        case "File Name":
-                            filenameCol = i;
-                            break;
-                        case "Release Date":
-                            relDtCol = i;
-                            break;
-                        case "Categories":
-                            catsCol = i;
-                            break;
-                        case "Languages":
-                            langsCol = i;
-                            break;
-                        case "Loaded":
-                            loadedCol = i;
-                            break;
-                    }
-                }
             }
             // Don't initialize a movie with no title
             if (!movieFields[0].equals("") && lineNum > 0) {
@@ -109,7 +115,7 @@ public class DBManager {
         return movies;
     }
 
-    private String getCSVline(String title, String fileName, String relDate, String categories, String langs){
+    private String getCSVlineY(String title, String fileName, String relDate, String categories, String langs){
         String line = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"Y\"%n",
                 title,
                 fileName,
@@ -124,10 +130,10 @@ public class DBManager {
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
         StringBuilder out  = new StringBuilder();
 
-        int loadedCol = -1;
+        loadCols();
 
-        int lineNum = 0;
         String line = "";
+        int lineNum = 0;
         while ((line = br.readLine()) != null) {
             String movieFields[] = line.split(CSV_SPLIT);
             // Remove the double quote
@@ -135,19 +141,8 @@ public class DBManager {
                 movieFields[i] = movieFields[i].replace("\"", "").trim();
             }
 
-            if (lineNum == 0) {
-                for (int i = 0; i < movieFields.length; i++) {
-                    if (movieFields[i].equals("Loaded")) {
-                        loadedCol = i;
-                    }
-                }
-                if (loadedCol == -1){
-                    throw new IOException("Column \'Loaded\' not defined in CSV");
-                }
-            }
-
             if (movieFields[loadedCol].equals("Y")){
-                out.append(movieFields);
+                //out.append(getCSVlineY());
             }
 
             lineNum++;
