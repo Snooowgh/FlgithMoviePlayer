@@ -29,7 +29,7 @@ public class DBManagerTest {
 
         File csv = new File(getClass().getResource("movie-list-test.csv").getFile());
 
-        dbManager.writeMovieToCSV(movie, getClass().getResource("movie-list-test.csv"));
+//        dbManager.writeMovieToCSV(movie, getClass().getResource("movie-list-test.csv"));
 
         dbManager.getMoviesFromCSV();
         System.out.println();

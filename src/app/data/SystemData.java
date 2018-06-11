@@ -13,11 +13,8 @@ public class SystemData {
             case "English":
                 Locale.setDefault(Locale.ENGLISH);
                 break;
-            case "简体中文":
-                Locale.setDefault(Locale.CHINA);
-                break;
-            case "日本语":
-                Locale.setDefault(Locale.JAPAN);
+            case "Fran鏰is":
+                Locale.setDefault(Locale.FRENCH);
                 break;
             default:
                 Locale.setDefault(Locale.ENGLISH);
@@ -25,6 +22,6 @@ public class SystemData {
     }
 
     public static ObservableList<String> getSupportedLanguage() {
-        return FXCollections.observableArrayList("简体中文", "English", "日本语");
+        return FXCollections.observableArrayList("English", "Fran鏰is");
     }
 }

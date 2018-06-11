@@ -336,7 +336,7 @@ public class UserInterfaceController implements Initializable {
         rect.setArcHeight(5);
         rect.setArcWidth(5);
         rect.setFill(Color.ORANGE);
-        Path path = new Path(new MoveTo(30, 25),new LineTo(40,25),new LineTo(260,25));
+        Path path = new Path(new MoveTo(30, 25),new LineTo(40,25),new LineTo(550,25));
         path.setStroke(Color.DODGERBLUE);
         path.getStrokeDashArray().setAll(5d, 5d);
         PathTransition transition = new PathTransition(Duration.seconds(flightTime), path, imageView);
