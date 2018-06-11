@@ -354,7 +354,7 @@ public class PlayerController {
         }
     }
 
-    
+
     private void setIcon(Button button,String path,int size){
         Image icon = new Image(path);
         ImageView imageView = new ImageView(icon);

@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.data.I18N;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
@@ -73,15 +74,7 @@ public class UserInterfaceController implements Initializable {
 
     @FXML
     public ChoiceBox<String> languageChoiceBox;
-    @FXML
-    public Label timeLabel;
-    /**
-     * the application language
-     */
-    @FXML
-    public Label languageLabel;
-    @FXML
-    public Label timeLeft;
+
     @FXML
     public Pane flightPane;
     /**
@@ -114,6 +107,7 @@ public class UserInterfaceController implements Initializable {
     @FXML
     public HBox movielist;
 
+
     private int currentPageNum;
     /**
      * computed as movie size
@@ -137,12 +131,16 @@ public class UserInterfaceController implements Initializable {
 //    		new Background(new BackgroundFill(Color.web("#000000"),CornerRadii.EMPTY,Insets.EMPTY));
 //    private final Background movieListBackgroundWhite = 
 //    		new Background(new BackgroundFill(Color.web("#F4F4F4"),CornerRadii.EMPTY,Insets.EMPTY));
-    public boolean debug = true; 
-    
+    public boolean debug = true;
+
+    /** number of language switches. */
+    private Integer numSwitches = 0;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Load the movies from CSV
 
+        // Load the movies from CSV
         try {
             movieSystem = new MovieSystem();
             movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
@@ -152,6 +150,7 @@ public class UserInterfaceController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
+                    numSwitches++;
                     if(debug)
                     	System.out.println("changed to " + languageChoiceBox.getValue().toString());
                 }
@@ -379,8 +378,9 @@ public class UserInterfaceController implements Initializable {
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.setAlignment(Pos.BOTTOM_CENTER);
         vBox.getChildren().add(imageView);
-        vBox.getChildren().add(new Label(c.categoryName));
+        vBox.getChildren().add(I18N.labelForValue(() -> I18N.get("label."+c.categoryName, c.categoryName)));
         vBox.setId("movieCategory");
+        System.out.println(c.categoryName);
         return vBox;
     }
 
@@ -399,4 +399,7 @@ public class UserInterfaceController implements Initializable {
 		vBox.setOnMouseClicked(event -> MovieDetailView.showDetail(movie));
         return vBox;
     }
+
+
+
 }

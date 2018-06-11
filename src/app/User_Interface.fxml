@@ -23,10 +23,7 @@
             </ImageView>
                         <Pane fx:id="flightPane" layoutX="261.0" layoutY="5.0" prefHeight="65.0" prefWidth="268.0" />
             <ChoiceBox fx:id="languageChoiceBox" prefHeight="30.0" prefWidth="115.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
-            <Label fx:id="timeLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="112.0" text="TIME" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="41.0" />
-            <Label fx:id="languageLabel" text="LANGUAGE" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="12.0" />
-            <Label fx:id="timeLeft" layoutX="871.0" layoutY="44.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="41.0" text="Label" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="44.0" />
-                  
+
           </children>
         </AnchorPane>
          </top>
@@ -35,13 +32,13 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="206.0">
                      <children>
-                        <Button fx:id="prePage" mnemonicParsing="false" text="pre">
+                        <Button fx:id="prePage" mnemonicParsing="false" text="←">
                            <HBox.margin>
                               <Insets bottom="7.0" left="5.0" right="5.0" />
                            </HBox.margin>
                         </Button>
                         <Label fx:id="page" text="Label" />
-                        <Button fx:id="nextPage" mnemonicParsing="false" text="next">
+                        <Button fx:id="nextPage" mnemonicParsing="false" text="→">
                            <HBox.margin>
                               <Insets bottom="7.0" left="5.0" right="5.0" />
                            </HBox.margin>
