@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.SplittableRandom;
 
 public class DBManager {
     private static final String CSV_SPLIT = "\",";
@@ -12,11 +13,13 @@ public class DBManager {
 
     private int titleCol, filenameCol, relDtCol, catsCol, langsCol, loadedCol;
 
+
     /**
      * @param CSVpath the path to the CSV file
      */
-    public DBManager(URL CSVpath){
+    public DBManager(URL CSVpath) throws IOException {
         this.CSVpath = CSVpath;
+        loadCols();
     }
 
     private void loadCols() throws IOException {
@@ -61,8 +64,6 @@ public class DBManager {
         //System.out.println(path);
         List<Movie> movies = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
-
-        loadCols();
 
         String line = "";
         int lineNum = 0;
@@ -115,13 +116,13 @@ public class DBManager {
         return movies;
     }
 
-    private String getCSVlineY(String title, String fileName, String relDate, String categories, String langs){
+    private String getCSVlineY(List<String> cols){
         String line = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"Y\"%n",
-                title,
-                fileName,
-                relDate,
-                categories,
-                langs);
+                cols.get(0),
+                cols.get(1),
+                cols.get(2),
+                cols.get(3),
+                cols.get(4));
 
         return line;
     }
@@ -130,10 +131,7 @@ public class DBManager {
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
         StringBuilder out  = new StringBuilder();
 
-        loadCols();
-
-        String line = "";
-        int lineNum = 0;
+        String line;
         while ((line = br.readLine()) != null) {
             String movieFields[] = line.split(CSV_SPLIT);
             // Remove the double quote
@@ -142,24 +140,26 @@ public class DBManager {
             }
 
             if (movieFields[loadedCol].equals("Y")){
-                //out.append(getCSVlineY());
+                out.append(line.trim() + "\n");
+            } else {
+                Movie m = new Movie(movieFields[titleCol]);
+                m = MovieInfoLoader.loadMovieInfo(m);
+
+                List<String> cols = new ArrayList<>();
+                cols.add(titleCol, m.getTitle());
+                cols.add(filenameCol, movieFields[filenameCol]);
+                cols.add(relDtCol, m.getReleaseDate());
+                cols.add(catsCol, m.getCategories().toString().replace("[", "").replace("]", ""));
+                cols.add(langsCol, m.getLanguages().toString().replace("[", "").replace("]", ""));
+
+                out.append(getCSVlineY(cols));
             }
 
-            lineNum++;
         }
-    }
 
-    public void writeMovieToCSV(Movie movie, URL CSVpath) throws IOException {
-        PrintWriter pw = new PrintWriter(new FileWriter(CSVpath.getFile(), true));
-
-        String line = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\"%n",
-                movie.getTitle(),
-                movie.getMovieFileName(),
-                movie.getReleaseDate(),
-                movie.getCategories().toString().replace("[", "").replace("]", ""),
-                movie.getLanguages().toString().replace("[", "").replace("]", ""));
-
-        pw.write(line);
+        PrintWriter pw = new PrintWriter(new FileWriter(CSVpath.getFile()));
+        pw.write(out.toString());
         pw.close();
     }
+
 }

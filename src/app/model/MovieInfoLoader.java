@@ -34,7 +34,7 @@ public class MovieInfoLoader {
             //System.out.println(rootobj.get("Director"));
 
             if (!rootobj.get("Response").getAsBoolean()){
-                System.out.println(rootobj.get("Error").getAsString());
+                System.out.println(movie.getTitle() + ": " + rootobj.get("Error").getAsString());
                 return movie;
             }
 
