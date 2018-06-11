@@ -34,6 +34,8 @@ public class DBManagerTest {
         List<Movie> movies = dbManager.getMoviesFromCSV();
         assertEquals("Men In Black", movies.get(2).getTitle());
         assertEquals("1997", movies.get(2).getReleaseDate());
+        assertEquals(Arrays.asList("Adventure", "Comedy", "Family"), movies.get(2).getCategories());
+        assertEquals(Arrays.asList("English", "Spanish"), movies.get(2).getLanguages());
 
         PrintWriter pw = new PrintWriter(new FileWriter(getClass().getResource(testFileName).getFile()));
         pw.write(old);

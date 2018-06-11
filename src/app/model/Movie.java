@@ -18,21 +18,11 @@ public class Movie implements Comparable<Movie> {
     private String imageFileName;
     private String rating;
     private String plot;
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     private List<String> languages;
     private List<String> directors;
     private List<String> actors;
     private List<String> countries;
     private boolean loaded;
-    private String language;
 
     public Movie(String title, String releaseDate, List<String> categories, String movieFileName) {
         this.title = title;

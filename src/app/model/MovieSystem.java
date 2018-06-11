@@ -54,13 +54,14 @@ public class MovieSystem {
     }
 
     public List<String> getCountries(){
-        List<String> categories = new ArrayList<>();
+        List<String> langs = new ArrayList<>();
         for (Movie m : movies){
-            if (!categories.contains(m.getLanguage())){
-                categories.add(m.getLanguage());
+            for (String lang : m.getLanguages()){
+                if (!langs.contains(lang))
+                    langs.add(lang);
             }
         }
-        return categories;
+        return langs;
     }
 
     public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory){

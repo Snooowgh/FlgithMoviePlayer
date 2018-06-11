@@ -97,7 +97,6 @@ public class DBManager {
                     cats[i] = cats[i].trim();
                 }
                 m.setCategories(Arrays.asList(cats));
-                m.setLanguage(cats[cats.length>0?cats.length-1:0]);
                 if (langsCol >= 0) {
                     // Init the languages
                     String[] langs = movieFields[langsCol].split(",");
@@ -143,6 +142,7 @@ public class DBManager {
         StringBuilder out  = new StringBuilder();
 
         String line;
+        int lineNum = 0;
         while ((line = br.readLine()) != null) {
             String movieFields[] = line.split(CSV_SPLIT);
             // Remove the double quote
@@ -150,9 +150,7 @@ public class DBManager {
                 movieFields[i] = movieFields[i].replace("\"", "").trim();
             }
 
-            if (movieFields[loadedCol].equals("Y")){
-                out.append(line.trim() + "\n");
-            } else {
+            if (!movieFields[loadedCol].equals("Y") && lineNum > 0){
                 Movie m = new Movie(movieFields[titleCol]);
                 m = MovieInfoLoader.loadMovieInfo(m);
 
@@ -164,7 +162,13 @@ public class DBManager {
                 cols.add(langsCol, m.getLanguages().toString().replace("[", "").replace("]", ""));
 
                 out.append(getCSVlineY(cols));
+
+            } else {
+                out.append(line.trim() + "\n");
             }
+
+
+            lineNum++;
 
         }
 
