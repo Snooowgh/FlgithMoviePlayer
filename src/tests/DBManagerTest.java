@@ -8,6 +8,11 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,26 +22,23 @@ import static org.junit.Assert.*;
 public class DBManagerTest {
 
     @Test
-    public void testWriteToCSV() throws IOException {
-        fail();
-        DBManager dbManager = new DBManager(getClass().getResource("movie-list-test.csv"));
-        Movie movie = new Movie();
-        movie.setTitle("Test Write");
-        movie.setMovieFileName("test-write.mp4");
-        movie.setReleaseDate("2000");
-        movie.setCategories(Arrays.asList("Drama", "Action", "Thriller"));
-        movie.setLanguages(Arrays.asList("English", "Spanish"));
+    public void testWriteNewMoviesToCSV() throws IOException, URISyntaxException {
+        String testFileName = "movie-list-test-write.csv";
+        byte[] encoded = Files.readAllBytes(Paths.get(getClass().getResource(testFileName).toURI()));
+        String old = new String(encoded, StandardCharsets.UTF_8);
 
-        File csv = new File(getClass().getResource("movie-list-test.csv").getFile());
+        DBManager dbManager = new DBManager(getClass().getResource(testFileName));
+        dbManager.writeNewMoviesDataToCSV();
 
-        dbManager.writeMovieToCSV(movie, getClass().getResource("movie-list-test.csv"));
+        List<Movie> movies = dbManager.getMoviesFromCSV();
+        assertEquals("Men In Black", movies.get(2).getTitle());
+        assertEquals("1997", movies.get(2).getReleaseDate());
+        assertEquals(Arrays.asList("Adventure", "Comedy", "Family"), movies.get(2).getCategories());
+        assertEquals(Arrays.asList("English", "Spanish"), movies.get(2).getLanguages());
 
-        dbManager.getMoviesFromCSV();
-        System.out.println();
-
-        FileWriter fr = new FileWriter(csv);
-        fr.close();
-
+        PrintWriter pw = new PrintWriter(new FileWriter(getClass().getResource(testFileName).getFile()));
+        pw.write(old);
+        pw.close();
     }
 
     @Test
