@@ -2,16 +2,12 @@
 package app;
 
 import app.data.I18N;
-import app.data.SystemData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class Main extends Application {
     public static void main(String[] args) {

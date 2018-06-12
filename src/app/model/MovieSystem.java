@@ -1,14 +1,8 @@
 package app.model;
 
-import javax.swing.text.html.ListView;
-import java.io.*;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * MovieSystem connects all the backed elements and logic together in

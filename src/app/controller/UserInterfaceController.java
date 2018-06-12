@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.data.I18N;
+import app.data.SystemData;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
@@ -8,6 +9,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,19 +20,22 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-
-import javafx.event.ActionEvent;
-import app.data.SystemData;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 
 /**

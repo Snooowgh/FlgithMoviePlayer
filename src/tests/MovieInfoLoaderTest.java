@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.format;
 import static org.junit.Assert.assertEquals;
 
 public class MovieInfoLoaderTest {
