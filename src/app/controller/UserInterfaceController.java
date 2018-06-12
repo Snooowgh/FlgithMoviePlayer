@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.data.I18N;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
 
@@ -73,15 +75,7 @@ public class UserInterfaceController implements Initializable {
 
     @FXML
     public ChoiceBox<String> languageChoiceBox;
-    @FXML
-    public Label timeLabel;
-    /**
-     * the application language
-     */
-    @FXML
-    public Label languageLabel;
-    @FXML
-    public Label timeLeft;
+
     @FXML
     public Pane flightPane;
     /**
@@ -114,6 +108,7 @@ public class UserInterfaceController implements Initializable {
     @FXML
     public HBox movielist;
 
+
     private int currentPageNum;
     /**
      * computed as movie size
@@ -137,12 +132,17 @@ public class UserInterfaceController implements Initializable {
 //    		new Background(new BackgroundFill(Color.web("#000000"),CornerRadii.EMPTY,Insets.EMPTY));
 //    private final Background movieListBackgroundWhite = 
 //    		new Background(new BackgroundFill(Color.web("#F4F4F4"),CornerRadii.EMPTY,Insets.EMPTY));
-    public boolean debug = true; 
+    public boolean debug = true;
+
+    /** number of language switches. */
+    private Integer numSwitches = 0;
     
+    private Label lastChoosenLabel = null;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Load the movies from CSV
 
+        // Load the movies from CSV
         try {
             movieSystem = new MovieSystem();
             movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
@@ -152,6 +152,7 @@ public class UserInterfaceController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
+                    numSwitches++;
                     if(debug)
                     	System.out.println("changed to " + languageChoiceBox.getValue().toString());
                 }
@@ -198,7 +199,6 @@ public class UserInterfaceController implements Initializable {
         }
         //category= new HBox(globalCategoryCountries.size());
         category.getChildren().addAll(ob);
-
     }
 
     private void initializeCountryAndLoadMovieList(){
@@ -273,7 +273,7 @@ public class UserInterfaceController implements Initializable {
         		choosen
         		);
         maxPageNum = (currentMovies.size()-1)/15;
-        if(maxPageNum<0){
+        if(maxPageNum<=0){
         	maxPageNum = 1;
         }
         if(debug)
@@ -336,7 +336,7 @@ public class UserInterfaceController implements Initializable {
         rect.setArcHeight(5);
         rect.setArcWidth(5);
         rect.setFill(Color.ORANGE);
-        Path path = new Path(new MoveTo(30, 25),new LineTo(40,25),new LineTo(260,25));
+        Path path = new Path(new MoveTo(30, 25),new LineTo(40,25),new LineTo(550,25));
         path.setStroke(Color.DODGERBLUE);
         path.getStrokeDashArray().setAll(5d, 5d);
         PathTransition transition = new PathTransition(Duration.seconds(flightTime), path, imageView);
@@ -352,7 +352,7 @@ public class UserInterfaceController implements Initializable {
     	currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose,videoLanguageChoose);
         currentPageNum =1;
         maxPageNum = (currentMovies.size()-1)/15;
-        if(maxPageNum<0)
+        if(maxPageNum<=0)
         	maxPageNum = 1; 
         if(debug)
         	System.out.printf("get %d pages movies",maxPageNum);
@@ -362,10 +362,22 @@ public class UserInterfaceController implements Initializable {
         ImageView imageView = new ImageView(c.icon);
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
-        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        VBox vBox = new VBox();
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setAlignment(Pos.BOTTOM_CENTER);
+        vBox.getChildren().add(imageView);
+        Label l1 = I18N.labelForValue(() -> I18N.get("label."+c.categoryName, c.categoryName));
+        vBox.getChildren().add(l1);
+        vBox.setId("movieCategory");
+        vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
             	if(!categoryChoose.equals(c.categoryName)){
+            		if(lastChoosenLabel!=null){
+            			lastChoosenLabel.setTextFill(Color.BLACK);
+            		}
+            		lastChoosenLabel = l1;
+            		l1.setTextFill(Color.GREEN);
             		categoryChoose = c.categoryName;
             		currentTabPane = categoryTabPaneHashMap.get(c.categoryName);
             		videoLanguageChoose = categoryCountryHashMap.get(c.categoryName).iterator().next();
@@ -375,12 +387,7 @@ public class UserInterfaceController implements Initializable {
             	}
             }
         });
-        VBox vBox = new VBox();
-        vBox.setPadding(new Insets(10, 10, 10, 10));
-        vBox.setAlignment(Pos.BOTTOM_CENTER);
-        vBox.getChildren().add(imageView);
-        vBox.getChildren().add(new Label(c.categoryName));
-        vBox.setId("movieCategory");
+        System.out.println(c.categoryName);
         return vBox;
     }
 
@@ -399,4 +406,7 @@ public class UserInterfaceController implements Initializable {
 		vBox.setOnMouseClicked(event -> MovieDetailView.showDetail(movie));
         return vBox;
     }
+
+
+
 }

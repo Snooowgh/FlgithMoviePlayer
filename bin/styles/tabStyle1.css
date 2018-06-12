@@ -1,32 +1,40 @@
+.choice-box {
+	-fx-background-color: black;
+	-fx-text-alignment:center;
+}
+
+
+.choice-box .label{
+	-fx-text-fill: #96b946; 
+	-fx-font-weight: bold; 
+	-fx-font-size: 11pt;
+}
+
+
 .tab {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #ffffff;
-    -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #202020;
+    -fx-background-color: #000000;
     -fx-font-family: Arial;
     -fx-font-size: 11pt;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
     -fx-opacity:1;
+    -fx-font-weight: bold;
 }
 
 .tab-label{
 	-fx-text-fill: #ffffff;
 }
 
-.tab:seleted {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #ffffff;
-    -fx-font-family: Arial;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #000000;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+.tab:selected {
+    -fx-background-color: #000000;
+    -fx-font-weight: bold;
 }
 
-
+.tab:selected .tab-label{
+	-fx-font-family: Arial;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #96b946;
+}
 
 #movieView{
     -fx-background-color: #ffffff;
@@ -66,6 +74,7 @@
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-font-weight: bold;
 }
 
 .button:hover {
@@ -73,8 +82,9 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-    -fx-background-color: black;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
 }
 
 .button:focused {
@@ -83,17 +93,20 @@
     -fx-border-style: solid;
     -fx-border-radius: 1px;
     -fx-border-insets: 1 1 1 1, 0;
+    -fx-font-weight: bold;
 }
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
     -fx-background-color: #1d1d1d;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
 
 .button:default {
     -fx-background-color: -fx-focus-color;
     -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 .button:default:hover {

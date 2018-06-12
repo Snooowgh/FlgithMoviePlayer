@@ -43,6 +43,8 @@ public class movieDetailController{
 
 
     public void start(Movie movie) {
+        if (movie==null)
+            return;
         Movie loadMovie = MovieInfoLoader.loadMovieInfo(movie);
         directorInfoLabel.setText(loadMovie.getTitle());
         actorsInfoLabel.setText(loadMovie.getActors().toString());

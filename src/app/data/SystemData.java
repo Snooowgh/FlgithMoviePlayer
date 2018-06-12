@@ -8,23 +8,29 @@ import java.util.Locale;
 public class SystemData {
     public static String language = "English";
     public static int FlightTime = 10;
+    /**
+     * sets the given Locale in the I18N class and keeps count of the number of switches.
+     *
+     * @param value
+     *         the new local to set
+     */
     public static void setDefaultLanguage(String value){
         switch (value){
             case "English":
-                Locale.setDefault(Locale.ENGLISH);
+                I18N.setLocale(Locale.ENGLISH);
                 break;
-            case "简体中文":
-                Locale.setDefault(Locale.CHINA);
+            case "Fran鏰is":
+                I18N.setLocale(Locale.FRENCH);
                 break;
-            case "日本语":
-                Locale.setDefault(Locale.JAPAN);
+            case "Deutsche":
+                I18N.setLocale(Locale.GERMAN);
                 break;
             default:
-                Locale.setDefault(Locale.ENGLISH);
+                I18N.setLocale(Locale.ENGLISH);
         }
     }
 
     public static ObservableList<String> getSupportedLanguage() {
-        return FXCollections.observableArrayList("简体中文", "English", "日本语");
+        return FXCollections.observableArrayList("English", "Franz鰏isch","Deutsche");
     }
 }
