@@ -178,9 +178,6 @@ public class Movie implements Comparable<Movie> {
         this.movieFileName = movieFileName;
     }
 
-    public int getId() {
-        return id;
-    }
 
     @Override
     public String  toString(){

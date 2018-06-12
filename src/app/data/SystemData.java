@@ -56,6 +56,21 @@ public class SystemData {
         }
     }
 
+    public static String getDefaultStyle(){
+        String defaultStyle;
+        switch (SystemData.prop.getProperty("userInterface")){
+            case "red":
+                defaultStyle = "Style_red.css";
+                break;
+            case "black":
+                defaultStyle = "Style_black.css";
+                break;
+            default:
+                defaultStyle= "tabStyle1.css";
+        }
+        return defaultStyle;
+    }
+
     public static ObservableList<String> getSupportedLanguage() {
         return FXCollections.observableArrayList("English", "Französisch","Deutsche");
     }

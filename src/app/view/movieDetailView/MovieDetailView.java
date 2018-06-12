@@ -1,5 +1,6 @@
 package app.view.movieDetailView;
 
+import app.data.SystemData;
 import app.model.Movie;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -29,6 +30,7 @@ public class MovieDetailView  extends AnchorPane {
         movieDetailView = new MovieDetailView(movie);
         controller.start(movie);
         Scene scene = new Scene(movieDetailView);
+        scene.getStylesheets().add("./styles/"+SystemData.getDefaultStyle());
         Stage primaryStage = new Stage();
         primaryStage.setTitle(movie.getTitle());
         primaryStage.setScene(scene);

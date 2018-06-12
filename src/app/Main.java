@@ -25,18 +25,7 @@ public class Main extends Application {
             primaryStage.titleProperty().bind(I18N.createStringBinding("title"));
             primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.png").toExternalForm()));
             Scene scene = new Scene(root);
-            String defaultStyle;
-            switch (SystemData.prop.getProperty("userInterface")){
-                case "red":
-                    defaultStyle = "Style_red.css";
-                    break;
-                case "black":
-                    defaultStyle = "Style_black.css";
-                    break;
-                default:
-                     defaultStyle= "tabStyle1.css";
-            }
-            scene.getStylesheets().add(getClass().getResource("../styles/"+defaultStyle).toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("../styles/"+SystemData.getDefaultStyle()).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setResizable(false) ;
             primaryStage.show();
