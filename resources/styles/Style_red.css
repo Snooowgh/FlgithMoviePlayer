@@ -5,7 +5,7 @@
 
 
 .choice-box .label{
-    -fx-text-fill: #96b946;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-font-size: 11pt;
 }
@@ -14,7 +14,7 @@
 .tab {
     -fx-padding: 5 22 5 22;
     -fx-background-radius: 0;
-    -fx-background-color: #e62a12;
+    -fx-background-color: rgba(230, 42, 18, 0.98);
     -fx-font-family: Arial;
     -fx-font-size: 11pt;
     -fx-opacity:1;
@@ -26,7 +26,6 @@
 }
 
 .tab:selected {
-    -fx-background-color: #e62a12;
     -fx-font-weight: bold;
 }
 
@@ -49,32 +48,32 @@
 }
 .tab-header-background{
     -fx-focus-traversable: true;
-    -fx-background-color: #e62a12;
+    -fx-background-color: rgba(230, 42, 18, 0.98);
 }
 
 .tabPane{
-    -fx-background-color: #ffffff;
+    -fx-background-color: rgba(230, 42, 18, 0.98);
 }
 
 
 .background {
-    -fx-background-color: #e62a12;
+    -fx-background-color: rgba(230, 42, 18, 0.98);
 }
 
 
 .label{
+	-fx-background-color: rgba(230, 42, 18, 0.98);
     -fx-border-color: red;
+    -fx-text-fill: #ffffff;
 }
 
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #000000;
+    -fx-background-color: rgba(230, 42, 18, 0.98);
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #ffffff;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
     -fx-font-weight: bold;
 }
