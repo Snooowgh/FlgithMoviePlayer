@@ -2,6 +2,7 @@
 package app;
 
 import app.data.I18N;
+import app.data.SystemData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,14 +20,23 @@ public class Main extends Application {
         // 创建测试窗口
 
         try {
-//            SystemData.setDefaultLanguage(SystemData.language);
-//            ResourceBundle bundle = ResourceBundle.getBundle("language.information",Locale.getDefault());
+            SystemData.init();
             Parent root = FXMLLoader.load(getClass().getResource("User_Interface.fxml"));
-//            primaryStage.setTitle("Flight Entertainment System");
             primaryStage.titleProperty().bind(I18N.createStringBinding("title"));
             primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.png").toExternalForm()));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("../styles/tabStyle1.css").toExternalForm());
+            String defaultStyle;
+            switch (SystemData.prop.getProperty("userInterface")){
+                case "red":
+                    defaultStyle = "Style_red.css";
+                    break;
+                case "black":
+                    defaultStyle = "Style_black.css";
+                    break;
+                default:
+                     defaultStyle= "tabStyle1.css";
+            }
+            scene.getStylesheets().add(getClass().getResource("../styles/"+defaultStyle).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setResizable(false) ;
             primaryStage.show();

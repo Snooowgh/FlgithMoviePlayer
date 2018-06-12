@@ -118,8 +118,7 @@ public class UserInterfaceController implements Initializable {
      * computed as movie size
      */
     private int maxPageNum;
-    private
-    Pane currentTabPane;
+    private TabPane currentTabPane;
     private ArrayList<Movie> currentMovies;
 
     private MovieSystem movieSystem;
