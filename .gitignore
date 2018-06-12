@@ -3,3 +3,5 @@ out
 *.MP4
 .idea
 bin
+.properties
+SystemData.java

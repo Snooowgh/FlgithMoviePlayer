@@ -3,6 +3,11 @@ package app.model;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Category;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javafx.scene.chart.CategoryAxis;
 
 /**
  * Movie represents a single movie
@@ -13,7 +18,8 @@ public class Movie implements Comparable<Movie> {
     private int id;
     private String title;
     private String releaseDate;
-    private List<String> categories;
+    private Set<String> oringinalCategory;
+    private Set<String> category;
     private String movieFileName;
     private String imageFileName;
     private String rating;
@@ -23,11 +29,33 @@ public class Movie implements Comparable<Movie> {
     private List<String> actors;
     private List<String> countries;
     private boolean loaded;
+    
+    //TODO it is not si-fi, it is Sci-fi
+    //TODO some problem in translating system, 
+    //TODO Snow should fix it: category  change from si-fi to Sci-fi
+    //TODO after that, change the si-fi.JPG into Sci-fi.JPG
+    final static String[] defaultCategory ={
+    		"ACTION","ADVENTURE","DRAMA","HORROR","CRIME","ANIMATION","ROMANCE","COMEDY","DETECTIVE","MUSICAL","SI-FI"
+    };
+    private boolean inDefault(String s){
+    	String cs = s.toUpperCase();
+    	for(String ds:defaultCategory){
+    		if(cs.equals(ds))
+    			return true;
+    	}
+    	return false;
+    }
 
     public Movie(String title, String releaseDate, List<String> categories, String movieFileName) {
         this.title = title;
         this.releaseDate = releaseDate;
-        this.categories = categories;
+        this.oringinalCategory.addAll(categories);
+        for(String s :this.oringinalCategory){
+        	if(inDefault(s))
+        		this.category.add(s);
+        	else
+        		this.category.add("Others");
+        }
         this.movieFileName = movieFileName;
         init();
     }
@@ -35,7 +63,6 @@ public class Movie implements Comparable<Movie> {
     public Movie(String title){
         this.title = title;
         releaseDate = "";
-        categories = new ArrayList<>();
         movieFileName = "";
         init();
     }
@@ -43,7 +70,6 @@ public class Movie implements Comparable<Movie> {
     public Movie(){
         title = "";
         releaseDate = "";
-        categories = new ArrayList<>();
         movieFileName = "";
         init();
     }
@@ -65,7 +91,11 @@ public class Movie implements Comparable<Movie> {
     public URL getMovieFileURL(){
         return getClass().getResource("../../movie-files/" + movieFileName);
     }
-
+    
+    public Set<String> getCategory(){
+    	return category;
+    }
+    
     public String getMovieFileName() {
         return movieFileName;
     }
@@ -147,7 +177,10 @@ public class Movie implements Comparable<Movie> {
     }
 
     public void addCategory(String category){
-        categories.add(category);
+    	if(inDefault(category))
+    		oringinalCategory.add(category);
+    	else
+    		oringinalCategory.add("Others");
     }
 
     public String getTitle() {
@@ -166,12 +199,24 @@ public class Movie implements Comparable<Movie> {
         this.releaseDate = releaseDate;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public Set<String> getCategories() {
+        return category;
+    }
+    
+    public Set<String> getOringinalCategories(){
+    	return this.oringinalCategory;
     }
 
     public void setCategories(List<String> categories) {
-        this.categories = categories;
+        this.oringinalCategory = new TreeSet<String>();
+        this.oringinalCategory.addAll(categories);
+        this.category = new TreeSet<String>(); 
+        for(String s :this.oringinalCategory){
+        	if(inDefault(s))
+        		this.category.add(s);
+        	else
+        		this.category.add("Others");
+        }
     }
 
     public void setMovieFileName(String movieFileName) {
@@ -181,7 +226,7 @@ public class Movie implements Comparable<Movie> {
 
     @Override
     public String  toString(){
-        return String.format("{%s, %s, %s}", title, releaseDate , categories);
+        return String.format("{%s, %s, %s}", title, releaseDate , oringinalCategory);
     }
 
     @Override
