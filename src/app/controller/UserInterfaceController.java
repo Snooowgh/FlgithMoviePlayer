@@ -124,7 +124,6 @@ public class UserInterfaceController implements Initializable {
      */
     @FXML
     public HBox movielist;
-    public boolean debug = true;
     private int currentPageNum;
     /**
      * computed as movie size
@@ -145,7 +144,7 @@ public class UserInterfaceController implements Initializable {
 
     private Label lastChoosenLabel = null;
     
-    public static Scene mainScene = null;
+    public static Scene mainScene;
 
     /**
      * 1. load movies from MovieSystem
@@ -166,12 +165,11 @@ public class UserInterfaceController implements Initializable {
                 public void handle(ActionEvent event) {
                     SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
                     numSwitches++;
-                    if (debug)
-                        System.out.println("changed to " + languageChoiceBox.getValue().toString());
+
                 }
             });
             
-        skinChoiceBox.getItems().addAll(SystemData.getSupportedColor());
+        skinChoiceBox.getItems().addAll(SystemData.supportedColor);
         skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
        	      @Override
        	      public ListCell<Color> call(ListView<Color> p) {
@@ -221,8 +219,7 @@ public class UserInterfaceController implements Initializable {
                 public void handle(MouseEvent event) {
                     if (currentPageNum > 1) {
                         currentPageNum--;
-                        if (debug)
-                            System.out.println("click button pre, jump to page " + currentPageNum);
+
                         showMovieWhenClickTab();
                     }
                 }
@@ -232,8 +229,6 @@ public class UserInterfaceController implements Initializable {
                 public void handle(MouseEvent event) {
                     if (currentPageNum < maxPageNum) {
                         currentPageNum++;
-                        if (debug)
-                            System.out.println("click button next, jump to page " + currentPageNum);
                         showMovieWhenClickTab();
                     }
                 }
@@ -242,7 +237,6 @@ public class UserInterfaceController implements Initializable {
             createFlightLineView(SystemData.flightTime);
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -319,22 +313,11 @@ public class UserInterfaceController implements Initializable {
         for (Tab t : currentTabPane.getTabs()) {
             if (t.getText().equals(videoLanguageChoose)) {
                 currentTabPane.getSelectionModel().select(t);
-                if (debug)
-                    System.out.printf("successfully find defualt video language(%s) of default category(%s)\n",
-                            videoLanguageChoose, categoryChoose);
                 break;
             }
         }
         String choosen = currentTabPane.getSelectionModel().getSelectedItem().getText();
-        if (debug) {
-            if (choosen.equals(videoLanguageChoose))
-                System.out.printf("successfully load defualt video language(%s) of default category(%s)\n",
-                        videoLanguageChoose, categoryChoose);
-            else
-                System.err.printf("failed to find defualt video language(%s) of default category(%s)\n"
-                                + "choosen video language: %s\n",
-                        videoLanguageChoose, categoryChoose, choosen);
-        }
+
         currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(
                 categoryChoose,
                 choosen
@@ -343,8 +326,6 @@ public class UserInterfaceController implements Initializable {
         if (maxPageNum <= 0) {
             maxPageNum = 1;
         }
-        if (debug)
-            System.out.printf("get %d pages movies\n", maxPageNum);
 
         currentPageNum = 1;
         showMovieWhenClickTab();
@@ -379,10 +360,6 @@ public class UserInterfaceController implements Initializable {
             vb.getChildren().add(h);
 
         }
-
-
-        if (debug)
-            System.out.printf("load %d movie for this page\n", which - (currentPageNum - 1) * 15);
 
 
         vb.setAlignment(Pos.TOP_LEFT);
@@ -430,8 +407,6 @@ public class UserInterfaceController implements Initializable {
         maxPageNum = (currentMovies.size() - 1) / 15;
         if (maxPageNum <= 0)
             maxPageNum = 1;
-        if (debug)
-            System.out.printf("get %d pages movies", maxPageNum);
     }
 
     /**

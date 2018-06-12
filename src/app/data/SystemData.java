@@ -79,9 +79,6 @@ public class SystemData {
         return FXCollections.observableArrayList("English", "Französisch","Deutsche");
     }
 
-    public static Color[] getSupportedColor() {
-        return supportedColor;
-    }
 
     public static String transColor(String s) {
         String chooseColor;

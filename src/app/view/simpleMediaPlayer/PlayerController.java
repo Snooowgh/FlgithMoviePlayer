@@ -386,8 +386,6 @@ public class PlayerController {
        mediaPlayer.dispose();
        media = null;
        mediaPlayer = null;
-       System.gc();
-
    }
 
 

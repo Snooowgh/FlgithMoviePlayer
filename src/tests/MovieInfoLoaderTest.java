@@ -40,9 +40,4 @@ public class MovieInfoLoaderTest {
         }
     }
 
-    @Test
-    public void testLoadNonExistingMovie(){
-        Movie mov = MovieInfoLoader.loadMovieInfo(new Movie("My cool movie"));
-
-    }
 }

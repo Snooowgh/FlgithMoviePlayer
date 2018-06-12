@@ -30,11 +30,8 @@ public class DBManager {
     private void loadCols() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
         String line = "";
-
         line = br.readLine();
-
         String[] movieFields = line.split(CSV_SPLIT);
-
         // Remove the double quote
         for (int i = 0; i < movieFields.length; i++) {
             movieFields[i] = movieFields[i].replace("\"", "").trim();
@@ -59,6 +56,8 @@ public class DBManager {
                 case "Loaded":
                     loadedCol = i;
                     break;
+                default:
+                    loadedCol = i;
             }
         }
         br.close();
