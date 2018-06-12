@@ -13,9 +13,17 @@ import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * MovieInfoLoader loads move data from the Internet
+ */
 public class MovieInfoLoader {
     private static final String API_KEY = "eaab2b9c";
 
+    /**
+     * Loads movie data from the internet
+     * @param movie The movie with parameters you want to query
+     * @return populated movie object
+     */
     public static Movie loadMovieInfo(Movie movie) {
         String title = movie.getTitle().replace(" ", "+");
         String sURL = "http://www.omdbapi.com/?t=" + title + "&apikey=" + API_KEY;
