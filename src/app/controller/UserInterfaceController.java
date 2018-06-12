@@ -207,6 +207,7 @@ public class UserInterfaceController implements Initializable {
         					try{
         						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+SystemData.transColor(newValue.toString())+".css").toExternalForm());
         					}catch(Exception e){
+        					    System.out.println("style conflict ignored");
         					}
         				}
         		}
@@ -238,7 +239,7 @@ public class UserInterfaceController implements Initializable {
                 }
             });
 
-            createFlightLineView(SystemData.FlightTime);
+            createFlightLineView(SystemData.flightTime);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);

@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MovieDetailView  extends AnchorPane {
-    private static movieDetailController controller;
+    private static MovieDetailController controller;
     private static MovieDetailView movieDetailView;
     public MovieDetailView(Movie movie){
         try {

@@ -63,7 +63,7 @@ public class PlayerController {
     private Scene scene ;
 
     private boolean atEndOfMedia = false;
-    private final boolean repeat = false;
+    private static final boolean repeat = false;
     private double volumeValue;
     private Duration duration ;
     private int mediaHeight;

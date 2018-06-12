@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class movieDetailController{
+public class MovieDetailController{
     @FXML
     Label directorLabel;
     @FXML

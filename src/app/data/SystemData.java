@@ -13,12 +13,12 @@ import java.util.Properties;
 
 public class SystemData {
     public static String language;
-    public static int FlightTime = 10;
-    public static Properties prop = new Properties();
+    public static int flightTime = 10;
+    public static Properties prop;
     public static Color[] supportedColor = {Color.BLACK,Color.RED};
     public static void init(){
         SystemData.initializeProperties("user.properties");
-        FlightTime = Integer.parseInt(prop.getProperty("flightTime"));
+        flightTime = Integer.parseInt(prop.getProperty("flightTime"));
         language = getSupportedLanguage().contains(prop.getProperty("defaultLanguage"))?prop.getProperty("defaultLanguage"):"English";
     }
 
@@ -51,7 +51,10 @@ public class SystemData {
         try {
             InputStream in = SystemData.class.getResourceAsStream("/"+fileName);
             BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+            prop = new Properties();
             prop.load(bf);
+            bf.close();
+            in.close();
         }catch (IOException e){
             e.printStackTrace();
         }

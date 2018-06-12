@@ -32,6 +32,7 @@ public class DBManager {
         String line = "";
 
         line = br.readLine();
+
         String[] movieFields = line.split(CSV_SPLIT);
 
         // Remove the double quote
@@ -60,6 +61,7 @@ public class DBManager {
                     break;
             }
         }
+        br.close();
     }
 
     /**
@@ -117,7 +119,7 @@ public class DBManager {
 
             lineNum++;
         }
-
+        br.close();
         return movies;
     }
 
@@ -170,7 +172,7 @@ public class DBManager {
             lineNum++;
 
         }
-
+        br.close();
         PrintWriter pw = new PrintWriter(new FileWriter(CSVpath.getFile()));
         pw.write(out.toString());
         pw.close();

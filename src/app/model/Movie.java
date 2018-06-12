@@ -9,8 +9,7 @@ import java.util.List;
  *
  * @author Daniel Babbev
  */
-public class Movie implements Comparable<Movie> {
-    private int id;
+public class Movie {
     private String title;
     private String releaseDate;
     private List<String> categories;
@@ -184,7 +183,4 @@ public class Movie implements Comparable<Movie> {
         return String.format("{%s, %s, %s}", title, releaseDate , categories);
     }
 
-    @Override
-    public int compareTo(Movie o) {
-        return this.title.compareTo(o.title);    }
 }
