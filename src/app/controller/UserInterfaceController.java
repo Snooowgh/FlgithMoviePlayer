@@ -7,7 +7,6 @@ import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -172,7 +171,7 @@ public class UserInterfaceController implements Initializable {
                 }
             });
             
-        skinChoiceBox.getItems().addAll(Color.BLACK,Color.RED);
+        skinChoiceBox.getItems().addAll(SystemData.getSupportedColor());
         skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
        	      @Override
        	      public ListCell<Color> call(ListView<Color> p) {
@@ -203,23 +202,11 @@ public class UserInterfaceController implements Initializable {
             public void changed(ObservableValue<? extends Color> observable,
                                 Color oldValue, Color newValue) {
         		if(!oldValue.equals(newValue)){
-        				String chooseColor;
-        				switch(newValue.toString()){
-        				    //Style_red.css
-        					case "0xff0000ff": chooseColor = "red";break;
-        					case "0x000000ff": chooseColor = "black";break;
-        					default :chooseColor = "black";
-        				}
-        				
-        				if(debug)
-        					System.out.println(chooseColor);
         				if(mainScene!=null){
         					mainScene.getStylesheets().clear();
         					try{
-        						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+chooseColor+".css").toExternalForm());
+        						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+SystemData.transColor(newValue.toString())+".css").toExternalForm());
         					}catch(Exception e){
-        						e.printStackTrace();
-        						//System.out.println("successful change color");//don't tell others
         					}
         				}
         		}

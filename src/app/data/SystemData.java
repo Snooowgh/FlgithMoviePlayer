@@ -2,6 +2,7 @@ package app.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class SystemData {
     public static String language;
     public static int FlightTime = 10;
     public static Properties prop = new Properties();
-
+    public static Color[] supportedColor = {Color.BLACK,Color.RED};
     public static void init(){
         SystemData.initializeProperties("user.properties");
         FlightTime = Integer.parseInt(prop.getProperty("flightTime"));
@@ -73,5 +74,20 @@ public class SystemData {
 
     public static ObservableList<String> getSupportedLanguage() {
         return FXCollections.observableArrayList("English", "Französisch","Deutsche");
+    }
+
+    public static Color[] getSupportedColor() {
+        return supportedColor;
+    }
+
+    public static String transColor(String s) {
+        String chooseColor;
+        switch(s){
+            //Style_red.css
+            case "0xff0000ff": chooseColor = "red";break;
+            case "0x000000ff": chooseColor = "black";break;
+            default :chooseColor = "black";
+        }
+        return chooseColor;
     }
 }
