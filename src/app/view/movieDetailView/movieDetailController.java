@@ -46,6 +46,9 @@ public class movieDetailController{
         categoryInfoLabel.setText(movie.getCategories().toString());
         Image image = new Image(movie.getImageFileURL().toString());
         imageView.setImage(image);
+        imageView.setFitHeight(297);
+        imageView.setFitWidth(413);
+
         imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
