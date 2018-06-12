@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * MovieSystem connects all the backed elements and logic together in
  * an easy to use API.
- *
+ * <p>
  * The controller interacts with this object only
  *
  * @author Daniel Babbev
@@ -21,12 +21,12 @@ public class MovieSystem {
     }
 
 
-    public void addMovie(Movie movie){
+    public void addMovie(Movie movie) {
         movies.add(movie);
     }
 
-    public Movie getMovie(String name){
-        for (Movie m : movies){
+    public Movie getMovie(String name) {
+        for (Movie m : movies) {
             if (m.getTitle().equals(name))
                 return m;
         }
@@ -37,11 +37,11 @@ public class MovieSystem {
     /**
      * @return a list of all the unique categories
      */
-    public List<String> getUniqueCategories(){
+    public List<String> getUniqueCategories() {
         List<String> categories = new ArrayList<>();
 
-        for (Movie m : movies){
-            for (String cat : m.getCategories()){
+        for (Movie m : movies) {
+            for (String cat : m.getCategories()) {
                 if (!categories.contains(cat))
                     categories.add(cat);
             }
@@ -50,30 +50,30 @@ public class MovieSystem {
         return categories;
     }
 
-    public HashMap<String,Set<String>> getCategoriesCountriesHashMap(){
-        HashMap<String,Set<String>> classify = new HashMap<>();
+    public HashMap<String, Set<String>> getCategoriesCountriesHashMap() {
+        HashMap<String, Set<String>> classify = new HashMap<>();
         Set<String> countries;
-        for (Movie m : movies){
-            for(String cate : m.getCategories()){
-            	for(String coun : m.getLanguages()){
-            		if(classify.containsKey(cate)){
-            			classify.get(cate).add(coun);
-            		}else{
-            			countries = new TreeSet<String>();
-            			countries.add(coun);
-            			classify.put(cate, countries);
-            		}
-            	}
+        for (Movie m : movies) {
+            for (String cate : m.getCategories()) {
+                for (String coun : m.getLanguages()) {
+                    if (classify.containsKey(cate)) {
+                        classify.get(cate).add(coun);
+                    } else {
+                        countries = new TreeSet<String>();
+                        countries.add(coun);
+                        classify.put(cate, countries);
+                    }
+                }
             }
         }
         return classify;
     }
 
-    
-    public List<String> getCountries(){
+
+    public List<String> getCountries() {
         List<String> langs = new ArrayList<>();
-        for (Movie m : movies){
-            for (String lang : m.getLanguages()){
+        for (Movie m : movies) {
+            for (String lang : m.getLanguages()) {
                 if (!langs.contains(lang))
                     langs.add(lang);
             }
@@ -81,19 +81,19 @@ public class MovieSystem {
         return langs;
     }
 
-    public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory){
+    public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory) {
         List<Movie> mov = new ArrayList<>();
-        for (Movie m : movies){
-            if (m.getCategories().contains(firstCategory)&&m.getLanguages().contains(secondCategory))
+        for (Movie m : movies) {
+            if (m.getCategories().contains(firstCategory) && m.getLanguages().contains(secondCategory))
                 mov.add(m);
         }
         return mov;
     }
 
-    public List<Movie> getMoviesByCategory(String category){
+    public List<Movie> getMoviesByCategory(String category) {
         List<Movie> mov = new ArrayList<>();
 
-        for (Movie m : movies){
+        for (Movie m : movies) {
             if (m.getCategories().contains(category))
                 mov.add(m);
         }
@@ -102,13 +102,13 @@ public class MovieSystem {
     }
 
 
-
     public List<Movie> getMovies() {
         return movies;
     }
 
     /**
      * Loads the movie list from a CSV file
+     *
      * @param path the path to the CSV
      */
     public void loadMoviesFromCSV(URL path) throws IOException {

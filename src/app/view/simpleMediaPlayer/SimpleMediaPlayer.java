@@ -16,19 +16,11 @@ import java.io.IOException;
 public class SimpleMediaPlayer extends AnchorPane {
 
 
-
-
     private static SimpleMediaPlayer simpleMediaPlayer;
     private PlayerController controller;
 
 
-    protected PlayerController getController(){
-        return this.controller;
-    }
-
-
-
-    private SimpleMediaPlayer(String mediaUrl){
+    private SimpleMediaPlayer(String mediaUrl) {
         try {
             FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("player.fxml"));
             Parent root = fxmlloader.load();
@@ -42,32 +34,24 @@ public class SimpleMediaPlayer extends AnchorPane {
 
     }
 
-
-
-    public void setSize(int width,int height){
-        if(simpleMediaPlayer.getController().getPopup())
-            return ;
-        simpleMediaPlayer.getController().setMediaPlayer(width,height);
+    public static SimpleMediaPlayer newInstance(String mediaUrl) {
+        return newInstance(mediaUrl, 600, 400);
     }
 
-
-    public static SimpleMediaPlayer  newInstance(String mediaUrl){
-        return newInstance(mediaUrl,600,400);
-    }
-    public static SimpleMediaPlayer newInstance(String mediaUrl,int width,int height){
+    public static SimpleMediaPlayer newInstance(String mediaUrl, int width, int height) {
         simpleMediaPlayer = new SimpleMediaPlayer(mediaUrl);
-        simpleMediaPlayer.getController().start(mediaUrl,false,width,height);
+        simpleMediaPlayer.getController().start(mediaUrl, false, width, height);
         return simpleMediaPlayer;
     }
 
-
-    public static SimpleMediaPlayer popup(String mediaUrl){
-        return popup(mediaUrl,800,600);
+    public static SimpleMediaPlayer popup(String mediaUrl) {
+        return popup(mediaUrl, 800, 600);
     }
-    public static SimpleMediaPlayer  popup(String mediaUrl,int width,int height){
-       simpleMediaPlayer = new SimpleMediaPlayer(mediaUrl);
-        simpleMediaPlayer.getController().start(mediaUrl,true,width,height);
-        Scene scene = new Scene(simpleMediaPlayer,width,height);
+
+    public static SimpleMediaPlayer popup(String mediaUrl, int width, int height) {
+        simpleMediaPlayer = new SimpleMediaPlayer(mediaUrl);
+        simpleMediaPlayer.getController().start(mediaUrl, true, width, height);
+        Scene scene = new Scene(simpleMediaPlayer, width, height);
         simpleMediaPlayer.getController().setScene(scene);
 
         Stage primaryStage = new Stage();
@@ -75,7 +59,7 @@ public class SimpleMediaPlayer extends AnchorPane {
         primaryStage.setScene(scene);
 
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 simpleMediaPlayer.getController().destroy();
@@ -83,5 +67,15 @@ public class SimpleMediaPlayer extends AnchorPane {
         });
         primaryStage.show();
         return simpleMediaPlayer;
+    }
+
+    protected PlayerController getController() {
+        return this.controller;
+    }
+
+    public void setSize(int width, int height) {
+        if (simpleMediaPlayer.getController().getPopup())
+            return;
+        simpleMediaPlayer.getController().setMediaPlayer(width, height);
     }
 }

@@ -15,21 +15,21 @@ public class SystemData {
     public static String language;
     public static int flightTime = 10;
     public static Properties prop;
-    public static Color[] supportedColor = {Color.BLACK,Color.RED};
-    public static void init(){
+    public static Color[] supportedColor = {Color.BLACK, Color.RED};
+
+    public static void init() {
         SystemData.initializeProperties("user.properties");
         flightTime = Integer.parseInt(prop.getProperty("flightTime"));
-        language = getSupportedLanguage().contains(prop.getProperty("defaultLanguage"))?prop.getProperty("defaultLanguage"):"English";
+        language = getSupportedLanguage().contains(prop.getProperty("defaultLanguage")) ? prop.getProperty("defaultLanguage") : "English";
     }
 
     /**
      * sets the given Locale in the I18N class and keeps count of the number of switches.
      *
-     * @param value
-     *         the new local to set
+     * @param value the new local to set
      */
-    public static void setDefaultLanguage(String value){
-        switch (value){
+    public static void setDefaultLanguage(String value) {
+        switch (value) {
             case "English":
                 I18N.setLocale(Locale.ENGLISH);
                 break;
@@ -43,26 +43,28 @@ public class SystemData {
                 I18N.setLocale(Locale.ENGLISH);
         }
     }
+
     /**
      * Read properties file
+     *
      * @param fileName
      */
-    public static void initializeProperties(String fileName){
+    public static void initializeProperties(String fileName) {
         try {
-            InputStream in = SystemData.class.getResourceAsStream("/"+fileName);
-            BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+            InputStream in = SystemData.class.getResourceAsStream("/" + fileName);
+            BufferedReader bf = new BufferedReader(new InputStreamReader(in),1024);
             prop = new Properties();
             prop.load(bf);
             bf.close();
             in.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static String getDefaultStyle(){
+    public static String getDefaultStyle() {
         String defaultStyle;
-        switch (SystemData.prop.getProperty("userInterface")){
+        switch (SystemData.prop.getProperty("userInterface")) {
             case "red":
                 defaultStyle = "Style_red.css";
                 break;
@@ -70,23 +72,28 @@ public class SystemData {
                 defaultStyle = "Style_black.css";
                 break;
             default:
-                defaultStyle= "tabStyle1.css";
+                defaultStyle = "tabStyle1.css";
         }
         return defaultStyle;
     }
 
     public static ObservableList<String> getSupportedLanguage() {
-        return FXCollections.observableArrayList("English", "Französisch","Deutsche");
+        return FXCollections.observableArrayList("English", "Französisch", "Deutsche");
     }
 
 
     public static String transColor(String s) {
         String chooseColor;
-        switch(s){
+        switch (s) {
             //Style_red.css
-            case "0xff0000ff": chooseColor = "red";break;
-            case "0x000000ff": chooseColor = "black";break;
-            default :chooseColor = "black";
+            case "0xff0000ff":
+                chooseColor = "red";
+                break;
+            case "0x000000ff":
+                chooseColor = "black";
+                break;
+            default:
+                chooseColor = "black";
         }
         return chooseColor;
     }

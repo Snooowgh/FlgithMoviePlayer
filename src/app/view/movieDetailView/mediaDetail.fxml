@@ -3,63 +3,106 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.movieDetailView.MovieDetailController">
-  <children>
-      <SplitPane dividerPositions="0.6550976138828634" orientation="VERTICAL" prefHeight="463.0" prefWidth="708.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <SplitPane dividerPositions="0.578125" prefHeight="299.0" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                      <AnchorPane>
-                           <children>
-                        <ImageView fx:id="imageView" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                           <children>
-                        <GridPane prefHeight="297.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <children>
-                        <Label fx:id="directorLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label fx:id="actorsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Actors" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Label fx:id="releasedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Released_Year" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <Label fx:id="categoryLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="%Category" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <Label fx:id="directorInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textFill="#ff2bb8" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label fx:id="actorsInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="releasedInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                  <AnchorPane prefHeight="85.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                       <children>
-                              <Label fx:id="categoryInfoLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0" text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                        </children>
-                        <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="116.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="163.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints />
-                        </rowConstraints>
-                        </GridPane>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="706.0">
-               <children>
-              <ScrollPane hbarPolicy="NEVER" layoutY="13.0" minHeight="0.0" minWidth="0.0" prefHeight="156.0" prefWidth="706.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                 <content>
-                     <TextArea fx:id="detailText" editable="false" layoutX="0.0" layoutY="0.0" prefHeight="227.0" prefWidth="705.0" text="Plot introduction" wrapText="true" />
-                 </content>
-              </ScrollPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-  </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="463.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="app.view.movieDetailView.MovieDetailController">
+    <children>
+        <SplitPane dividerPositions="0.6550976138828634" orientation="VERTICAL" prefHeight="463.0" prefWidth="708.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <SplitPane dividerPositions="0.578125" prefHeight="299.0" prefWidth="706.0"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane>
+                                    <children>
+                                        <ImageView fx:id="imageView" nodeOrientation="INHERIT" pickOnBounds="true"
+                                                   preserveRatio="true"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                    <children>
+                                        <GridPane prefHeight="297.0" prefWidth="294.0" AnchorPane.bottomAnchor="0.0"
+                                                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                  AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <Label fx:id="directorLabel" alignment="CENTER" contentDisplay="CENTER"
+                                                       prefHeight="92.0" prefWidth="208.0" text="%Director"
+                                                       textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                                <Label fx:id="actorsLabel" alignment="CENTER" contentDisplay="CENTER"
+                                                       prefHeight="92.0" prefWidth="208.0" text="%Actors"
+                                                       textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                                <Label fx:id="releasedLabel" alignment="CENTER" contentDisplay="CENTER"
+                                                       prefHeight="92.0" prefWidth="208.0" text="%Released_Year"
+                                                       textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                                <Label fx:id="categoryLabel" alignment="CENTER" contentDisplay="CENTER"
+                                                       prefHeight="92.0" prefWidth="208.0" text="%Category"
+                                                       textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                                <Label fx:id="directorInfoLabel" alignment="CENTER"
+                                                       contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0"
+                                                       text="Director" textAlignment="CENTER" textFill="#ff2bb8"
+                                                       textOverrun="ELLIPSIS" GridPane.columnIndex="1"
+                                                       GridPane.rowIndex="0"/>
+                                                <Label fx:id="actorsInfoLabel" alignment="CENTER"
+                                                       contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0"
+                                                       text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                                <Label fx:id="releasedInfoLabel" alignment="CENTER"
+                                                       contentDisplay="CENTER" prefHeight="92.0" prefWidth="208.0"
+                                                       text="Director" textAlignment="CENTER" textOverrun="ELLIPSIS"
+                                                       GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                                                <AnchorPane prefHeight="85.0" prefWidth="155.0" GridPane.columnIndex="1"
+                                                            GridPane.rowIndex="3">
+                                                    <children>
+                                                        <Label fx:id="categoryInfoLabel" alignment="CENTER"
+                                                               contentDisplay="CENTER" prefHeight="92.0"
+                                                               prefWidth="208.0" text="Director" textAlignment="CENTER"
+                                                               textOverrun="ELLIPSIS" AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="0.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                            </children>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0"
+                                                                   prefWidth="116.0"/>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0"
+                                                                   prefWidth="163.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                                <RowConstraints/>
+                                            </rowConstraints>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="706.0">
+                    <children>
+                        <ScrollPane hbarPolicy="NEVER" layoutY="13.0" minHeight="0.0" minWidth="0.0" prefHeight="156.0"
+                                    prefWidth="706.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <content>
+                                <TextArea fx:id="detailText" editable="false" layoutX="0.0" layoutY="0.0"
+                                          prefHeight="227.0" prefWidth="705.0" text="Plot introduction"
+                                          wrapText="true"/>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

@@ -31,7 +31,7 @@ public class Movie {
         init();
     }
 
-    public Movie(String title){
+    public Movie(String title) {
         this.title = title;
         releaseDate = "";
         categories = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Movie {
         init();
     }
 
-    public Movie(){
+    public Movie() {
         title = "";
         releaseDate = "";
         categories = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Movie {
         init();
     }
 
-    private void init(){
+    private void init() {
         this.rating = "";
         this.plot = "";
         this.languages = new ArrayList<>();
@@ -59,9 +59,10 @@ public class Movie {
 
     /**
      * Ensure that the movie file is set correctly and the file is under /resources/movie-list/
+     *
      * @return The URL of the movie in the resources folder.
      */
-    public URL getMovieFileURL(){
+    public URL getMovieFileURL() {
         return getClass().getResource("../../movie-files/" + movieFileName);
     }
 
@@ -69,8 +70,16 @@ public class Movie {
         return movieFileName;
     }
 
+    public void setMovieFileName(String movieFileName) {
+        this.movieFileName = movieFileName;
+    }
+
     public String getImageFileName() {
         return imageFileName;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
     }
 
     public boolean isLoaded() {
@@ -81,15 +90,12 @@ public class Movie {
         this.loaded = loaded;
     }
 
-    public void setImageFileName(String imageFileName) {
-        this.imageFileName = imageFileName;
-    }
-
     /**
      * Ensure that the image file is set correctly and the file is under /resources/pictures/
+     *
      * @return The URL of the image in the resources folder.
      */
-    public URL getImageFileURL(){
+    public URL getImageFileURL() {
         return getClass().getResource("../../pictures/" + imageFileName);
     }
 
@@ -145,7 +151,7 @@ public class Movie {
         return imageFileName;
     }
 
-    public void addCategory(String category){
+    public void addCategory(String category) {
         categories.add(category);
     }
 
@@ -173,14 +179,9 @@ public class Movie {
         this.categories = categories;
     }
 
-    public void setMovieFileName(String movieFileName) {
-        this.movieFileName = movieFileName;
-    }
-
-
     @Override
-    public String  toString(){
-        return String.format("{%s, %s, %s}", title, releaseDate , categories);
+    public String toString() {
+        return String.format("{%s, %s, %s}", title, releaseDate, categories);
     }
 
 }

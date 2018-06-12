@@ -1,4 +1,3 @@
-
 package app;
 
 import app.controller.UserInterfaceController;
@@ -26,11 +25,11 @@ public class Main extends Application {
             primaryStage.titleProperty().bind(I18N.createStringBinding("title"));
             primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.png").toExternalForm()));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("../styles/"+SystemData.getDefaultStyle()).toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("../styles/" + SystemData.getDefaultStyle()).toExternalForm());
             //System.out.println(SystemData.getDefaultStyle());
             UserInterfaceController.mainScene = scene;
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false) ;
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

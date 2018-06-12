@@ -84,15 +84,14 @@ class Category {
  * @2018年6月10日上午1:48:13
  */
 public class UserInterfaceController implements Initializable {
+    public static Scene mainScene;
     /**
      * choose system language here
      */
     @FXML
     public ChoiceBox<String> languageChoiceBox;
-    
     @FXML
     public ComboBox<Color> skinChoiceBox;
-
     @FXML
     public Pane flightPane;
     /**
@@ -141,10 +140,7 @@ public class UserInterfaceController implements Initializable {
      * number of language switches.
      */
     private Integer numSwitches = 0;
-
     private Label lastChoosenLabel = null;
-    
-    public static Scene mainScene;
 
     /**
      * 1. load movies from MovieSystem
@@ -168,51 +164,52 @@ public class UserInterfaceController implements Initializable {
 
                 }
             });
-            
-        skinChoiceBox.getItems().addAll(SystemData.supportedColor);
-        skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
-       	      @Override
-       	      public ListCell<Color> call(ListView<Color> p) {
-       	        return new ListCell<Color>() {
-       	          private final Rectangle rectangle;
-       	          {
-       	            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-       	            rectangle = new Rectangle(10, 10);
-       	          }
 
-       	          @Override
-       	          protected void updateItem(Color item, boolean empty) {
-       	            super.updateItem(item, empty);
+            skinChoiceBox.getItems().addAll(SystemData.supportedColor);
+            skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
+                @Override
+                public ListCell<Color> call(ListView<Color> p) {
+                    return new ListCell<Color>() {
+                        private final Rectangle rectangle;
 
-       	            if (item == null || empty) {
-       	              setGraphic(null);
-       	            } else {
-       	              rectangle.setFill(item);
-       	              setGraphic(rectangle);
-       	            }
-       	          }
-       	        };
-       	      }
-       	 });
-        skinChoiceBox.getSelectionModel().selectFirst();
-        skinChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Color>() {
-        	@Override
-            public void changed(ObservableValue<? extends Color> observable,
-                                Color oldValue, Color newValue) {
-        		if(!oldValue.equals(newValue)){
-        				if(mainScene!=null){
-        					mainScene.getStylesheets().clear();
-        					try{
-        						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+SystemData.transColor(newValue.toString())+".css").toExternalForm());
-        					}catch(Exception e){
-        					    System.out.println("style conflict ignored");
-        					}
-        				}
-        		}
-        		
-            }
-        });       
-         initializeMovieListScene();
+                        {
+                            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                            rectangle = new Rectangle(10, 10);
+                        }
+
+                        @Override
+                        protected void updateItem(Color item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item == null || empty) {
+                                setGraphic(null);
+                            } else {
+                                rectangle.setFill(item);
+                                setGraphic(rectangle);
+                            }
+                        }
+                    };
+                }
+            });
+            skinChoiceBox.getSelectionModel().selectFirst();
+            skinChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Color>() {
+                @Override
+                public void changed(ObservableValue<? extends Color> observable,
+                                    Color oldValue, Color newValue) {
+                    if (!oldValue.equals(newValue)) {
+                        if (mainScene != null) {
+                            mainScene.getStylesheets().clear();
+                            try {
+                                mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_" + SystemData.transColor(newValue.toString()) + ".css").toExternalForm());
+                            } catch (Exception e) {
+                                System.out.println("style conflict ignored");
+                            }
+                        }
+                    }
+
+                }
+            });
+            initializeMovieListScene();
 
             prePage.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
