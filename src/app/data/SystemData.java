@@ -33,7 +33,7 @@ public class SystemData {
             case "English":
                 I18N.setLocale(Locale.ENGLISH);
                 break;
-            case "Französisch":
+            case "Franzï¿½sisch":
                 I18N.setLocale(Locale.FRENCH);
                 break;
             case "Deutsche":

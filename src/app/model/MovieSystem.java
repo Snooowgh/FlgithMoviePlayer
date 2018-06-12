@@ -20,6 +20,9 @@ public class MovieSystem {
         //loadMoviesFromCSV(System.getProperty("user.dir") + "\\movie-list.csv");
     }
 
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
 
     public void addMovie(Movie movie) {
         movies.add(movie);

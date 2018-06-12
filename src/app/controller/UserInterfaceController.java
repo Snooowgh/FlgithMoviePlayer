@@ -2,6 +2,7 @@ package app.controller;
 
 import app.data.I18N;
 import app.data.SystemData;
+import app.model.DBManager;
 import app.model.Movie;
 import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
@@ -153,7 +154,20 @@ public class UserInterfaceController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             movieSystem = new MovieSystem();
-            movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
+
+
+            // Write new movies to CSV if any
+            // TODO: Uncomment the two lines below to use the new CSV file format to save the movies correctly
+            // TODO: If the movie data is loaded from the internet with the below func the categories break
+            // TODO: as there is no image for some categories. Provide a default image!
+            //DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
+            //dbManager.writeNewMoviesDataToCSV();
+
+            // TODO: Remove this line!!!
+            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv.bak"));
+
+            // Set the movies the system from CSV
+            movieSystem.setMovies(dbManager.getMoviesFromCSV());
             languageChoiceBox.setItems(languages);
             languageChoiceBox.getSelectionModel().select(SystemData.language);
             languageChoiceBox.setOnAction(new EventHandler<ActionEvent>() {
