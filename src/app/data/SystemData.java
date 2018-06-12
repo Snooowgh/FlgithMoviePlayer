@@ -32,7 +32,7 @@ public class SystemData {
             case "English":
                 I18N.setLocale(Locale.ENGLISH);
                 break;
-            case "Französisch":
+            case "Franzï¿½sisch":
                 I18N.setLocale(Locale.FRENCH);
                 break;
             case "Deutsche":
@@ -72,6 +72,6 @@ public class SystemData {
     }
 
     public static ObservableList<String> getSupportedLanguage() {
-        return FXCollections.observableArrayList("English", "Französisch","Deutsche");
+        return FXCollections.observableArrayList("English", "Franzï¿½sisch","Deutsche");
     }
 }
