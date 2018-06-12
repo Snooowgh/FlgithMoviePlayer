@@ -1,6 +1,16 @@
+.combo-box {
+    -fx-background-color: rgba(230, 42, 18, 0.98);
+}
+
+
+.combo-box .label{
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 11pt;
+}
+
 .choice-box {
     -fx-background-color: rgba(230, 42, 18, 0.98);
-    -fx-text-alignment:center;
 }
 
 
@@ -76,10 +86,6 @@
     -fx-text-fill: #ffffff;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
     -fx-font-weight: bold;
-}
-
-.button:hover {
-    -fx-background-color: #3a3a3a;
 }
 
 .button:pressed, .button:default:hover:pressed {

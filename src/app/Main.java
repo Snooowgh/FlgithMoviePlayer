@@ -1,6 +1,7 @@
 
 package app;
 
+import app.controller.UserInterfaceController;
 import app.data.I18N;
 import app.data.SystemData;
 import javafx.application.Application;
@@ -26,6 +27,8 @@ public class Main extends Application {
             primaryStage.getIcons().add(new Image(getClass().getResource("../pictures/logo.png").toExternalForm()));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("../styles/"+SystemData.getDefaultStyle()).toExternalForm());
+            //System.out.println(SystemData.getDefaultStyle());
+            UserInterfaceController.mainScene = scene;
             primaryStage.setScene(scene);
             primaryStage.setResizable(false) ;
             primaryStage.show();

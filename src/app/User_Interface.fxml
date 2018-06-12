@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1051.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.UserInterfaceController">
   <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="766.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -19,12 +23,13 @@
               </image>
             </ImageView>
                         <Pane fx:id="flightPane" layoutX="261.0" layoutY="5.0" prefHeight="65.0" prefWidth="268.0" />
-            <ChoiceBox fx:id="languageChoiceBox" prefHeight="46.0" prefWidth="139.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
+            <ChoiceBox fx:id="languageChoiceBox" prefHeight="46.0" prefWidth="125.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="7.0" />
                   <Label layoutX="100.0" layoutY="30.0" text="SUSTech" AnchorPane.bottomAnchor="10.5" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.5">
                      <font>
                         <Font size="42.0" />
                      </font>
                   </Label>
+                  <ComboBox fx:id="skinChoiceBox" layoutX="845.0" layoutY="8.0" prefHeight="43.0" prefWidth="57.0" />
                   
           </children>
         </AnchorPane>

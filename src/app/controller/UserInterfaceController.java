@@ -7,6 +7,9 @@ import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +32,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -85,6 +90,9 @@ public class UserInterfaceController implements Initializable {
      */
     @FXML
     public ChoiceBox<String> languageChoiceBox;
+    
+    @FXML
+    public ComboBox<Color> skinChoiceBox;
 
     @FXML
     public Pane flightPane;
@@ -137,6 +145,8 @@ public class UserInterfaceController implements Initializable {
     private Integer numSwitches = 0;
 
     private Label lastChoosenLabel = null;
+    
+    public static Scene mainScene = null;
 
     /**
      * 1. load movies from MovieSystem
@@ -147,8 +157,6 @@ public class UserInterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-
         try {
             movieSystem = new MovieSystem();
             movieSystem.loadMoviesFromCSV(getClass().getResource("../../movie-list.csv"));
@@ -163,7 +171,62 @@ public class UserInterfaceController implements Initializable {
                         System.out.println("changed to " + languageChoiceBox.getValue().toString());
                 }
             });
-            initializeMovieListScene();
+            
+        skinChoiceBox.getItems().addAll(Color.BLACK,Color.RED);
+        skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
+       	      @Override
+       	      public ListCell<Color> call(ListView<Color> p) {
+       	        return new ListCell<Color>() {
+       	          private final Rectangle rectangle;
+       	          {
+       	            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+       	            rectangle = new Rectangle(10, 10);
+       	          }
+
+       	          @Override
+       	          protected void updateItem(Color item, boolean empty) {
+       	            super.updateItem(item, empty);
+
+       	            if (item == null || empty) {
+       	              setGraphic(null);
+       	            } else {
+       	              rectangle.setFill(item);
+       	              setGraphic(rectangle);
+       	            }
+       	          }
+       	        };
+       	      }
+       	 });
+        skinChoiceBox.getSelectionModel().selectFirst();
+        skinChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Color>() {
+        	@Override
+            public void changed(ObservableValue<? extends Color> observable,
+                                Color oldValue, Color newValue) {
+        		if(!oldValue.equals(newValue)){
+        				String chooseColor;
+        				switch(newValue.toString()){
+        				    //Style_red.css
+        					case "0xff0000ff": chooseColor = "red";break;
+        					case "0x000000ff": chooseColor = "black";break;
+        					default :chooseColor = "black";
+        				}
+        				
+        				if(debug)
+        					System.out.println(chooseColor);
+        				if(mainScene!=null){
+        					mainScene.getStylesheets().clear();
+        					try{
+        						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+chooseColor+".css").toExternalForm());
+        					}catch(Exception e){
+        						e.printStackTrace();
+        						//System.out.println("successful change color");//don't tell others
+        					}
+        				}
+        		}
+        		
+            }
+        });       
+         initializeMovieListScene();
 
             prePage.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
