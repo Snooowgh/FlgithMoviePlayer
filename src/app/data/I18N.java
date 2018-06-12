@@ -1,17 +1,13 @@
 package app.data;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.Callable;
 /**
  * I18N utility class..
@@ -29,7 +25,7 @@ public final class I18N {
      * @return List of Locale objects.
      */
     public static List<Locale> getSupportedLocales() {
-        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN));
+        return new ArrayList<>(Arrays.asList(Locale.ENGLISH, Locale.GERMAN,Locale.FRENCH));
     }
     /**
      * get the default locale. This is the systems default if contained in the supported locales, english otherwise.
@@ -96,32 +92,5 @@ public final class I18N {
         label.textProperty().bind(createStringBinding(func));
         return label;
     }
-    /**
-     * creates a bound Button for the given resourcebundle key
-     *
-     * @param key
-     *         ResourceBundle key
-     * @param args
-     *         optional arguments for the message
-     * @return Button
-     */
-    public static Button buttonForKey(final String key, final Object... args) {
-        Button button = new Button();
-        button.textProperty().bind(createStringBinding(key, args));
-        return button;
-    }
-    /**
-     * creates a bound Tooltip for the given resourcebundle key
-     *
-     * @param key
-     *         ResourceBundle key
-     * @param args
-     *         optional arguments for the message
-     * @return Label
-     */
-    public static Tooltip tooltipForKey(final String key, final Object... args) {
-        Tooltip tooltip = new Tooltip();
-        tooltip.textProperty().bind(createStringBinding(key, args));
-        return tooltip;
-    }
+
 }

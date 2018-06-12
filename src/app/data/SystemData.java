@@ -3,11 +3,24 @@ package app.data;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.Properties;
 
 public class SystemData {
-    public static String language = "English";
+    public static String language;
     public static int FlightTime = 10;
+    public static Properties prop = new Properties();
+
+    public static void init(){
+        SystemData.initializeProperties("user.properties");
+        FlightTime = Integer.parseInt(prop.getProperty("flightTime"));
+        language = getSupportedLanguage().contains(prop.getProperty("defaultLanguage"))?prop.getProperty("defaultLanguage"):"English";
+    }
+
     /**
      * sets the given Locale in the I18N class and keeps count of the number of switches.
      *
@@ -19,7 +32,7 @@ public class SystemData {
             case "English":
                 I18N.setLocale(Locale.ENGLISH);
                 break;
-            case "Français":
+            case "Französisch":
                 I18N.setLocale(Locale.FRENCH);
                 break;
             case "Deutsche":
@@ -27,6 +40,19 @@ public class SystemData {
                 break;
             default:
                 I18N.setLocale(Locale.ENGLISH);
+        }
+    }
+    /**
+     * Read properties file
+     * @param fileName
+     */
+    public static void initializeProperties(String fileName){
+        try {
+            InputStream in = SystemData.class.getResourceAsStream("/"+fileName);
+            BufferedReader bf = new BufferedReader(new InputStreamReader(in));
+            prop.load(bf);
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
 

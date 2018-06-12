@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.SplittableRandom;
 
 /**
  * DBManager manages the reading and writing from the CSV file

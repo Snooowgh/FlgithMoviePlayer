@@ -2,7 +2,6 @@ package tests;
 
 import app.model.DBManager;
 import app.model.Movie;
-import app.model.MovieSystem;
 import org.junit.Test;
 
 import java.io.File;
