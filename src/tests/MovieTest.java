@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author Daniel Babbev
+ */
 public class MovieTest {
 
     @Test

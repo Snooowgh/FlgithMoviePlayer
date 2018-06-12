@@ -11,6 +11,9 @@ import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.format;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * @author Daniel Babbev
+ */
 public class MovieInfoLoaderTest {
 
     @Test

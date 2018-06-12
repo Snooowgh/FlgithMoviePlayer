@@ -19,6 +19,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+
+/**
+ * @author Daniel Babbev
+ */
 public class DBManagerTest {
 
     @Test

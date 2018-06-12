@@ -15,6 +15,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+
+/**
+ * @author Daniel Babbev
+ */
 public class MovieSystemTest {
     private MovieSystem getTestMovieSystem(){
         MovieSystem movieSystem = new MovieSystem();
