@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -56,7 +57,7 @@ class Category {
     final Image icon;
     final String categoryName;
     static final String[] canHandelCategory = {
-    	"ACTION","ADVENTURE","DRAMA","HORROR","CRIME","ANIMATION","ROMANCE","COMEDY","DETECTIVE","MUSICAL","SI-FI"	
+    	"Action","Adventure","Drama","Horror","Crime","Animation","Romance","Comedy","Detective","Musical","si-fi"	
     };
     public static Set<String> canHandelCategorySet = new TreeSet<>(); 
     public static Set<String> cannotHandelCategorySet = new TreeSet<>();
@@ -74,13 +75,13 @@ class Category {
     	for(String chc: canHandelCategory)
     		canHandelCategorySet.add(chc);
     	for(String s :hm.keySet()){
-    		if(canHandelCategorySet.contains(s.toUpperCase())){
+    		if(canHandelCategorySet.contains(s)){
     			newhm.put(s, hm.get(s));
     		}else{
     			cannotHandelCategorySet.add(s);
-    			System.out.println("cannot\t"+s);
+    			//System.out.println("cannot\t"+s);
     			if(newhm.containsKey("Others"))
-    				newhm.get("Others").add(s);
+    				newhm.get("Others").addAll(hm.get(s));
     			else
     				newhm.put("Others", hm.get(s));
     		}
@@ -95,7 +96,7 @@ class Category {
      */
     public Category(String categoryname) {
         this.categoryName = categoryname;
-        System.out.println(categoryname);
+        //System.out.println(categoryname);
         this.icon = new Image(getClass().getResource("../../pictures/" + categoryname + ".JPG").toExternalForm());
     }
 }
@@ -347,25 +348,34 @@ public class UserInterfaceController implements Initializable {
         categoryTabPaneHashMap = new HashMap<>();
         initializeCountryAndLoadMovieList();
         
-        Set<Movie> ms = new TreeSet<>();
+        Set<Movie> ms = new HashSet<>();
         for(String cannot:Category.canHandelCategorySet){
         	ms.addAll(movieSystem.getMoviesByCategory(cannot));
+//        	System.out.println(movieSystem.getMoviesByCategory(cannot));
+//        	System.out.println(cannot);
         }
-        if(categoryCountryHashMap.get("Others")!=null)
+       // System.out.println("1");
+        if(categoryCountryHashMap.get("Others")!=null){
+        	//System.out.println("2");
         	for(String otherTab: categoryCountryHashMap.get("Others")){
+//        		System.out.println("3");
+//        		System.out.println(otherTab);
             	for(Movie m: ms){
-            		if(m.getCategories().contains(otherTab)){
+            		//System.out.println(m.getLanguages());
+            		if(m.getLanguages().contains(otherTab)){
+            			//System.out.println("4");
+            			
             			if(otherMovies.containsKey(otherTab)){
             				otherMovies.get(otherTab).add(m);
             			}else{
-            				Set<Movie> ts = new TreeSet<>();
+            				Set<Movie> ts = new HashSet<>();
             				ts.add(m);
             				otherMovies.put(otherTab,ts);
             			}
             		}
             	}
             }
-        
+        }
         if(categoryCountryHashMap.keySet().contains(categoryChoose))
         	currentTabPane = categoryTabPaneHashMap.get(categoryChoose);
         else
@@ -380,7 +390,10 @@ public class UserInterfaceController implements Initializable {
             }
         }
         String choosen = currentTabPane.getSelectionModel().getSelectedItem().getText();
-        
+//        for(String s : otherMovies.keySet()){
+//        	
+//        	System.out.println(s+otherMovies.get(s).size()+"size");
+//        }
         if(choosen.equals("Others")){
         	currentMovies.clear();
         	currentMovies.addAll(otherMovies.get(videoLanguageChoose));
@@ -471,8 +484,9 @@ public class UserInterfaceController implements Initializable {
      * and do some preparation
      */
     private void prepareForAnotherMovieList() {
-    	if(videoLanguageChoose.equals("Others")){
+    	if(categoryChoose.equals("Others")){
         	currentMovies.clear();
+        	//System.out.println(otherMovies.get(videoLanguageChoose).size()+"cuurensize");
         	currentMovies.addAll(otherMovies.get(videoLanguageChoose));
         }
         else
@@ -511,8 +525,11 @@ public class UserInterfaceController implements Initializable {
                     lastChoosenLabel = l1;
                     l1.setTextFill(Color.GREEN);
                     categoryChoose = c.categoryName;
+                    //System.out.println(c.categoryName+"hello");
                     currentTabPane = categoryTabPaneHashMap.get(c.categoryName);
                     videoLanguageChoose = categoryCountryHashMap.get(c.categoryName).iterator().next();
+                    //System.out.println(videoLanguageChoose+"ch");
+                    //System.out.println(otherMovies.get(videoLanguageChoose).size()+"??");
                     currentTabPane.getSelectionModel().selectFirst();
                     prepareForAnotherMovieList();
                     showMovieWhenClickTab();
