@@ -39,8 +39,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -52,7 +55,11 @@ import java.util.Set;
 class Category {
     final Image icon;
     final String categoryName;
-
+    static final String[] canHandelCategory = {
+    	"ACTION","ADVENTURE","DRAMA","HORROR","CRIME","ANIMATION","ROMANCE","COMEDY","DETECTIVE","MUSICAL","SI-FI"	
+    };
+    public static Set<String> canHandelCategorySet = new TreeSet<>(); 
+    public static Set<String> cannotHandelCategorySet = new TreeSet<>();
     /**
      * @param imageRelativePath e.g.  "../../pictures/Movie.JPG"
      * @param categoryname
@@ -62,6 +69,25 @@ class Category {
         this.categoryName = categoryname;
     }
 
+    public static  HashMap<String,Set<String>> removeCanntHandelToOthers(HashMap<String,Set<String>> hm){
+    	HashMap<String,Set<String>> newhm = new HashMap<>();
+    	for(String chc: canHandelCategory)
+    		canHandelCategorySet.add(chc);
+    	for(String s :hm.keySet()){
+    		if(canHandelCategorySet.contains(s.toUpperCase())){
+    			newhm.put(s, hm.get(s));
+    		}else{
+    			cannotHandelCategorySet.add(s);
+    			System.out.println("cannot\t"+s);
+    			if(newhm.containsKey("Others"))
+    				newhm.get("Others").add(s);
+    			else
+    				newhm.put("Others", hm.get(s));
+    		}
+    	}
+    	return newhm;
+    }
+    
     /**
      * Icon address will be automatically initialized as "../../pictures/"+categoryname+".JPG"
      *
@@ -69,6 +95,7 @@ class Category {
      */
     public Category(String categoryname) {
         this.categoryName = categoryname;
+        System.out.println(categoryname);
         this.icon = new Image(getClass().getResource("../../pictures/" + categoryname + ".JPG").toExternalForm());
     }
 }
@@ -137,6 +164,7 @@ public class UserInterfaceController implements Initializable {
     private HashMap<String, Set<String>> categoryCountryHashMap;
     private HashMap<String, TabPane> categoryTabPaneHashMap;
     private ObservableList<String> languages = SystemData.getSupportedLanguage();
+    private HashMap<String, Set<Movie>> otherMovies = new HashMap<>();
     /**
      * number of language switches.
      */
@@ -160,11 +188,11 @@ public class UserInterfaceController implements Initializable {
             // TODO: Uncomment the two lines below to use the new CSV file format to save the movies correctly
             // TODO: If the movie data is loaded from the internet with the below func the categories break
             // TODO: as there is no image for some categories. Provide a default image!
-            //DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
-            //dbManager.writeNewMoviesDataToCSV();
+            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
+            dbManager.writeNewMoviesDataToCSV();
 
             // TODO: Remove this line!!!
-            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv.bak"));
+            //DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv.bak"));
 
             // Set the movies the system from CSV
             movieSystem.setMovies(dbManager.getMoviesFromCSV());
@@ -258,9 +286,11 @@ public class UserInterfaceController implements Initializable {
     private void initializeCategory() {
         ObservableList<VBox> ob = FXCollections.observableArrayList();
         for (String c : categoryCountryHashMap.keySet()) {
-            ob.add(createSingleCategory(new Category(c)));
+        	if(!c.equals("Others"))
+        		ob.add(createSingleCategory(new Category(c)));
         }
-
+        if(categoryCountryHashMap.keySet().contains("Others"))
+        	ob.add(createSingleCategory(new Category("Others")));
         category.getChildren().addAll(ob);
     }
 
@@ -307,17 +337,39 @@ public class UserInterfaceController implements Initializable {
 
 
         categoryCountryHashMap = movieSystem.getCategoriesCountriesHashMap();
-
+        categoryCountryHashMap = Category.removeCanntHandelToOthers(categoryCountryHashMap);
+        
+        //System.out.println(categoryCountryHashMap.keySet().toString());
 
         initializeCategory();
 
 
         categoryTabPaneHashMap = new HashMap<>();
         initializeCountryAndLoadMovieList();
-
-
-        currentTabPane = categoryTabPaneHashMap.get(categoryChoose);
-
+        
+        Set<Movie> ms = new TreeSet<>();
+        for(String cannot:Category.canHandelCategorySet){
+        	ms.addAll(movieSystem.getMoviesByCategory(cannot));
+        }
+        if(categoryCountryHashMap.get("Others")!=null)
+        	for(String otherTab: categoryCountryHashMap.get("Others")){
+            	for(Movie m: ms){
+            		if(m.getCategories().contains(otherTab)){
+            			if(otherMovies.containsKey(otherTab)){
+            				otherMovies.get(otherTab).add(m);
+            			}else{
+            				Set<Movie> ts = new TreeSet<>();
+            				ts.add(m);
+            				otherMovies.put(otherTab,ts);
+            			}
+            		}
+            	}
+            }
+        
+        if(categoryCountryHashMap.keySet().contains(categoryChoose))
+        	currentTabPane = categoryTabPaneHashMap.get(categoryChoose);
+        else
+        	currentTabPane = categoryTabPaneHashMap.get(categoryCountryHashMap.keySet().iterator().next());
 
         currentTabPane.getSelectionModel().selectFirst();
 
@@ -328,11 +380,17 @@ public class UserInterfaceController implements Initializable {
             }
         }
         String choosen = currentTabPane.getSelectionModel().getSelectedItem().getText();
-
-        currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(
+        
+        if(choosen.equals("Others")){
+        	currentMovies.clear();
+        	currentMovies.addAll(otherMovies.get(videoLanguageChoose));
+        }
+        else
+        	currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(
                 categoryChoose,
                 choosen
-        );
+        			);
+        
         maxPageNum = (currentMovies.size() - 1) / 15;
         if (maxPageNum <= 0) {
             maxPageNum = 1;
@@ -413,6 +471,11 @@ public class UserInterfaceController implements Initializable {
      * and do some preparation
      */
     private void prepareForAnotherMovieList() {
+    	if(videoLanguageChoose.equals("Others")){
+        	currentMovies.clear();
+        	currentMovies.addAll(otherMovies.get(videoLanguageChoose));
+        }
+        else
         currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(categoryChoose, videoLanguageChoose);
         currentPageNum = 1;
         maxPageNum = (currentMovies.size() - 1) / 15;
@@ -427,6 +490,7 @@ public class UserInterfaceController implements Initializable {
      * the second child is text, which represents the category
      */
     private VBox createSingleCategory(Category c) {
+    	//System.out.println("create "+c.categoryName);
         ImageView imageView = new ImageView(c.icon);
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
@@ -455,7 +519,7 @@ public class UserInterfaceController implements Initializable {
                 }
             }
         });
-        System.out.println(c.categoryName);
+        
         return vBox;
     }
 
