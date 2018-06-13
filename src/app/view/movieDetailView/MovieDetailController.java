@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class movieDetailController{
+public class MovieDetailController {
     @FXML
     Label directorLabel;
     @FXML
@@ -30,13 +30,13 @@ public class movieDetailController{
     @FXML
     Label categoryInfoLabel;
     @FXML
-    TextArea  detailText;
+    TextArea detailText;
     @FXML
     ImageView imageView;
 
 
     public void start(Movie movie) {
-        if (movie==null)
+        if (movie == null)
             return;
         Movie loadMovie = MovieInfoLoader.loadMovieInfo(movie);
         directorInfoLabel.setText(loadMovie.getTitle());

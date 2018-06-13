@@ -3,4 +3,7 @@ out
 *.MP4
 .idea
 bin
+<<<<<<< HEAD
 SystemData.java
+=======
+>>>>>>> a6458259006d6406da9c5c23e0ab227dcbe630af

@@ -10,7 +10,7 @@ import java.util.List;
  * DBManager manages the reading and writing from the CSV file
  *
  * @author Daniel Babbev
-*/
+ */
 public class DBManager {
     private static final String CSV_SPLIT = "\",";
     private URL CSVpath;
@@ -28,12 +28,10 @@ public class DBManager {
     }
 
     private void loadCols() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
+        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()),1024);
         String line = "";
-
         line = br.readLine();
         String[] movieFields = line.split(CSV_SPLIT);
-
         // Remove the double quote
         for (int i = 0; i < movieFields.length; i++) {
             movieFields[i] = movieFields[i].replace("\"", "").trim();
@@ -58,18 +56,22 @@ public class DBManager {
                 case "Loaded":
                     loadedCol = i;
                     break;
+                default:
+                    loadedCol = i;
             }
         }
+        br.close();
     }
 
     /**
      * Loads the movie list from a CSV file
+     *
      * @throws IOException When the CSV file is not found
      */
     public List<Movie> getMoviesFromCSV() throws IOException {
         //System.out.println(path);
         List<Movie> movies = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
+        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()),1024);
 
         String line = "";
         int lineNum = 0;
@@ -117,11 +119,11 @@ public class DBManager {
 
             lineNum++;
         }
-
+        br.close();
         return movies;
     }
 
-    private String getCSVlineY(List<String> cols){
+    private String getCSVlineY(List<String> cols) {
         String line = String.format("\"%s\", \"%s\", \"%s\", \"%s\", \"%s\", \"Y\"%n",
                 cols.get(0),
                 cols.get(1),
@@ -134,11 +136,12 @@ public class DBManager {
 
     /**
      * Writes basic information about new movies to the database
+     *
      * @throws IOException when the CSV file is not found
      */
     public void writeNewMoviesDataToCSV() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()));
-        StringBuilder out  = new StringBuilder();
+        BufferedReader br = new BufferedReader(new FileReader(CSVpath.getFile()),1024);
+        StringBuilder out = new StringBuilder();
 
         String line;
         int lineNum = 0;
@@ -149,7 +152,7 @@ public class DBManager {
                 movieFields[i] = movieFields[i].replace("\"", "").trim();
             }
 
-            if (!movieFields[loadedCol].equals("Y") && lineNum > 0){
+            if (!movieFields[loadedCol].equals("Y") && lineNum > 0) {
                 Movie m = new Movie(movieFields[titleCol]);
                 m = MovieInfoLoader.loadMovieInfo(m);
 
@@ -170,7 +173,7 @@ public class DBManager {
             lineNum++;
 
         }
-
+        br.close();
         PrintWriter pw = new PrintWriter(new FileWriter(CSVpath.getFile()));
         pw.write(out.toString());
         pw.close();

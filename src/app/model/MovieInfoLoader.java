@@ -21,6 +21,7 @@ public class MovieInfoLoader {
 
     /**
      * Loads movie data from the internet
+     *
      * @param movie The movie with parameters you want to query
      * @return populated movie object
      */
@@ -37,11 +38,11 @@ public class MovieInfoLoader {
 
             // Convert to a JSON object to print data
             JsonParser jp = new JsonParser(); //from gson
-            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent(), "utf-8")); //Convert the input stream to a json element
             JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
             //System.out.println(rootobj.get("Director"));
 
-            if (!rootobj.get("Response").getAsBoolean()){
+            if (!rootobj.get("Response").getAsBoolean()) {
                 System.out.println(rootobj.get("Error").getAsString());
                 return movie;
             }
@@ -67,7 +68,7 @@ public class MovieInfoLoader {
             movie.setLanguages(languages);
             movie.setCategories(categories);
             movie.setCountries(country);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

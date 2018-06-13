@@ -46,8 +46,7 @@ public class DBManagerTest {
     @Test
     public void testReadCSV() throws IOException {
         DBManager dbManager = new DBManager(getClass().getResource("movie-list-test.csv"));
-        List<Movie> movies = new ArrayList<>();
-
+        List<Movie> movies;
         movies = dbManager.getMoviesFromCSV();
 
         assertEquals(2, movies.size());

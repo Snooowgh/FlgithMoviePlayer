@@ -8,7 +8,6 @@ import app.model.MovieSystem;
 import app.view.movieDetailView.MovieDetailView;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,7 +39,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -54,13 +52,14 @@ import java.util.Set;
 class Category {
     final Image icon;
     final String categoryName;
+
     /**
      * @param imageRelativePath e.g.  "../../pictures/Movie.JPG"
      * @param categoryname
      */
     public Category(String imageRelativePath, String categoryname) {
-    	this.icon = new Image(getClass().getResource(imageRelativePath).toExternalForm());
-    	this.categoryName = categoryname;
+        this.icon = new Image(getClass().getResource(imageRelativePath).toExternalForm());
+        this.categoryName = categoryname;
     }
 
     /**
@@ -70,7 +69,6 @@ class Category {
      */
     public Category(String categoryname) {
         this.categoryName = categoryname;
-        System.out.println(categoryname);//
         this.icon = new Image(getClass().getResource("../../pictures/" + categoryname + ".JPG").toExternalForm());
     }
 }
@@ -87,15 +85,14 @@ class Category {
  * @2018年6月10日上午1:48:13
  */
 public class UserInterfaceController implements Initializable {
+    public static Scene mainScene;
     /**
      * choose system language here
      */
     @FXML
     public ChoiceBox<String> languageChoiceBox;
-    
     @FXML
     public ComboBox<Color> skinChoiceBox;
-
     @FXML
     public Pane flightPane;
     /**
@@ -127,7 +124,6 @@ public class UserInterfaceController implements Initializable {
      */
     @FXML
     public HBox movielist;
-    public boolean debug = true;
     private int currentPageNum;
     /**
      * computed as movie size
@@ -145,10 +141,7 @@ public class UserInterfaceController implements Initializable {
      * number of language switches.
      */
     private Integer numSwitches = 0;
-
     private Label lastChoosenLabel = null;
-    
-    public static Scene mainScene = null;
 
     /**
      * 1. load movies from MovieSystem
@@ -164,8 +157,14 @@ public class UserInterfaceController implements Initializable {
 
 
             // Write new movies to CSV if any
-            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
-            dbManager.writeNewMoviesDataToCSV();
+            // TODO: Uncomment the two lines below to use the new CSV file format to save the movies correctly
+            // TODO: If the movie data is loaded from the internet with the below func the categories break
+            // TODO: as there is no image for some categories. Provide a default image!
+            //DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
+            //dbManager.writeNewMoviesDataToCSV();
+
+            // TODO: Remove this line!!!
+            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv.bak"));
 
             // Set the movies the system from CSV
             movieSystem.setMovies(dbManager.getMoviesFromCSV());
@@ -176,74 +175,62 @@ public class UserInterfaceController implements Initializable {
                 public void handle(ActionEvent event) {
                     SystemData.setDefaultLanguage(languageChoiceBox.getValue().toString());
                     numSwitches++;
-                    if (debug)
-                        System.out.println("changed to " + languageChoiceBox.getValue().toString());
+
                 }
             });
-            
-        skinChoiceBox.getItems().addAll(Color.BLACK,Color.RED);
-        skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
-       	      @Override
-       	      public ListCell<Color> call(ListView<Color> p) {
-       	        return new ListCell<Color>() {
-       	          private final Rectangle rectangle;
-       	          {
-       	            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-       	            rectangle = new Rectangle(10, 10);
-       	          }
 
-       	          @Override
-       	          protected void updateItem(Color item, boolean empty) {
-       	            super.updateItem(item, empty);
+            skinChoiceBox.getItems().addAll(SystemData.supportedColor);
+            skinChoiceBox.setCellFactory(new Callback<ListView<Color>, ListCell<Color>>() {
+                @Override
+                public ListCell<Color> call(ListView<Color> p) {
+                    return new ListCell<Color>() {
+                        private final Rectangle rectangle;
 
-       	            if (item == null || empty) {
-       	              setGraphic(null);
-       	            } else {
-       	              rectangle.setFill(item);
-       	              setGraphic(rectangle);
-       	            }
-       	          }
-       	        };
-       	      }
-       	 });
-        skinChoiceBox.getSelectionModel().selectFirst();
-        skinChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Color>() {
-        	@Override
-            public void changed(ObservableValue<? extends Color> observable,
-                                Color oldValue, Color newValue) {
-        		if(!oldValue.equals(newValue)){
-        				String chooseColor;
-        				switch(newValue.toString()){
-        				    //Style_red.css
-        					case "0xff0000ff": chooseColor = "red";break;
-        					case "0x000000ff": chooseColor = "black";break;
-        					default :chooseColor = "black";
-        				}
-        				
-        				if(debug)
-        					System.out.println(chooseColor);
-        				if(mainScene!=null){
-        					try{
-        						mainScene.getStylesheets().clear();
-        						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+chooseColor+".css").toExternalForm());
-        					}catch(Exception e){
-        						//e.printStackTrace();
-        						System.out.println("successful change color");//don't tell others
-        					}
-        				}
-        		}
-        		
-            }
-        });       
-         initializeMovieListScene();
+                        {
+                            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                            rectangle = new Rectangle(10, 10);
+                        }
+
+                        @Override
+                        protected void updateItem(Color item, boolean empty) {
+                            super.updateItem(item, empty);
+
+                            if (item == null || empty) {
+                                setGraphic(null);
+                            } else {
+                                rectangle.setFill(item);
+                                setGraphic(rectangle);
+                            }
+                        }
+                    };
+                }
+            });
+            skinChoiceBox.getSelectionModel().selectFirst();
+            skinChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Color>() {
+                @Override
+                public void changed(ObservableValue<? extends Color> observable,
+                                    Color oldValue, Color newValue) {
+                    if (!oldValue.equals(newValue)) {
+                        if (mainScene != null) {
+                            mainScene.getStylesheets().clear();
+                            try {
+                                mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_" + SystemData.transColor(newValue.toString()) + ".css").toExternalForm());
+                            } catch (Exception e) {
+                                System.out.println("style conflict ignored");
+                            }
+                        }
+                    }
+
+                }
+            });
+            initializeMovieListScene();
 
             prePage.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     if (currentPageNum > 1) {
                         currentPageNum--;
-                        if (debug)
-                            System.out.println("click button pre, jump to page " + currentPageNum);
+
                         showMovieWhenClickTab();
                     }
                 }
@@ -253,17 +240,14 @@ public class UserInterfaceController implements Initializable {
                 public void handle(MouseEvent event) {
                     if (currentPageNum < maxPageNum) {
                         currentPageNum++;
-                        if (debug)
-                            System.out.println("click button next, jump to page " + currentPageNum);
                         showMovieWhenClickTab();
                     }
                 }
             });
 
-            createFlightLineView(SystemData.FlightTime);
+            createFlightLineView(SystemData.flightTime);
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(1);
         }
     }
 
@@ -274,10 +258,9 @@ public class UserInterfaceController implements Initializable {
     private void initializeCategory() {
         ObservableList<VBox> ob = FXCollections.observableArrayList();
         for (String c : categoryCountryHashMap.keySet()) {
-        	if(!c.equals("Others"))
-        		ob.add(createSingleCategory(new Category(c)));
+            ob.add(createSingleCategory(new Category(c)));
         }
-        ob.add(createSingleCategory(new Category("Others")));
+
         category.getChildren().addAll(ob);
     }
 
@@ -341,22 +324,11 @@ public class UserInterfaceController implements Initializable {
         for (Tab t : currentTabPane.getTabs()) {
             if (t.getText().equals(videoLanguageChoose)) {
                 currentTabPane.getSelectionModel().select(t);
-                if (debug)
-                    System.out.printf("successfully find defualt video language(%s) of default category(%s)\n",
-                            videoLanguageChoose, categoryChoose);
                 break;
             }
         }
         String choosen = currentTabPane.getSelectionModel().getSelectedItem().getText();
-        if (debug) {
-            if (choosen.equals(videoLanguageChoose))
-                System.out.printf("successfully load defualt video language(%s) of default category(%s)\n",
-                        videoLanguageChoose, categoryChoose);
-            else
-                System.err.printf("failed to find defualt video language(%s) of default category(%s)\n"
-                                + "choosen video language: %s\n",
-                        videoLanguageChoose, categoryChoose, choosen);
-        }
+
         currentMovies = (ArrayList<Movie>) movieSystem.getMovieByTwocategory(
                 categoryChoose,
                 choosen
@@ -365,8 +337,6 @@ public class UserInterfaceController implements Initializable {
         if (maxPageNum <= 0) {
             maxPageNum = 1;
         }
-        if (debug)
-            System.out.printf("get %d pages movies\n", maxPageNum);
 
         currentPageNum = 1;
         showMovieWhenClickTab();
@@ -401,10 +371,6 @@ public class UserInterfaceController implements Initializable {
             vb.getChildren().add(h);
 
         }
-
-
-        if (debug)
-            System.out.printf("load %d movie for this page\n", which - (currentPageNum - 1) * 15);
 
 
         vb.setAlignment(Pos.TOP_LEFT);
@@ -452,8 +418,6 @@ public class UserInterfaceController implements Initializable {
         maxPageNum = (currentMovies.size() - 1) / 15;
         if (maxPageNum <= 0)
             maxPageNum = 1;
-        if (debug)
-            System.out.printf("get %d pages movies", maxPageNum);
     }
 
     /**
