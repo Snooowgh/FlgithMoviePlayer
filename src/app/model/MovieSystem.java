@@ -84,10 +84,10 @@ public class MovieSystem {
         return langs;
     }
 
-    public List<Movie> getMovieByTwocategory(String setCategory, String area){
+    public List<Movie> getMovieByTwocategory(String firstCategory, String secondCategory){
         List<Movie> mov = new ArrayList<>();
         for (Movie m : movies){
-            if (m.getCategories().contains(setCategory)&&m.getLanguages().contains(area))
+            if (m.getCategories().contains(firstCategory)&&m.getLanguages().contains(secondCategory))
                 mov.add(m);
         }
         return mov;

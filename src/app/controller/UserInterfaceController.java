@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -54,13 +53,14 @@ import java.util.Set;
 class Category {
     final Image icon;
     final String categoryName;
+
     /**
      * @param imageRelativePath e.g.  "../../pictures/Movie.JPG"
      * @param categoryname
      */
     public Category(String imageRelativePath, String categoryname) {
-    	this.icon = new Image(getClass().getResource(imageRelativePath).toExternalForm());
-    	this.categoryName = categoryname;
+        this.icon = new Image(getClass().getResource(imageRelativePath).toExternalForm());
+        this.categoryName = categoryname;
     }
 
     /**
@@ -70,7 +70,6 @@ class Category {
      */
     public Category(String categoryname) {
         this.categoryName = categoryname;
-        System.out.println(categoryname);//
         this.icon = new Image(getClass().getResource("../../pictures/" + categoryname + ".JPG").toExternalForm());
     }
 }
@@ -164,8 +163,14 @@ public class UserInterfaceController implements Initializable {
 
 
             // Write new movies to CSV if any
-            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
-            dbManager.writeNewMoviesDataToCSV();
+            // TODO: Uncomment the two lines below to use the new CSV file format to save the movies correctly
+            // TODO: If the movie data is loaded from the internet with the below func the categories break
+            // TODO: as there is no image for some categories. Provide a default image!
+            //DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv"));
+            //dbManager.writeNewMoviesDataToCSV();
+
+            // TODO: Remove this line!!!
+            DBManager dbManager = new DBManager(getClass().getResource("../../movie-list.csv.bak"));
 
             // Set the movies the system from CSV
             movieSystem.setMovies(dbManager.getMoviesFromCSV());
@@ -223,12 +228,12 @@ public class UserInterfaceController implements Initializable {
         				if(debug)
         					System.out.println(chooseColor);
         				if(mainScene!=null){
+        					mainScene.getStylesheets().clear();
         					try{
-        						mainScene.getStylesheets().clear();
         						mainScene.getStylesheets().add(getClass().getResource("../../styles/Style_"+chooseColor+".css").toExternalForm());
         					}catch(Exception e){
-        						//e.printStackTrace();
-        						System.out.println("successful change color");//don't tell others
+        						e.printStackTrace();
+        						//System.out.println("successful change color");//don't tell others
         					}
         				}
         		}
@@ -274,10 +279,9 @@ public class UserInterfaceController implements Initializable {
     private void initializeCategory() {
         ObservableList<VBox> ob = FXCollections.observableArrayList();
         for (String c : categoryCountryHashMap.keySet()) {
-        	if(!c.equals("Others"))
-        		ob.add(createSingleCategory(new Category(c)));
+            ob.add(createSingleCategory(new Category(c)));
         }
-        ob.add(createSingleCategory(new Category("Others")));
+
         category.getChildren().addAll(ob);
     }
 
